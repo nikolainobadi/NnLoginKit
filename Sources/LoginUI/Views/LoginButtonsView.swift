@@ -33,8 +33,9 @@ public final class LoginButtonsView: NnView {
     
     lazy var accountButton: UIButton = {
         ShadowButton(buttonType: .naked)
+            .setAlpha(onlySignUp ? 0 : 1)
+            .setColor(.label, backgroundColor: .clear)
             .setFont(.smallDetail, fontName: .thonburi)
-//            .setAlpha(onlySignUp ? 0 : 1)
             .setAction { [weak self] in
                 self?.isSignUp.toggle()
             }
@@ -104,7 +105,7 @@ extension LoginButtonsView {
         loginButton.setTitle(loginTitle, for: .normal)
         accountButton.setTitle(accountTitle, for: .normal)
         accountButton.underlineTitleLabel()
-        
+
         configureGuestLoginButton(hide: loginTitle == "Login")
     }
     
