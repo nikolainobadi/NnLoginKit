@@ -33,7 +33,7 @@ let package = Package(
     targets: [
         .target(
             name: "NnLoginKit",
-            dependencies: ["LoginUI"]),
+            dependencies: ["LoginUI", "ResetPasswordUI"]),
         .testTarget(
             name: "NnLoginKitTests",
             dependencies: ["NnLoginKit"]),
