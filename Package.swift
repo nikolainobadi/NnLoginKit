@@ -36,12 +36,15 @@ let package = Package(
             dependencies: ["LoginLogic", "NnUIKitHelpers"]),
         .testTarget(
             name: "LoginUITests",
-            dependencies: ["LoginUI"]),
+            dependencies: ["LoginUI", "TestHelpers"]),
         .target(
             name: "LoginLogic",
             dependencies: []),
         .testTarget(
             name: "LoginLogicTests",
-            dependencies: ["LoginLogic"]),
+            dependencies: ["LoginLogic", "TestHelpers"]),
+        .target(
+            name: "TestHelpers",
+            dependencies: []),
     ]
 )
