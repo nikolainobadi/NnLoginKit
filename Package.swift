@@ -6,23 +6,36 @@ import PackageDescription
 let package = Package(
     name: "NnLoginKit",
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "NnLoginKit",
             targets: ["NnLoginKit"]),
+        .library(
+            name: "LoginUI",
+            targets: ["LoginUI"]),
+        .library(
+            name: "LoginLogic",
+            targets: ["LoginLogic"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "NnLoginKit",
-            dependencies: []),
+            dependencies: ["LoginUI"]),
         .testTarget(
             name: "NnLoginKitTests",
             dependencies: ["NnLoginKit"]),
+        .target(
+            name: "LoginUI",
+            dependencies: ["LoginLogic"]),
+        .testTarget(
+            name: "LoginUITests",
+            dependencies: ["LoginUI"]),
+        .target(
+            name: "LoginLogic",
+            dependencies: []),
+        .testTarget(
+            name: "LoginLogicTests",
+            dependencies: ["LoginLogic"]),
     ]
 )
