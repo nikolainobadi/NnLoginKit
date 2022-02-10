@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "NnLoginKit",
+    platforms: [
+        .iOS(.v14)
+    ],
     products: [
         .library(
             name: "NnLoginKit",
@@ -17,6 +20,9 @@ let package = Package(
             targets: ["LoginLogic"]),
     ],
     dependencies: [
+        .package(name: "NnUIKitHelpers",
+                 url: "https://github.com/nikolainobadi/NnUIKitHelpers.git",
+                 branch: "main")
     ],
     targets: [
         .target(
@@ -27,7 +33,7 @@ let package = Package(
             dependencies: ["NnLoginKit"]),
         .target(
             name: "LoginUI",
-            dependencies: ["LoginLogic"]),
+            dependencies: ["LoginLogic", "NnUIKitHelpers"]),
         .testTarget(
             name: "LoginUITests",
             dependencies: ["LoginUI"]),
