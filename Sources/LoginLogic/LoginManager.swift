@@ -17,10 +17,10 @@ public final class LoginManager {
     
     
     // MARK: - Init
-    init(info: LoginInfo,
-         auth: EmailAuthorizer,
-         alerts: LoginAlerts,
-         finished: @escaping (UserSessionInfo) -> Void) {
+    public init(info: LoginInfo,
+                auth: EmailAuthorizer,
+                alerts: LoginAlerts,
+                finished: @escaping (UserSessionInfo) -> Void) {
         
         self.info = info
         self.auth = auth
@@ -41,7 +41,7 @@ extension LoginManager {
     }
     
     public func guestLogin() {
-        auth.signInAnonymously(completion: handleResult())
+        auth.guestSignIn(completion: handleResult())
     }
 }
 
@@ -74,7 +74,7 @@ public protocol LoginAlerts {
 }
 
 public protocol EmailAuthorizer {
-    func signInAnonymously(completion: @escaping (Result<UserSessionInfo, Error>) -> Void)
+    func guestSignIn(completion: @escaping (Result<UserSessionInfo, Error>) -> Void)
     
     func signIn(email: String,
                 password: String,
