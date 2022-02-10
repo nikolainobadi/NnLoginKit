@@ -14,11 +14,11 @@ import ResetPasswordLogic
 public final class LoginKitComposite {
     private init() { }
     
-    static func makeLoginVC(auth: EmailAuthorizer,
-                            alerts: LoginAlerts,
-                            config: LoginViewConfig,
-                            finished: @escaping (UserSessionInfo) -> Void,
-                            showResetPassword: @escaping () -> Void) -> UIViewController {
+    public static func makeLoginVC(auth: EmailAuthorizer,
+                                   alerts: LoginAlerts,
+                                   config: LoginViewConfig,
+                                   finished: @escaping (UserSessionInfo) -> Void,
+                                   showResetPassword: @escaping () -> Void) -> UIViewController {
         
         let presenter = LoginPresentationAdapter()
         let manager = LoginManager(info: presenter,
@@ -46,10 +46,10 @@ public final class LoginKitComposite {
         return LoginVC(rootView: rootView, presenter: presenter)
     }
     
-    func makeResetPasswordVC(auth: ResetAuthorizer,
-                             alerts: ResetPasswordAlerts,
-                             config: ResetPasswordViewConfig,
-                             dismiss: @escaping () -> Void) -> UIViewController {
+    public static func makeResetPasswordVC(auth: ResetAuthorizer,
+                                           alerts: ResetPasswordAlerts,
+                                           config: ResetPasswordViewConfig,
+                                           dismiss: @escaping () -> Void) -> UIViewController {
         
         let manager = ResetPasswordManager(auth: auth,
                                            alerts: alerts,
