@@ -1,8 +1,28 @@
 //
-//  File.swift
+//  ResetPasswordVC.swift
 //  
 //
 //  Created by Nikolai Nobadi on 2/10/22.
 //
 
-import Foundation
+import UIKit
+import NnUIKitHelpers
+
+public final class ResetPasswordVC: NnViewController {
+    
+    // MARK: - Properties
+    private let rootView: UIView
+    
+    
+    // MARK: - Init
+    public init(rootView: UIView) {
+        self.rootView = rootView
+        super.init(hasTextFields: true)
+    }
+    
+    
+    // MARK: - Life Cycle
+    public override func loadView() {
+        view = rootView
+    }
+}

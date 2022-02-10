@@ -15,7 +15,7 @@ final class ResetPasswordManagerTests: XCTestCase {
         let (_, alerts, _) = makeSUT()
         
         XCTAssertNil(alerts.error)
-        XCTAssertNil(alerts.errorMessage)
+        XCTAssertNil(alerts.errorMessage )
     }
     
     func test_resetPassword_invalidEmail() {
