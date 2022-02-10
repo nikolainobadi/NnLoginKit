@@ -104,6 +104,34 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ResetPasswordLogic"
+               BuildableName = "ResetPasswordLogic"
+               BlueprintName = "ResetPasswordLogic"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ResetPasswordUI"
+               BuildableName = "ResetPasswordUI"
+               BlueprintName = "ResetPasswordUI"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -139,6 +167,26 @@
                BlueprintIdentifier = "NnLoginKitTests"
                BuildableName = "NnLoginKitTests"
                BlueprintName = "NnLoginKitTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ResetPasswordLogicTests"
+               BuildableName = "ResetPasswordLogicTests"
+               BlueprintName = "ResetPasswordLogicTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ResetPasswordUITests"
+               BuildableName = "ResetPasswordUITests"
+               BlueprintName = "ResetPasswordUITests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>

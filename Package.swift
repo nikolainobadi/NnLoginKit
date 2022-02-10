@@ -18,6 +18,12 @@ let package = Package(
         .library(
             name: "LoginLogic",
             targets: ["LoginLogic"]),
+        .library(
+            name: "ResetPasswordUI",
+            targets: ["ResetPasswordUI"]),
+        .library(
+            name: "ResetPasswordLogic",
+            targets: ["ResetPasswordLogic"]),
     ],
     dependencies: [
         .package(name: "NnUIKitHelpers",
@@ -31,6 +37,7 @@ let package = Package(
         .testTarget(
             name: "NnLoginKitTests",
             dependencies: ["NnLoginKit"]),
+        // MARK: Login
         .target(
             name: "LoginUI",
             dependencies: ["LoginLogic", "NnUIKitHelpers"]),
@@ -43,6 +50,20 @@ let package = Package(
         .testTarget(
             name: "LoginLogicTests",
             dependencies: ["LoginLogic", "TestHelpers"]),
+        // MARK: ResetPassword
+        .target(
+            name: "ResetPasswordUI",
+            dependencies: ["ResetPasswordLogic", "NnUIKitHelpers"]),
+        .testTarget(
+            name: "ResetPasswordUITests",
+            dependencies: ["ResetPasswordUI", "TestHelpers"]),
+        .target(
+            name: "ResetPasswordLogic",
+            dependencies: ["LoginLogic"]),
+        .testTarget(
+            name: "ResetPasswordLogicTests",
+            dependencies: ["ResetPasswordLogic", "TestHelpers"]),
+        // MARK: TestHelpers
         .target(
             name: "TestHelpers",
             dependencies: []),
