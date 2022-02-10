@@ -21,16 +21,16 @@ public final class LoginButtonsView: NnView {
     
     
     // MARK: - Views
-    private lazy var loginButton: UIButton = {
+    lazy var loginButton: UIButton = {
         ShadowButton()
-            .setColor(buttonTextColor,
-                      backgroundColor: buttonColor)
+            .setEnabled(false)
+            .setColor(buttonTextColor, backgroundColor: buttonColor)
             .setAction { [weak self] in
                 self?.emailSignIn()
             }
     }()
     
-    private lazy var accountButton: UIButton = {
+    lazy var accountButton: UIButton = {
         ShadowButton(buttonType: .naked)
             .setFont(.smallDetail, fontName: .thonburi)
             .setAlpha(onlySignUp ? 0 : 1)
@@ -39,7 +39,7 @@ public final class LoginButtonsView: NnView {
             }
     }()
     
-    private lazy var guestLoginButton: UIButton = {
+    lazy var guestLoginButton: UIButton = {
         ShadowButton("Login as guest", buttonType: .naked)
             .underline()
             .setFont(.smallDetail, fontName: .thonburi)
