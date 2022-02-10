@@ -52,7 +52,7 @@ public final class ResetPasswordRootView: NnView {
             .setColor(config.buttonTextColor,
                       backgroundColor: config.buttonColor)
             .setAction { [weak self] in
-                self?.responder.resetPassword()
+                self?.resetPassword()
             }
     }()
     
@@ -110,14 +110,18 @@ public final class ResetPasswordRootView: NnView {
 
 
 // MARK: - Helpers
-extension ResetPasswordRootView {
+private extension ResetPasswordRootView {
     
     var detailsText: String {
         "Enter your email address and a link will be sent allowing you to reset your password."
+    }
+    
+    func resetPassword() {
+        responder.resetPassword(emailField.text ?? "")
     }
 }
 
 
 // MARK: - Dependencies
 public typealias ResetPasswordUIResponder = (finished: () -> Void,
-                                             resetPassword: () -> Void)
+                                             resetPassword: (String) -> Void)

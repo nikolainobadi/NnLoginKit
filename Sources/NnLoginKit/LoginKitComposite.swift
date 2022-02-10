@@ -8,15 +8,17 @@
 import UIKit
 import LoginUI
 import LoginLogic
+import ResetPasswordUI
+import ResetPasswordLogic
 
 public final class LoginKitComposite {
     private init() { }
     
-    func makeLoginVC(auth: EmailAuthorizer,
-                     alerts: LoginAlerts,
-                     config: LoginViewConfig,
-                     finished: @escaping (UserSessionInfo) -> Void,
-                     showResetPassword: @escaping () -> Void) -> UIViewController {
+    static func makeLoginVC(auth: EmailAuthorizer,
+                            alerts: LoginAlerts,
+                            config: LoginViewConfig,
+                            finished: @escaping (UserSessionInfo) -> Void,
+                            showResetPassword: @escaping () -> Void) -> UIViewController {
         
         let presenter = LoginPresentationAdapter()
         let manager = LoginManager(info: presenter,
@@ -44,11 +46,29 @@ public final class LoginKitComposite {
         return LoginVC(rootView: rootView, presenter: presenter)
     }
     
-    func makeResetPasswordVC() -> UIViewController {
-        UIViewController()
-    }
+    func makeResetPasswordVC(auth: ResetAuthorizer,
+                             alerts: ResetPasswordAlerts,
+                             config: ResetPasswordViewConfig,
+                             dismiss: @escaping () -> Void) -> UIViewController {
+        
+        let manager = ResetPasswordManager(auth: auth,
+                                           alerts: alerts,
+                                           dismiss: dismiss)
     
-    private func makeEmptyView() -> UIView {
+        let rootView = ResetPasswordRootView(
+            config: config,
+            responder: (finished: dismiss,
+                        resetPassword: manager.resetPassword(_:)))
+        
+        return ResetPasswordVC(rootView: rootView)
+    }
+}
+
+
+// MARK: - Private Methods
+private extension LoginKitComposite {
+    
+    static func makeEmptyView() -> UIView {
         let view = UIView()
         
         view.backgroundColor = .clear
