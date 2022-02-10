@@ -23,6 +23,7 @@ public final class LoginButtonsView: NnView {
     // MARK: - Views
     lazy var loginButton: UIButton = {
         ShadowButton()
+            .addBorder()
             .setEnabled(false)
             .setColor(buttonTextColor, backgroundColor: buttonColor)
             .setAction { [weak self] in
@@ -33,7 +34,7 @@ public final class LoginButtonsView: NnView {
     lazy var accountButton: UIButton = {
         ShadowButton(buttonType: .naked)
             .setFont(.smallDetail, fontName: .thonburi)
-            .setAlpha(onlySignUp ? 0 : 1)
+//            .setAlpha(onlySignUp ? 0 : 1)
             .setAction { [weak self] in
                 self?.isSignUp.toggle()
             }
