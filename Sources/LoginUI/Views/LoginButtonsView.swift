@@ -53,7 +53,7 @@ public final class LoginButtonsView: NnView {
     // MARK: - Init
     public init(buttonColor: UIColor?,
                 buttonTextColor: UIColor?,
-                onlySignUp: Bool,
+                onlySignUp: Bool = false,
                 guestLogin: @escaping () -> Void,
                 emailSignIn: @escaping () -> Void) {
         

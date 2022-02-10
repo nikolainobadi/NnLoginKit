@@ -9,16 +9,19 @@ import UIKit
 
 public struct LoginViewConfig {
     
+    public let imageView: UIView?
     public let titleColor: UIColor?
     public let buttonColor: UIColor?
     public let buttonTextColor: UIColor?
     public let backgroundColor: UIColor?
     
-    public init(titleColor: UIColor?,
-                buttonColor: UIColor?,
-                buttonTextColor: UIColor?,
-                backgroundColor: UIColor?) {
+    public init(imageView: UIView? = nil,
+                titleColor: UIColor? = .label,
+                buttonColor: UIColor? = .label,
+                buttonTextColor: UIColor? = .systemBackground,
+                backgroundColor: UIColor? = .systemBackground) {
         
+        self.imageView = imageView
         self.titleColor = titleColor
         self.buttonColor = buttonColor
         self.buttonTextColor = buttonTextColor

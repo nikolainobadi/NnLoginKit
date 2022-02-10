@@ -6,6 +6,7 @@
 //
 
 import Combine
+import LoginLogic
 
 public final class LoginPresentationAdapter {
     
@@ -40,4 +41,13 @@ extension LoginPresentationAdapter: LoginPresenter {
     public func updateIsSignUp(_ isSignUp: Bool) {
         state.isSignUp = isSignUp
     }
+}
+
+
+// MARK: - Info
+extension LoginPresentationAdapter: LoginInfo {
+    
+    public var email: String { state.email }
+    public var password: String { state.password }
+    public var isSignUp: Bool { state.isSignUp }
 }
