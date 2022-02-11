@@ -19,10 +19,10 @@ public final class ResetPasswordRootView: NnView {
     // MARK: - Views
     lazy var titleLabel: UILabel = {
         UILabel("Reset Password")
-            .setColor(config.titleColor)
-            .setAlignment(.center)
-            .addShadow()
             .autoSize()
+            .addShadow()
+            .setAlignment(.center)
+            .setColor(config.titleColor)
             .setFontByStyle(.largeTitle)
     }()
     
@@ -77,22 +77,25 @@ public final class ResetPasswordRootView: NnView {
     }
     
     public override func setupConstraints() {
+        closeButton.setContentHuggingPriority(.defaultHigh, for: .vertical)
         closeButton.anchor(safeTopAnchor,
                            left: leftAnchor,
                            topConstant: heightPercent(1),
                            leftConstant: widthPercent(1))
         
+        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         titleLabel.anchor(closeButton.bottomAnchor,
                           left: leftAnchor,
                           right: rightAnchor,
                           leftConstant: widthPercent(2),
                           rightConstant: widthPercent(2))
         
+        detailsView.setContentHuggingPriority(.defaultLow, for: .vertical)
         detailsView.anchor(titleLabel.bottomAnchor,
                            left: leftAnchor,
                            bottom: centerYAnchor,
                            right: rightAnchor,
-                           topConstant: heightPercent(8),
+                           topConstant: heightPercent(4),
                            leftConstant: widthPercent(2),
                            rightConstant: widthPercent(2))
         
