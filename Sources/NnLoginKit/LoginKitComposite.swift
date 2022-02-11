@@ -43,7 +43,9 @@ public final class LoginKitComposite {
                                      buttonsView: buttonsView,
                                      backgroundColor: config.backgroundColor)
         
-        return LoginVC(rootView: rootView, presenter: presenter)
+        return LoginVC(rootView: rootView,
+                       presenter: presenter,
+                       fieldsToObserve: fieldsview.fields)
     }
     
     public static func makeResetPasswordVC(auth: ResetAuthorizer,

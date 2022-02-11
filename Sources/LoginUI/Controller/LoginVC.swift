@@ -20,10 +20,13 @@ public final class LoginVC: NnViewController {
     
     
     // MARK: - Init
-    public init(rootView: LoginInterface, presenter: LoginPresenter) {
+    public init(rootView: LoginInterface,
+                presenter: LoginPresenter,
+                fieldsToObserve: [UITextField]?) {
+        
         self.rootView = rootView
         self.presenter = presenter
-        super.init(hasTextFields: true, withKeyboardObserver: true)
+        super.init(hasTextFields: true, fieldsToObserve: fieldsToObserve)
     }
     
     

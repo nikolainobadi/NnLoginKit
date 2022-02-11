@@ -15,7 +15,8 @@ public final class LoginFieldsView: NnView {
     private let forgotPassword: () -> Void
     
     private var selectedFieldIndex = -1
-    private var fields: [ShadowField] {
+    
+    public var fields: [ShadowField] {
         [emailField, passwordField.field, confirmField.field]
     }
     
