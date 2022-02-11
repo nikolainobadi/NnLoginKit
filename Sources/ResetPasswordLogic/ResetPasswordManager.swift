@@ -31,8 +31,12 @@ public final class ResetPasswordManager {
 extension ResetPasswordManager {
     
     public func resetPassword(_ email: String) {
+        guard email != "" else {
+            return alerts.showErrorMessage("You have to type an email if you want to reset your password")
+        }
+        
         let emailError = Validator.validate(email, with: [.validEmail])
-        guard email != "" && emailError == "" else {
+        guard emailError == "" else {
             return alerts.showErrorMessage(emailError)
         }
         
