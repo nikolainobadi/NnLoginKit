@@ -64,6 +64,8 @@ public final class ResetPasswordRootView: NnView {
         self.config = config
         self.responder = responder
         super.init(color: config.backgroundColor)
+        
+        setupEmailField()
     }
     
     
@@ -112,11 +114,26 @@ public final class ResetPasswordRootView: NnView {
 }
 
 
+// MARK: - Delegate
+extension ResetPasswordRootView: UITextFieldDelegate {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        resetPassword()
+        endEditing(true)
+        return true
+    }
+}
+
+
 // MARK: - Helpers
 private extension ResetPasswordRootView {
     
     var detailsText: String {
         "Enter your email address and a link will be sent allowing you to reset your password."
+    }
+    
+    func setupEmailField() {
+        emailField.delegate = self
     }
     
     func resetPassword() {
