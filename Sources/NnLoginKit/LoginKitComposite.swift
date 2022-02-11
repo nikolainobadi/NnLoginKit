@@ -62,7 +62,8 @@ public final class LoginKitComposite {
             responder: (finished: dismiss,
                         resetPassword: manager.resetPassword(_:)))
         
-        return ResetPasswordVC(rootView: rootView)
+        return ResetPasswordVC(rootView: rootView,
+                               fieldsToObserve: [rootView.emailField])
     }
 }
 

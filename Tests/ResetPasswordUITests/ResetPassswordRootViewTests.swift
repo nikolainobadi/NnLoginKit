@@ -22,7 +22,7 @@ final class ResetPassswordRootViewTests: XCTestCase {
     
     func test_resetButton() {
         let exp = expectation(description: "waiting for dismiss...")
-        let sut = makeSUT(resetPassword: { exp.fulfill() })
+        let sut = makeSUT(resetPassword: { _ in exp.fulfill() })
         
         sut.resetPasswordButton.sendActions(for: [.touchUpInside])
         
@@ -35,7 +35,7 @@ final class ResetPassswordRootViewTests: XCTestCase {
 extension ResetPassswordRootViewTests {
     
     func makeSUT(finished: @escaping () -> Void = { },
-                 resetPassword: @escaping () -> Void = { },
+                 resetPassword: @escaping (String) -> Void = { _ in },
                  file: StaticString = #filePath, line: UInt = #line) -> ResetPasswordRootView {
         
         let sut = ResetPasswordRootView(config: makeConfig(),

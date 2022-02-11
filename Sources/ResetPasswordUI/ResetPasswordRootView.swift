@@ -42,7 +42,7 @@ public final class ResetPasswordRootView: NnView {
                             fontName: .thonburi)
     }()
     
-    lazy var emailField: ShadowField = {
+    public lazy var emailField: ShadowField = {
         ShadowField("Enter email...")
     }()
     

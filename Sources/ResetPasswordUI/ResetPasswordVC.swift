@@ -15,9 +15,9 @@ public final class ResetPasswordVC: NnViewController {
     
     
     // MARK: - Init
-    public init(rootView: UIView) {
+    public init(rootView: UIView, fieldsToObserve: [UITextField] = []) {
         self.rootView = rootView
-        super.init(hasTextFields: true)
+        super.init(hasTextFields: true, fieldsToObserve: fieldsToObserve)
     }
     
     
