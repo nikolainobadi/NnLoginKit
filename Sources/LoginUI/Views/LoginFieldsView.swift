@@ -33,6 +33,7 @@ public final class LoginFieldsView: NnView {
     lazy var emailField: ShadowField = {
         ShadowField("email...", withErrorLabel: true)
             .setTag(0)
+            .setKeyboardType(.emailAddress)     
     }()
     
     lazy var passwordField: PasswordField = {
