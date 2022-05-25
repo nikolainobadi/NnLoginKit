@@ -114,5 +114,3 @@ extension LoginButtonsView {
         guestLoginButton.alpha = hide ? 0 : 1
     }
 }
-
-
