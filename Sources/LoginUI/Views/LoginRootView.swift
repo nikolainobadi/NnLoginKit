@@ -88,4 +88,3 @@ extension LoginRootView: LoginInterface {
                               confirmError: viewModel.confirmError)
     }
 }
-

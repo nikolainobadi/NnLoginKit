@@ -65,5 +65,3 @@ extension LoginTitleView {
         titleLabel.text = title
     }
 }
-
-

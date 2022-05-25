@@ -38,6 +38,7 @@ public final class LoginButtonsView: NnView {
             .setAction { [weak self] in
                 self?.isSignUp.toggle()
             }
+            .underline()
     }()
     
     lazy var guestLoginButton: UIButton = {
@@ -103,7 +104,6 @@ extension LoginButtonsView {
         
         loginButton.setTitle(loginTitle, for: .normal)
         accountButton.setTitle(accountTitle, for: .normal)
-        accountButton.underlineTitleLabel()
 
         configureGuestLoginButton(hide: loginTitle == "Login")
     }
