@@ -38,7 +38,6 @@ public final class LoginButtonsView: NnView {
             .setAction { [weak self] in
                 self?.isSignUp.toggle()
             }
-            .underline()
     }()
     
     lazy var guestLoginButton: UIButton = {
@@ -103,9 +102,19 @@ extension LoginButtonsView {
         loginButton.alpha = isReady ? 1 : 0.5
         
         loginButton.setTitle(loginTitle, for: .normal)
-        accountButton.setTitle(accountTitle, for: .normal)
-
+        setAccountTitle(accountTitle)
         configureGuestLoginButton(hide: loginTitle == "Login")
+    }
+    
+    private func setAccountTitle(_ title: String) {
+        let attributedString = NSMutableAttributedString(string: title)
+        attributedString.addAttribute(
+            NSAttributedString.Key.underlineStyle,
+            value: NSUnderlineStyle.single.rawValue,
+            range: NSRange(location: 0,
+            length: attributedString.length))
+        
+        accountButton.setAttributedTitle(attributedString, for: .normal)
     }
     
     private func configureGuestLoginButton(hide: Bool) {
