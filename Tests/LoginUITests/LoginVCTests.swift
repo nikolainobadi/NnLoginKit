@@ -142,7 +142,7 @@ extension LoginVCTests {
         
         let rootView = MockLoginInterface()
         let presenter = LoginPresentationAdapter()
-        let sut = LoginVC(rootView: rootView, presenter: presenter)
+        let sut = LoginVC(rootView: rootView, presenter: presenter, fieldsToObserve: [])
         
         trackForMemoryLeaks(sut, file: file, line: line)
         

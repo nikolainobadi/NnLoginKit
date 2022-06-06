@@ -97,6 +97,17 @@ public final class LoginFieldsView: NnView {
                                     rightConstant: widthPercent(5),
                                     heightConstant: buttonHeight)
     }
+    
+    public func updateView(isSignUp: Bool,
+                           emailError: String,
+                           passwordError: String,
+                           confirmError: String) {
+        
+        emailField.setErrorMessage(emailError)
+        passwordField.setErrorMessage(passwordError)
+        confirmField.setErrorMessage(confirmError)
+        configureAlphas(isSignUp: isSignUp)
+    }
 }
 
 
@@ -117,43 +128,9 @@ extension LoginFieldsView: UITextFieldDelegate {
 
 
 // MARK: - Helper Methods
-extension LoginFieldsView {
+private extension LoginFieldsView {
     
-    public func updateView(isSignUp: Bool,
-                           emailError: String,
-                           passwordError: String,
-                           confirmError: String) {
-        
-        emailField.setErrorMessage(emailError)
-        passwordField.setErrorMessage(passwordError)
-        confirmField.setErrorMessage(confirmError)
-        configureAlphas(isSignUp: isSignUp)
-    }
-    
-    private func configureAlphas(isSignUp: Bool) {
-        confirmField.alpha = isSignUp ? 1 : 0
-        forgotPasswordButton.alpha = isSignUp ? 0 : 1
-    }
-    
-    private func setupFields() {
-        fields.forEach { $0.inputAccessoryView = toolBar }
-        fields.forEach { $0.delegate = self }
-    }
-    
-    private func chooseNextResponder() {
-        let endNum = confirmField.alpha == 0 ? 1 : 2
-        guard selectedFieldIndex != endNum else {
-            return loginOrDismiss()
-        }
-        
-        let nextIndex = selectedFieldIndex + 1
-        let nextResponder = fields[nextIndex]
-        
-        nextResponder.becomeFirstResponder()
-        selectedFieldIndex = nextIndex
-    }
-    
-    private var canLogin: Bool {
+    var canLogin: Bool {
         let email = emailField.text ?? ""
         let pwd = passwordField.field.text ?? ""
         let confirm = confirmField.field.text ?? ""
@@ -167,8 +144,31 @@ extension LoginFieldsView {
         return canLogin
     }
     
-    private func loginOrDismiss() {
-        if canLogin { return emailSignIn() }
+    func configureAlphas(isSignUp: Bool) {
+        confirmField.alpha = isSignUp ? 1 : 0
+        forgotPasswordButton.alpha = isSignUp ? 0 : 1
+    }
+    
+    func setupFields() {
+        fields.forEach { $0.inputAccessoryView = toolBar }
+        fields.forEach { $0.delegate = self }
+    }
+    
+    func chooseNextResponder() {
+        let endNum = confirmField.alpha == 0 ? 1 : 2
+        guard selectedFieldIndex != endNum else {
+            return loginOrDismiss()
+        }
+        
+        let nextIndex = selectedFieldIndex + 1
+        let nextResponder = fields[nextIndex]
+        
+        nextResponder.becomeFirstResponder()
+        selectedFieldIndex = nextIndex
+    }
+        
+    func loginOrDismiss() {
+        if canLogin { emailSignIn() }
         
         endEditing(true)
     }
