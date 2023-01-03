@@ -15,6 +15,7 @@ let package = Package(
     targets: [
         .target(
             name: "NnLoginKit",
+            dependencies: ["NnSwiftUIDesignHelpers"],
             path: "Sources"
         )
     ]
