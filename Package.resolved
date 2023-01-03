@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "nnswiftuidesignhelpers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nikolainobadi/NnSwiftUIDesignHelpers.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "fd264959dfcbc565053cf0fac6414d903a53ad0f"
+      }
+    }
+  ],
+  "version" : 2
+}

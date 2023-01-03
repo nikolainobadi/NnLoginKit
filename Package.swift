@@ -9,6 +9,9 @@ let package = Package(
     products: [
         .library(name: "NnLoginKit", targets: ["NnLoginKit"])
     ],
+    dependencies: [
+        .package(url: "https://github.com/nikolainobadi/NnSwiftUIDesignHelpers.git", branch: "main")
+        ],
     targets: [
         .target(
             name: "NnLoginKit",
