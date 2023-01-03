@@ -20,7 +20,7 @@ public final class NnLoginDataModel: ObservableObject {
     private let actions: NnLoginActions
     private let config: NnLoginViewConfig
     
-    public init(actions: NnLoginActions, config: NnLoginViewConfig) {
+    public init(actions: NnLoginActions, config: NnLoginViewConfig = NnLoginViewConfig()) {
         self.actions = actions
         self.config = config
     }
@@ -72,7 +72,7 @@ public struct NnLoginViewConfig {
     public let colors: ColorOptions
     public let options: LoginOptions
     
-    public init(colors: ColorOptions, options: LoginOptions) {
+    public init(colors: ColorOptions = ColorOptions(), options: LoginOptions = LoginOptions()) {
         self.colors = colors
         self.options = options
     }
@@ -80,18 +80,33 @@ public struct NnLoginViewConfig {
 
 public extension NnLoginViewConfig {
     struct ColorOptions {
-        var title: Color? = .primary
-        var underlinedButtons: Color? = nil
-        var loginButtonBackground: Color? = nil
-        var loginButtonText: Color? = nil
-        var textFieldTint: Color? = nil
-        var errorText: Color = .red
+        var title: Color?
+        var underlinedButtons: Color?
+        var loginButtonBackground: Color?
+        var loginButtonText: Color?
+        var textFieldTint: Color?
+        var errorText: Color
+        
+        public init(title: Color? = nil, underlinedButtons: Color? = nil, loginButtonBackground: Color? = nil, loginButtonText: Color? = nil, textFieldTint: Color? = nil, errorText: Color = .red) {
+            self.title = title
+            self.underlinedButtons = underlinedButtons
+            self.loginButtonBackground = loginButtonBackground
+            self.loginButtonText = loginButtonText
+            self.textFieldTint = textFieldTint
+            self.errorText = errorText
+        }
     }
     
     struct LoginOptions {
-        var enableGuestLogin: Bool = false
-        var enableResetPassword: Bool = true
-        var enableToggleLoginType: Bool = true
+        var enableGuestLogin: Bool
+        var enableResetPassword: Bool
+        var enableToggleLoginType: Bool
+        
+        public init(enableGuestLogin: Bool = false, enableResetPassword: Bool = true, enableToggleLoginType: Bool = true) {
+            self.enableGuestLogin = enableGuestLogin
+            self.enableResetPassword = enableResetPassword
+            self.enableToggleLoginType = enableToggleLoginType
+        }
     }
 }
 
