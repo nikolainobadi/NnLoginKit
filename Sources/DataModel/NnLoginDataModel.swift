@@ -46,7 +46,7 @@ final class LoginDataModel: ObservableObject {
     private let emailLogin: ((EmailLoginInfo) async throws -> Void)?
     private let emailSignUp: ((EmailLoginInfo) async throws -> Void)
     
-    init(colorOptions: LoginColorOptions, guestLogin: (() -> Void)?, emailLogin: ((EmailLoginInfo) -> Void)?, emailSignUp: @escaping (EmailLoginInfo) -> Void) {
+    init(colorOptions: LoginColorOptions, guestLogin: (() async throws -> Void)?, emailLogin: ((EmailLoginInfo) async throws -> Void)?, emailSignUp: @escaping (EmailLoginInfo) async throws -> Void) {
         self.colorOptions = colorOptions
         self.guestLogin = guestLogin
         self.emailLogin = emailLogin
