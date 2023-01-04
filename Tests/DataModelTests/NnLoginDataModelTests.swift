@@ -35,8 +35,91 @@ final class NnLoginDataModelTests: XCTestCase {
         XCTAssertEqual(sut.title, "Login")
     }
     
-    func test_login() {
+    func test_login_error() async throws {
+        let sut = makeSUT(throwError: true).sut
         
+        sut.login(shouldSkip: true)
+        
+        try await waitForAsyncMethod()
+        
+        XCTAssertNotNil(sut.error)
+    }
+    
+    func test_login_shouldSkip() async throws {
+        let (sut, actions) = makeSUT()
+        
+        sut.login(shouldSkip: true)
+        
+        try await waitForAsyncMethod()
+        
+        XCTAssertTrue(actions.guestSignUp)
+    }
+    
+    func test_login_emailError() async throws {
+        let sut = makeSUT().sut
+        
+        sut.login()
+        
+        try await waitForAsyncMethod()
+        
+        guard let fieldError = sut.loginFieldError else { return XCTFail("expected error but none were thrown") }
+        
+        XCTAssertEqual(fieldError, .email)
+    }
+    
+    func test_login_passwordError() async throws {
+        let sut = makeSUT().sut
+        
+        sut.email = validEmail
+        sut.login()
+        
+        try await waitForAsyncMethod()
+        
+        guard let fieldError = sut.loginFieldError else { return XCTFail("expected error but none were thrown") }
+        
+        XCTAssertEqual(fieldError, .password)
+    }
+    
+    func test_login_confirmPasswordError() async throws {
+        let sut = makeSUT().sut
+        
+        sut.email = validEmail
+        sut.password = validPassword
+        sut.login()
+        
+        try await waitForAsyncMethod()
+        
+        guard let fieldError = sut.loginFieldError else { return XCTFail("expected error but none were thrown") }
+        
+        XCTAssertEqual(fieldError, .confirm)
+    }
+    
+    func test_login_signingUp() async throws {
+        let (sut, actions) = makeSUT()
+        
+        sut.email = validEmail
+        sut.password = validPassword
+        sut.confirm = validPassword
+        sut.login()
+        
+        try await waitForAsyncMethod()
+        
+        XCTAssertNotNil(actions.signUpEmail)
+        XCTAssertNotNil(actions.signUpPassword)
+    }
+    
+    func test_login_loggingIn() async throws {
+        let (sut, actions) = makeSUT()
+        
+        sut.isLogin = true
+        sut.email = validEmail
+        sut.password = validPassword
+        sut.login()
+        
+        try await waitForAsyncMethod()
+        
+        XCTAssertNotNil(actions.loginEmail)
+        XCTAssertNotNil(actions.loginPassword)
     }
 }
 
@@ -56,6 +139,9 @@ extension NnLoginDataModelTests {
 
 // MARK: - Helper Classes
 extension NnLoginDataModelTests {
+    var validEmail: String { "tester@gmail.com" }
+    var validPassword: String { "tester" }
+    
     class MockActions: NnLoginActions {
         private let throwError: Bool
         
