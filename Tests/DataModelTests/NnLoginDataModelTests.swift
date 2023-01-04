@@ -24,6 +24,20 @@ final class NnLoginDataModelTests: XCTestCase {
         XCTAssertNil(actions.signUpEmail)
         XCTAssertNil(actions.signUpPassword)
     }
+    
+    func test_title() {
+        let sut = makeSUT().sut
+        
+        XCTAssertEqual(sut.title, "Sign Up")
+        
+        sut.isLogin = true
+        
+        XCTAssertEqual(sut.title, "Login")
+    }
+    
+    func test_login() {
+        
+    }
 }
 
 
@@ -32,6 +46,8 @@ extension NnLoginDataModelTests {
     func makeSUT(throwError: Bool = false, file: StaticString = #filePath, line: UInt = #line) -> (sut: NnLoginDataModel, actions: MockActions) {
         let actions = MockActions(throwError: throwError)
         let sut = NnLoginDataModel(actions: actions)
+        
+        trackForMemoryLeaks(sut, file: file, line: line)
         
         return (sut, actions)
     }
@@ -72,5 +88,18 @@ extension NnLoginDataModelTests {
             signUpEmail = email
             signUpPassword = password
         }
+    }
+}
+
+
+extension XCTestCase {
+    func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
+        }
+    }
+    
+    func waitForAsyncMethod() async throws {
+        try await Task.sleep(nanoseconds: 0_010_000_000)
     }
 }
