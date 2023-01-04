@@ -17,6 +17,10 @@ let package = Package(
             name: "NnLoginKit",
             dependencies: ["NnSwiftUIDesignHelpers"],
             path: "Sources"
-        )
+        ),
+        .testTarget(
+            name: "DataModelTests",
+            dependencies: ["NnLoginKit"]
+        ),
     ]
 )
