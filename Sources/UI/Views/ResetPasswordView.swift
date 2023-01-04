@@ -1,5 +1,5 @@
 //
-//  NnResetPasswordView.swift
+//  ResetPasswordView.swift
 //  
 //
 //  Created by Nikolai Nobadi on 1/3/23.
@@ -8,9 +8,9 @@
 import SwiftUI
 import NnSwiftUIDesignHelpers
 
-struct NnResetPasswordView: View {
+struct ResetPasswordView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var dataModel: NnResetPasswordDataModel
+    @StateObject var dataModel: ResetPasswordDataModel
     
     var body: some View {
         VStack {
@@ -55,42 +55,14 @@ struct NnResetPasswordView: View {
 
 
 // MARK: - Preview
-struct NnResetPasswordView_Previews: PreviewProvider {
+struct ResetPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        NnResetPasswordView(dataModel: dataModel)
+        ResetPasswordView(dataModel: dataModel)
     }
 }
 
 
 // MARK: - Preview Helpers
-extension NnResetPasswordView_Previews {
-    static var dataModel: NnResetPasswordDataModel { NnResetPasswordDataModel(actions: MockActions()) }
-    
-    class MockActions: NnResetPasswordActions {
-        func sendResetPasswordEmail(email: String) async throws { }
-    }
-}
-
-final class NnResetPasswordDataModel: ObservableObject {
-    @Published var email = ""
-    @Published var error: Error?
-    
-    private let actions: NnResetPasswordActions
-    
-    init(actions: NnResetPasswordActions) {
-        self.actions = actions
-    }
-}
-
-extension NnResetPasswordDataModel {
-    var disableButton: Bool { email.count < 6 || !email.contains("@") || !email.contains(".") }
-    var message: String { "Enter your email address and a link will be sent allowing you to reset your password." }
-    
-    func resetPassword() { }
-}
-
-
-// MARK: - Dependencies
-protocol NnResetPasswordActions {
-    func sendResetPasswordEmail(email: String) async throws
+extension ResetPasswordView_Previews {
+    static var dataModel: ResetPasswordDataModel { ResetPasswordDataModel() }
 }
