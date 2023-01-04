@@ -8,7 +8,31 @@
 import SwiftUI
 import Foundation
 
-public final class NnLoginDataModel: ObservableObject {
+struct LoginColorOptions {
+    let title: Color
+    let detailsText: Color
+    let buttonText: Color
+    let buttonBackground: Color
+    let underlinedButtons: Color
+    let viewBackground: Color
+    let textFieldTint: Color
+    let errorText: Color
+    
+    init(title: Color = .primary, detailsText: Color = .primary, buttonText: Color = Color(uiColor: .systemBackground), buttonBackground: Color = .primary, underlinedButtons: Color = .primary, viewBackground: Color = Color(uiColor: .systemBackground), textFieldTint: Color = .primary, errorText: Color = .red) {
+        
+        self.title = title
+        self.detailsText = detailsText
+        self.buttonText = buttonText
+        self.buttonBackground = buttonBackground
+        self.underlinedButtons = underlinedButtons
+        self.viewBackground = viewBackground
+        self.textFieldTint = textFieldTint
+        self.errorText = errorText
+    }
+}
+
+typealias EmailLoginInfo = (email: String, password: String)
+final class LoginDataModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var confirm = ""
@@ -17,24 +41,27 @@ public final class NnLoginDataModel: ObservableObject {
     @Published var isLoading = false
     @Published var loginFieldError: NnLoginFieldError?
     
-    private let actions: NnLoginActions
-    private let config: NnLoginViewConfig
+    private let colorOptions: LoginColorOptions
+    private let guestLogin: (() async throws -> Void)?
+    private let emailLogin: ((EmailLoginInfo) async throws -> Void)?
+    private let emailSignUp: ((EmailLoginInfo) async throws -> Void)
     
-    public init(actions: NnLoginActions, config: NnLoginViewConfig = NnLoginViewConfig()) {
-        self.actions = actions
-        self.config = config
+    init(colorOptions: LoginColorOptions, guestLogin: (() -> Void)?, emailLogin: ((EmailLoginInfo) -> Void)?, emailSignUp: @escaping (EmailLoginInfo) -> Void) {
+        self.colorOptions = colorOptions
+        self.guestLogin = guestLogin
+        self.emailLogin = emailLogin
+        self.emailSignUp = emailSignUp
     }
 }
 
 
 // MARK: - View Model
-public extension NnLoginDataModel {
+extension LoginDataModel {
     var title: String { isLogin ? "Login" : "Sign Up" }
     var accountButtonText: String { "\(isLogin ? "Don't" : "Already") have an account?" }
-    var viewColors: NnLoginViewConfig.ColorOptions { config.colors }
-    var canShowGuestLogin: Bool { options.enableGuestLogin }
-    var canShowResetPassword: Bool { options.enableResetPassword }
-    var canShowAccountButton: Bool { options.enableToggleLoginType }
+    var canShowAccountButton: Bool { emailLogin != nil }
+    var canShowGuestLoginButton: Bool { guestLogin != nil }
+    var colors: LoginColorOptions { colorOptions }
     
     func login(shouldSkip: Bool = false) {
         isLoading = true
@@ -54,19 +81,19 @@ public extension NnLoginDataModel {
 
 
 // MARK: - Private Helpers
-private extension NnLoginDataModel {
-    var options: NnLoginViewConfig.LoginOptions { config.options }
+private extension LoginDataModel {
+    var loginInfo: EmailLoginInfo { (email, password) }
     
     func loginOrSignUp(shouldSkip: Bool) async throws {
         if shouldSkip {
-            try await actions.guestLogin()
+            try await guestLogin?()
         } else {
             try LoginInfoValidator.validateInfo(email: email, password: password, confirm: isLogin ? nil : confirm)
             
             if isLogin {
-                try await actions.login(email: email, password: password)
+                try await emailLogin?(loginInfo)
             } else {
-                try await actions.signUp(email: email, password: password)
+                try await emailSignUp(loginInfo)
             }
         }
     }
@@ -74,7 +101,7 @@ private extension NnLoginDataModel {
 
 
 // MARK: - MainActor
-private extension NnLoginDataModel {
+private extension LoginDataModel {
     @MainActor func stopLoading() { self.isLoading = false }
     @MainActor func showError(_ error: Error?) {
         if let loginFieldError = error as? NnLoginFieldError {
@@ -83,12 +110,4 @@ private extension NnLoginDataModel {
             self.error = error
         }
     }
-}
-
-
-// MARK: - Dependencies
-public protocol NnLoginActions {
-    func guestLogin() async throws
-    func login(email: String, password: String) async throws
-    func signUp(email: String, password: String) async throws
 }

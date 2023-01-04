@@ -12,53 +12,55 @@ enum LoginSelectedField {
     case email, password, confirm
 }
 
-struct NnLoginView: View {
-    @StateObject var dataModel: NnLoginDataModel
+struct LoginView: View {
+    @StateObject var dataModel: LoginDataModel
     @State private var showingResetPassword = false
     @FocusState private var selectedField: LoginSelectedField?
     
     private var isLogin: Bool { dataModel.isLogin }
     private var fieldError: NnLoginFieldError? { dataModel.loginFieldError }
+    private var showGuestLogin: Bool { dataModel.canShowGuestLoginButton }
+    private var colors: LoginColorOptions { dataModel.colors }
     
-    private func login() { selectedField = nil; dataModel.login() }
-    private func guestLogin() { selectedField = nil; dataModel.login(shouldSkip: true) }
-    private func toggleIsLogin() { selectedField = nil; dataModel.isLogin.toggle() }
+    private func login() { dataModel.login() }
+    private func guestLogin() { dataModel.login(shouldSkip: true) }
+    private func toggleLoginType() { dataModel.isLogin.toggle() }
     
     var body: some View {
         VStack {
             Text(dataModel.title)
-                .setLoginFont(.largeTitle, textColor: dataModel.viewColors.title, autoSize: true)
+                .setLoginFont(.largeTitle, textColor: colors.title, autoSize: true)
             
             Spacer()
             
             LoginFields(showingResetPassword: $showingResetPassword, selectedField: _selectedField, dataModel: dataModel)
                 .padding()
-            
+                
             Button(action: login) {
                 Text(dataModel.title)
-                    .setLoginFont(.headline, textColor: dataModel.viewColors.loginButtonText)
+                    .setLoginFont(.headline, textColor: colors.buttonText)
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
+            .tint(colors.buttonBackground)
             .padding()
             
-            Button(action: toggleIsLogin) {
+            Button(action: toggleLoginType) {
                 Text(dataModel.accountButtonText)
                     .underline()
-                    .setLoginFont(.body, textColor: dataModel.viewColors.underlinedButtons)
+                    .setLoginFont(.body, textColor: colors.underlinedButtons)
             }
             
             Spacer()
             
-            if dataModel.canShowGuestLogin {
+            if showGuestLogin {
                 Button(action: guestLogin) {
                     Text("Login as Guest")
                         .underline()
+                        .setLoginFont(.caption, textColor: colors.underlinedButtons)
                 }
             }
-        }
-        .background(dataModel.viewColors.backgroundColor)
-        .withErrorHandling(error: $dataModel.error, doneAction: { dataModel.error = nil })
+        }.background(colors.viewBackground)
     }
 }
 
@@ -67,7 +69,7 @@ struct NnLoginView: View {
 fileprivate struct LoginFields: View {
     @Binding var showingResetPassword: Bool
     @FocusState var selectedField: LoginSelectedField?
-    @ObservedObject var dataModel: NnLoginDataModel
+    @ObservedObject var dataModel: LoginDataModel
     
     private var isLogin: Bool { dataModel.isLogin }
     private var fieldError: NnLoginFieldError? { dataModel.loginFieldError }
@@ -90,7 +92,7 @@ fileprivate struct LoginFields: View {
                 .onSubmit { selectedField = .password }
                 .withConditionalRedOverlay(dataModel.loginFieldError == .email)
 
-            LoginTextField(text: $dataModel.password, imageName: "lock", prompt: "password", canBeSecure: true, imageTint: dataModel.viewColors.textFieldTint)
+            LoginTextField(text: $dataModel.password, imageName: "lock", prompt: "password", canBeSecure: true ,imageTint: dataModel.colors.textFieldTint)
                 .focused($selectedField, equals: .password)
                 .submitLabel(.next)
                 .onSubmit { isLogin ? selectedField = .confirm : login() }
@@ -100,11 +102,12 @@ fileprivate struct LoginFields: View {
                 Button(action: { showingResetPassword = true }) {
                     Text("Forgot Password?")
                         .underline()
+                        .setLoginFont(.body, textColor: dataModel.colors.underlinedButtons)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal)
             } else {
-                LoginTextField(text: $dataModel.confirm, imageName: "lock.fill", prompt: "confirm password", canBeSecure: true, imageTint: dataModel.viewColors.textFieldTint)
+                LoginTextField(text: $dataModel.confirm, imageName: "lock.fill", prompt: "confirm password", canBeSecure: true ,imageTint: dataModel.colors.textFieldTint)
                     .focused($selectedField, equals: .confirm)
                     .submitLabel(.done)
                     .onSubmit { login() }
@@ -116,7 +119,7 @@ fileprivate struct LoginFields: View {
 
 
 // MARK: - TextField
-struct LoginTextField: View {
+fileprivate struct LoginTextField: View {
     @Binding var text: String
     @State private var isSecured: Bool
     
@@ -170,18 +173,14 @@ struct LoginTextField: View {
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NnLoginView(dataModel: dataModel)
+        LoginView(dataModel: makeDataModel())
     }
 }
 
 
 // MARK: - Preview Helpers
 private extension NnLoginView_Previews {
-    static var dataModel: NnLoginDataModel { NnLoginDataModel(actions: MockActions()) }
-    
-    class MockActions: NnLoginActions {
-        func guestLogin() async throws { }
-        func login(email: String, password: String) async throws { }
-        func signUp(email: String, password: String) async throws { }
+    static func makeDataModel(colorOptions: LoginColorOptions = LoginColorOptions(), enableGuestLogin: Bool = false, enableLogin: Bool = false) -> LoginDataModel {
+        LoginDataModel(colorOptions: colorOptions, guestLogin: enableGuestLogin ? { } : nil, emailLogin: enableLogin ? { _ in } : nil, emailSignUp: { _ in })
     }
 }
