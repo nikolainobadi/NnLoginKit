@@ -13,39 +13,40 @@ struct NnResetPasswordView: View {
     @StateObject var dataModel: NnResetPasswordDataModel
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Text(dataModel.message)
-                    .setLoginFont(.body, isSmooth: true)
-                    .padding()
-                
-                VStack(spacing: getHeightPercent(5)) {
-                    TextField("", text: $dataModel.email, prompt: Text("email..."))
-                        .keyboardType(.emailAddress)
-                        .autocorrectionDisabled(true)
-                        .textInputAutocapitalization(.never)
-                        .withRoundedBorder()
-                        
-                    Button(action: dataModel.resetPassword) {
-                        Text("Reset Password")
-                            .setLoginFont(.subheadline)
-                    }
-                    .disabled(dataModel.disableButton)
-                    .opacity(dataModel.disableButton ? 0.5 : 1)
+        VStack {
+            Text("Reset Password")
+                .setLoginFont(.title, autoSize: true)
+                .padding()
+            Text(dataModel.message)
+                .setLoginFont(.body, isSmooth: true)
+                .padding()
+            
+            VStack(spacing: getHeightPercent(5)) {
+                TextField("", text: $dataModel.email, prompt: Text("email..."))
+                    .keyboardType(.emailAddress)
+                    .autocorrectionDisabled(true)
+                    .textInputAutocapitalization(.never)
                     .withRoundedBorder()
-                }.padding(.horizontal)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    
+                Button(action: dataModel.resetPassword) {
+                    Text("Reset Password")
+                        .setLoginFont(.subheadline)
+                }
+                .disabled(dataModel.disableButton)
+                .opacity(dataModel.disableButton ? 0.5 : 1)
+                .withRoundedBorder()
+            }.padding(.horizontal)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 //            .background(Color.viewBackroundColor.ignoresSafeArea())
-            .navigationTitle("Reset Password")
-            .navigationBarTitleDisplayMode(.inline)
-            .withErrorHandling(error: $dataModel.error)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { dismiss() }) {
-                        Text("Cancel")
-                            .setLoginFont(.body)
-                    }
+        .navigationTitle("Reset Password")
+        .navigationBarTitleDisplayMode(.inline)
+        .withErrorHandling(error: $dataModel.error)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    Text("Cancel")
+                        .setLoginFont(.body)
                 }
             }
         }
