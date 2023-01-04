@@ -93,20 +93,6 @@ public protocol NnLoginActions {
     func signUp(email: String, password: String) async throws
 }
 
-enum NnLoginFieldError: Error {
-    case email
-    case password
-    case confirm
-    
-    var message: String {
-        switch self {
-        case .email: return "Please enter a valid email"
-        case .password: return "Please enter a password with at least 6 characters"
-        case .confirm: return "Please ensure your passwords match"
-        }
-    }
-}
-
 public struct NnLoginViewConfig {
     public let colors: ColorOptions
     public let options: LoginOptions
