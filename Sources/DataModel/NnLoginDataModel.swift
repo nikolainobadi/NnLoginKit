@@ -119,20 +119,22 @@ public struct NnLoginViewConfig {
 
 public extension NnLoginViewConfig {
     struct ColorOptions {
-        var title: Color?
-        var underlinedButtons: Color?
-        var loginButtonBackground: Color?
-        var loginButtonText: Color?
-        var textFieldTint: Color?
+        var title: Color
+        var underlinedButtons: Color
+        var loginButtonBackground: Color
+        var loginButtonText: Color
+        var textFieldTint: Color
         var errorText: Color
+        var backgroundColor: Color
         
-        public init(title: Color? = nil, underlinedButtons: Color? = nil, loginButtonBackground: Color? = nil, loginButtonText: Color? = nil, textFieldTint: Color? = nil, errorText: Color = .red) {
+        public init(title: Color = .primary, underlinedButtons: Color = .blue, loginButtonBackground: Color = .primary, loginButtonText: Color = Color(uiColor: .systemBackground), textFieldTint: Color = .blue, errorText: Color = .red, backgroundColor: Color = Color(uiColor: .systemBackground)) {
             self.title = title
             self.underlinedButtons = underlinedButtons
             self.loginButtonBackground = loginButtonBackground
             self.loginButtonText = loginButtonText
             self.textFieldTint = textFieldTint
             self.errorText = errorText
+            self.backgroundColor = backgroundColor
         }
     }
     
