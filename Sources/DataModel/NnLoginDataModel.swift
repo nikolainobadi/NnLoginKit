@@ -92,27 +92,3 @@ public protocol NnLoginActions {
     func login(email: String, password: String) async throws
     func signUp(email: String, password: String) async throws
 }
-
-enum LoginInfoValidator {
-    static func validateInfo(email: String, password: String, confirm: String? = nil) throws {
-        guard emailIsValid(email) else { throw NnLoginFieldError.email }
-        guard passwordIsValid(password) else { throw NnLoginFieldError.password }
-        
-        if let confirm = confirm {
-            guard passwordsMatch(password: password, confirm: confirm) else { throw NnLoginFieldError.confirm }
-        }
-    }
-}
-
-
-private extension LoginInfoValidator {
-    static func emailIsValid(_ email: String) -> Bool {
-        let regex = #"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,64}"#
-
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        
-        return predicate.evaluate(with: email)
-    }
-    static func passwordIsValid(_ password: String) -> Bool { password != "" && password.count > 5 }
-    static func passwordsMatch(password: String, confirm: String) -> Bool { password == confirm }
-}
