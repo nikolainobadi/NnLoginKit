@@ -84,7 +84,7 @@ fileprivate struct LoginFields: View {
                 .padding(.horizontal)
                 .minimumScaleFactor(0.5)
 
-            LoginTextField(text: $dataModel.email, imageName: "envelope", prompt: "email...")
+            LoginTextField(text: $dataModel.email, imageName: "envelope", prompt: "email...", keyboard: .emailAddress)
                 .focused($selectedField, equals: .email)
                 .submitLabel(.next)
                 .onSubmit { selectedField = .password }
@@ -146,12 +146,14 @@ struct LoginTextField: View {
                 SecureField("", text: $text, prompt: Text(prompt))
                     .font(.title2)
                     .keyboardType(keyboard)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
             } else {
                 TextField("", text: $text, prompt: Text(prompt))
                     .font(.title2)
                     .keyboardType(keyboard)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
             }
             
             if canBeSecure {
@@ -160,12 +162,7 @@ struct LoginTextField: View {
                         .tint(imageTint)
                 }
             }
-        }
-        .padding(5)
-        .accentColor(.primary)
-        .background(Color(uiColor: .secondarySystemBackground))
-        .cornerRadius(10)
-        .shadow(color: .primary, radius: 3)
+        }.withRoundedBorder()
     }
 }
 
