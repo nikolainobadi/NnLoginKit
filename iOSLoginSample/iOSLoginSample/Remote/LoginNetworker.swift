@@ -19,19 +19,21 @@ final class LoginNetworker {
 
 // MARK: - Login Auth Actions
 extension LoginNetworker {
+    @MainActor private func setUserId(_ uid: String) { store.setUserId(uid) }
+    
     func guestLogin() async throws {
-        store.setUserId("Guest UID")
+        await setUserId("Guest UID")
     }
     
     // importing NnLoginKit is NOT necessary with this type of parameter
     func emailLogin(_ info: ((email: String, password: String))) async throws {
         print("Logging in with email: \(info.email), password: \(info.password)")
-        store.setUserId("Login UID")
+        await setUserId("Login UID")
     }
     
     func emailSignUp(_ info: (EmailLoginInfo)) async throws {
         print("Signing Up with email: \(info.email), password: \(info.password)")
-        store.setUserId("SignUp UID")
+        await setUserId("SignUp UID")
     }
 }
 
