@@ -69,8 +69,8 @@ struct LoginView<ResetView: View>: View {
 }
 
 
-// MARK: - LoginFields
 fileprivate struct LoginFields: View {
+// MARK: - LoginFields
     @Binding var showingResetPassword: Bool
     @FocusState var selectedField: LoginSelectedField?
     @ObservedObject var dataModel: LoginDataModel
@@ -86,9 +86,9 @@ fileprivate struct LoginFields: View {
             Text(fieldError?.message ?? "")
                 .lineLimit(1)
                 .foregroundColor(.red)
+                .setLoginFont(.body, isSmooth: true, autoSize: true)
                 .opacity(fieldError == nil ? 0 : 1)
                 .padding(.horizontal)
-                .minimumScaleFactor(0.5)
 
             LoginTextField(text: $dataModel.email, imageName: "envelope", prompt: "email...", keyboard: .emailAddress)
                 .focused($selectedField, equals: .email)
