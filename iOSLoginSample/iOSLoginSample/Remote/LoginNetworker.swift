@@ -35,6 +35,10 @@ extension LoginNetworker {
         print("Signing Up with email: \(info.email), password: \(info.password)")
         await setUserId("SignUp UID")
     }
+    
+    func resetPassword() async throws {
+        print("Password reset")
+    }
 }
 
 

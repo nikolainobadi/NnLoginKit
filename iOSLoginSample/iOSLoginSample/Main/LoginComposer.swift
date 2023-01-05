@@ -10,16 +10,25 @@ import NnLoginKit
 
 enum LoginComposer {
     static func makeLoginView() -> some View {
-        let colorOptions = makeColorOptions()
         let networker = LoginNetworker(store: SharedUserIdStorage.shared)
         
-        return NnLoginKit.makeLoginView(colorOptions: colorOptions,
-                                        guestLogin: networker.guestLogin,
-                                        emailLogin: networker.emailLogin(_:),
-                                        emailSignUp: networker.emailSignUp(_:))
+        return makeLoginView(networker: networker)
+    }
+}
+
+
+// MARK: - Private Methods
+private extension LoginComposer {
+    /// toggle each paramter to remove the associated feature within the composed LoginView (Ex. withGuestLogin: false will hide guest login button)
+    static func makeLoginView(networker: LoginNetworker, withGuestLogin: Bool = true, withEmailLogin: Bool = true, withResetPassword: Bool = true) -> some View {
+        NnLoginKit.makeLoginView(colorOptions: makeColorOptions(),
+                                 guestLogin: withGuestLogin ? networker.guestLogin : nil,
+                                 emailLogin: withEmailLogin ? networker.emailLogin(_:) : nil,
+                                 emailSignUp: networker.emailSignUp(_:),
+                                 resetPassword: withResetPassword ? networker.resetPassword : nil)
     }
     
-    private static func makeColorOptions() -> LoginColorOptions {
+    static func makeColorOptions() -> LoginColorOptions {
         LoginColorOptions(title: .blue,
                           buttonText: .white,
                           buttonBackground: .blue,

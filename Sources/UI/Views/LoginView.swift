@@ -18,6 +18,7 @@ struct LoginView<ResetView: View>: View {
     @FocusState private var selectedField: LoginSelectedField?
     
     let resetView: ResetView
+    let canShowResetView: Bool
     
     private var isLogin: Bool { dataModel.isLogin }
     private var fieldError: NnLoginFieldError? { dataModel.loginFieldError }
@@ -35,7 +36,7 @@ struct LoginView<ResetView: View>: View {
             
             Spacer()
             
-            LoginFields(showingResetPassword: $showingResetPassword, selectedField: _selectedField, dataModel: dataModel)
+            LoginFields(showingResetPassword: $showingResetPassword, selectedField: _selectedField, dataModel: dataModel, canShowReset: canShowResetView)
                 .padding()
                 
             Button(action: login) {
@@ -75,6 +76,8 @@ fileprivate struct LoginFields: View {
     @FocusState var selectedField: LoginSelectedField?
     @ObservedObject var dataModel: LoginDataModel
     
+    let canShowReset: Bool
+    
     private var isLogin: Bool { dataModel.isLogin }
     private var fieldError: NnLoginFieldError? { dataModel.loginFieldError }
     
@@ -103,13 +106,16 @@ fileprivate struct LoginFields: View {
                 .withConditionalRedOverlay(fieldError == .password)
 
             if isLogin {
-                Button(action: { showingResetPassword = true }) {
-                    Text("Forgot Password?")
-                        .underline()
-                        .setLoginFont(.body, textColor: dataModel.colors.underlinedButtons)
+                if canShowReset {
+                    Button(action: { showingResetPassword = true }) {
+                        Text("Forgot Password?")
+                            .underline()
+                            .setLoginFont(.body, textColor: dataModel.colors.underlinedButtons)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.horizontal)
                 }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.horizontal)
+                
             } else {
                 LoginTextField(text: $dataModel.confirm, imageName: "lock.fill", prompt: "confirm password", canBeSecure: true ,imageTint: dataModel.colors.textFieldTint)
                     .focused($selectedField, equals: .confirm)
@@ -177,7 +183,7 @@ fileprivate struct LoginTextField: View {
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(dataModel: makeDataModel(), resetView: Text("ResetPassword View"))
+        LoginView(dataModel: makeDataModel(), resetView: Text("ResetPassword View"), canShowResetView: true)
     }
 }
 
