@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoginColorOptions {
+public struct LoginColorOptions {
     let title: Color
     let detailsText: Color
     let buttonText: Color
@@ -17,7 +17,7 @@ struct LoginColorOptions {
     let textFieldTint: Color
     let errorText: Color
     
-    init(title: Color = .primary, detailsText: Color = .primary, buttonText: Color = Color(uiColor: .systemBackground), buttonBackground: Color = .primary, underlinedButtons: Color = .primary, viewBackground: Color = Color(uiColor: .systemBackground), textFieldTint: Color = .primary, errorText: Color = .red) {
+    public init(title: Color = .primary, detailsText: Color = .primary, buttonText: Color = Color(uiColor: .systemBackground), buttonBackground: Color = .primary, underlinedButtons: Color = .primary, viewBackground: Color = Color(uiColor: .systemBackground), textFieldTint: Color = .primary, errorText: Color = .red) {
         
         self.title = title
         self.detailsText = detailsText

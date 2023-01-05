@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias EmailLoginInfo = (email: String, password: String)
+
 final class LoginDataModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""

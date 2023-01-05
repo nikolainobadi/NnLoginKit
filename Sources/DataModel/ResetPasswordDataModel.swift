@@ -14,7 +14,7 @@ final class ResetPasswordDataModel: ObservableObject {
     private let colorOptions: LoginColorOptions
     private let sendResetPassswordEmail: () async throws -> Void
     
-    init(colorOptions: LoginColorOptions, sendResetPassswordEmail: @escaping () -> Void) {
+    init(colorOptions: LoginColorOptions, sendResetPassswordEmail: @escaping () async throws -> Void) {
         self.colorOptions = colorOptions
         self.sendResetPassswordEmail = sendResetPassswordEmail
     }
