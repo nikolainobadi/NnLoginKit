@@ -12,10 +12,12 @@ enum LoginSelectedField {
     case email, password, confirm
 }
 
-struct LoginView: View {
+struct LoginView<ResetView: View>: View {
     @StateObject var dataModel: LoginDataModel
     @State private var showingResetPassword = false
     @FocusState private var selectedField: LoginSelectedField?
+    
+    let resetView: ResetView
     
     private var isLogin: Bool { dataModel.isLogin }
     private var fieldError: NnLoginFieldError? { dataModel.loginFieldError }
@@ -60,7 +62,9 @@ struct LoginView: View {
                         .setLoginFont(.caption, textColor: colors.underlinedButtons)
                 }
             }
-        }.background(colors.viewBackground)
+        }
+        .background(colors.viewBackground)
+        .sheet(isPresented: $showingResetPassword, content: { resetView })
     }
 }
 
@@ -173,7 +177,7 @@ fileprivate struct LoginTextField: View {
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(dataModel: makeDataModel())
+        LoginView(dataModel: makeDataModel(), resetView: Text("ResetPassword View"))
     }
 }
 
