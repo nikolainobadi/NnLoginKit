@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         if dataModel.isLoggedIn {
-            InAppView()
+            InAppView(userId: $dataModel.userId)
         } else {
             LoginComposer.makeLoginView()
         }
