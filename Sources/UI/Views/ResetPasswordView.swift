@@ -16,10 +16,18 @@ struct ResetPasswordView: View {
     
     var body: some View {
         VStack(spacing: getHeightPercent(10)) {
-            Text("Reset Password")
-                .setLoginFont(.title, textColor: colors.title, autoSize: true)
-                .padding()
-                .padding(.vertical)
+            VStack(spacing: 0) {
+                HStack {
+                    Button(action: { dismiss() }) {
+                        Text("Cancel")
+                            .setLoginFont(.body)
+                    }.padding()
+                    Spacer()
+                }
+                
+                Text("Reset Password")
+                    .setLoginFont(.title, textColor: colors.title, autoSize: true)
+            }.padding()
             
             VStack(spacing: getHeightPercent(5)) {
                 Text(dataModel.message)
@@ -49,12 +57,6 @@ struct ResetPasswordView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(colors.viewBackground)
         .withErrorHandling(error: $dataModel.error)
-        .overlay(alignment: .topLeading) {
-            Button(action: { dismiss() }) {
-                Text("Cancel")
-                    .setLoginFont(.body)
-            }.padding(.horizontal)
-        }
     }
 }
 
