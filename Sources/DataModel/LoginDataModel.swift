@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 final class LoginDataModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
@@ -36,7 +35,7 @@ extension LoginDataModel {
     var title: String { isLogin ? "Login" : "Sign Up" }
     var accountButtonText: String { "\(isLogin ? "Don't" : "Already") have an account?" }
     var canShowAccountButton: Bool { emailLogin != nil }
-    var canShowGuestLoginButton: Bool { guestLogin != nil }
+    var canShowGuestLoginButton: Bool { guestLogin != nil && !isLogin }
     var colors: LoginColorOptions { colorOptions }
     
     func login(shouldSkip: Bool = false) {
