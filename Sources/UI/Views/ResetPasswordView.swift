@@ -12,43 +12,48 @@ struct ResetPasswordView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var dataModel: ResetPasswordDataModel
     
+    private var colors: LoginColorOptions { dataModel.colors }
+    
     var body: some View {
-        VStack {
+        VStack(spacing: getHeightPercent(10)) {
             Text("Reset Password")
-                .setLoginFont(.title, autoSize: true)
+                .setLoginFont(.title, textColor: colors.title, autoSize: true)
                 .padding()
-            Text(dataModel.message)
-                .setLoginFont(.body, isSmooth: true)
-                .padding()
+                .padding(.vertical)
             
             VStack(spacing: getHeightPercent(5)) {
-                TextField("", text: $dataModel.email, prompt: Text("email..."))
-                    .keyboardType(.emailAddress)
-                    .autocorrectionDisabled(true)
-                    .textInputAutocapitalization(.never)
-                    .withRoundedBorder()
-                    
-                Button(action: dataModel.resetPassword) {
-                    Text("Reset Password")
-                        .setLoginFont(.subheadline)
-                }
-                .disabled(dataModel.disableButton)
-                .opacity(dataModel.disableButton ? 0.5 : 1)
-                .withRoundedBorder()
-            }.padding(.horizontal)
+                Text(dataModel.message)
+                    .multilineTextAlignment(.center)
+                    .setLoginFont(.body, isSmooth: true, textColor: colors.detailsText)
+                    .padding()
+                
+                VStack(spacing: getHeightPercent(5)) {
+                    TextField("", text: $dataModel.email, prompt: Text("email..."))
+                        .keyboardType(.emailAddress)
+                        .autocorrectionDisabled(true)
+                        .textInputAutocapitalization(.never)
+                        .withRoundedBorder()
+                        
+                    Button(action: dataModel.resetPassword) {
+                        Text("Reset Password")
+                            .setLoginFont(.subheadline, textColor: colors.buttonText)
+                            .frame(maxWidth: getWidthPercent(70))
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(colors.buttonBackground)
+                    .disabled(dataModel.disableButton)
+                    .opacity(dataModel.disableButton ? 0.5 : 1)
+                }.padding(.horizontal)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-//            .background(Color.viewBackroundColor.ignoresSafeArea())
-        .navigationTitle("Reset Password")
-        .navigationBarTitleDisplayMode(.inline)
+        .background(colors.viewBackground)
         .withErrorHandling(error: $dataModel.error)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
-                    Text("Cancel")
-                        .setLoginFont(.body)
-                }
-            }
+        .overlay(alignment: .topLeading) {
+            Button(action: { dismiss() }) {
+                Text("Cancel")
+                    .setLoginFont(.body)
+            }.padding(.horizontal)
         }
     }
 }
@@ -64,5 +69,7 @@ struct ResetPasswordView_Previews: PreviewProvider {
 
 // MARK: - Preview Helpers
 extension ResetPasswordView_Previews {
-    static var dataModel: ResetPasswordDataModel { ResetPasswordDataModel() }
+    static var dataModel: ResetPasswordDataModel {
+        ResetPasswordDataModel(colorOptions: LoginColorOptions(), sendResetPassswordEmail: { })
+    }
 }
