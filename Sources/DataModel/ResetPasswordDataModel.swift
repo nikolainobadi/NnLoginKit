@@ -12,9 +12,9 @@ final class ResetPasswordDataModel: ObservableObject {
     @Published var error: Error?
     
     private let colorOptions: LoginColorOptions
-    private let sendResetPassswordEmail: () async throws -> Void
+    private let sendResetPassswordEmail: (String) async throws -> Void
     
-    init(colorOptions: LoginColorOptions, sendResetPassswordEmail: @escaping () async throws -> Void) {
+    init(colorOptions: LoginColorOptions, sendResetPassswordEmail: @escaping (String) async throws -> Void) {
         self.colorOptions = colorOptions
         self.sendResetPassswordEmail = sendResetPassswordEmail
     }
@@ -30,7 +30,7 @@ extension ResetPasswordDataModel {
     func resetPassword() {
         Task {
             do {
-                try await sendResetPassswordEmail()
+                try await sendResetPassswordEmail(email)
             } catch {
                 await showError(error)
             }

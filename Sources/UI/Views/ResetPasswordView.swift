@@ -72,6 +72,6 @@ struct ResetPasswordView_Previews: PreviewProvider {
 // MARK: - Preview Helpers
 extension ResetPasswordView_Previews {
     static var dataModel: ResetPasswordDataModel {
-        ResetPasswordDataModel(colorOptions: LoginColorOptions(), sendResetPassswordEmail: { })
+        ResetPasswordDataModel(colorOptions: LoginColorOptions(), sendResetPassswordEmail: { _ in })
     }
 }
