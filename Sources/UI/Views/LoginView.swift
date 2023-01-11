@@ -23,6 +23,7 @@ struct LoginView<ResetView: View>: View {
     private var isLogin: Bool { dataModel.isLogin }
     private var fieldError: NnLoginFieldError? { dataModel.loginFieldError }
     private var showGuestLogin: Bool { dataModel.canShowGuestLoginButton }
+    private var showAccountButton: Bool { dataModel.canShowAccountButton }
     private var colors: LoginColorOptions { dataModel.colors }
     
     private func login() { dataModel.login() }
@@ -48,10 +49,12 @@ struct LoginView<ResetView: View>: View {
             .tint(colors.buttonBackground)
             .padding()
             
-            Button(action: toggleLoginType) {
-                Text(dataModel.accountButtonText)
-                    .underline()
-                    .setLoginFont(.body, textColor: colors.underlinedButtons)
+            if showAccountButton {
+                Button(action: toggleLoginType) {
+                    Text(dataModel.accountButtonText)
+                        .underline()
+                        .setLoginFont(.body, textColor: colors.underlinedButtons)
+                }
             }
             
             Spacer()
