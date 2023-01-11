@@ -24,8 +24,8 @@ private extension LoginComposer {
         NnLoginKit.makeLoginView(colorOptions: makeColorOptions(),
                                  guestLogin: withGuestLogin ? networker.guestLogin : nil,
                                  emailLogin: withEmailLogin ? networker.emailLogin(_:) : nil,
-                                 emailSignUp: networker.emailSignUp(_:),
-                                 resetPassword: withResetPassword ? networker.resetPassword : nil)
+                                 emailSignUp: networker.emailLogin(_:),
+                                 resetPassword: withResetPassword ? networker.resetPassword(_:) : nil)
     }
     
     static func makeColorOptions() -> LoginColorOptions {

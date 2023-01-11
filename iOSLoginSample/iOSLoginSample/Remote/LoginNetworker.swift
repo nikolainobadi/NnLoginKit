@@ -36,7 +36,7 @@ extension LoginNetworker {
         await setUserId("SignUp UID")
     }
     
-    func resetPassword() async throws {
+    func resetPassword(_ email: String) async throws {
         print("Password reset")
     }
 }
