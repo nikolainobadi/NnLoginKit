@@ -132,56 +132,7 @@ fileprivate struct LoginFields: View {
 
 
 // MARK: - TextField
-fileprivate struct LoginTextField: View {
-    @Binding var text: String
-    @State private var isSecured: Bool
-    
-    let imageName: String
-    let prompt: String
-    let canBeSecure: Bool
-    let keyboard: UIKeyboardType
-    let imageTint: Color
-    
-    private var eyeImage: String { isSecured ? "eye.slash" : "eye" }
-    
-    init(text: Binding<String>, imageName: String, prompt: String, canBeSecure: Bool = false, keyboard: UIKeyboardType = .asciiCapable, imageTint: Color = .blue) {
-        self._text = text
-        self.imageName = imageName
-        self.prompt = prompt
-        self.canBeSecure = canBeSecure
-        self.isSecured = canBeSecure
-        self.keyboard = keyboard
-        self.imageTint = imageTint
-    }
-    
-    var body: some View {
-        HStack {
-            Image(systemName: imageName)
-            
-            if isSecured {
-                SecureField("", text: $text, prompt: Text(prompt))
-                    .font(.title2)
-                    .keyboardType(keyboard)
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled(true)
-            } else {
-                TextField("", text: $text, prompt: Text(prompt))
-                    .font(.title2)
-                    .keyboardType(keyboard)
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled(true)
-            }
-            
-            if canBeSecure {
-                Button(action: { isSecured.toggle() }) {
-                    Image(systemName: eyeImage)
-                        .tint(imageTint)
-                }
-            }
-        }.withRoundedBorder()
-    }
-}
-
+fileprivate
 
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
