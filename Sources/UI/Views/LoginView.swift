@@ -8,10 +8,6 @@
 import SwiftUI
 import NnSwiftUIDesignHelpers
 
-enum LoginSelectedField {
-    case email, password, confirm
-}
-
 struct LoginView<ResetView: View>: View {
     @StateObject var dataModel: LoginDataModel
     @State private var showingResetPassword = false
