@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NnSwiftUIDesignHelpers
 
 struct ResetPasswordView: View {
     @Environment(\.dismiss) private var dismiss
@@ -20,19 +19,19 @@ struct ResetPasswordView: View {
                 HStack {
                     Button(action: { dismiss() }) {
                         Text("Cancel")
-                            .setLoginFont(.body)
+//                            .setLoginFont(.body)
                     }.padding()
                     Spacer()
                 }
                 
                 Text("Reset Password")
-                    .setLoginFont(.title, textColor: colors.title, autoSize: true)
+//                    .setLoginFont(.title, textColor: colors.title, autoSize: true)
             }.padding()
             
             VStack(spacing: getHeightPercent(5)) {
                 Text(dataModel.message)
                     .multilineTextAlignment(.center)
-                    .setLoginFont(.body, isSmooth: true, textColor: colors.detailsText)
+//                    .setLoginFont(.body, isSmooth: true, textColor: colors.detailsText)
                     .padding()
                 
                 VStack(spacing: getHeightPercent(5)) {
@@ -40,11 +39,11 @@ struct ResetPasswordView: View {
                         .keyboardType(.emailAddress)
                         .autocorrectionDisabled(true)
                         .textInputAutocapitalization(.never)
-                        .withRoundedBorder()
+//                        .withRoundedBorder()
                         
                     Button(action: dataModel.resetPassword) {
                         Text("Reset Password")
-                            .setLoginFont(.subheadline, textColor: colors.buttonText)
+//                            .setLoginFont(.subheadline, textColor: colors.buttonText)
                             .frame(maxWidth: getWidthPercent(70))
                     }
                     .buttonStyle(.borderedProminent)
@@ -56,7 +55,6 @@ struct ResetPasswordView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(colors.viewBackground)
-        .withErrorHandling(error: $dataModel.error)
     }
 }
 

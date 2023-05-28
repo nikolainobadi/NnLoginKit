@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import NnSwiftUIDesignHelpers
 
 enum NnLoginFieldError: Error {
     case email
@@ -14,7 +13,7 @@ enum NnLoginFieldError: Error {
     case confirm
 }
 
-extension NnLoginFieldError: NnError {
+extension NnLoginFieldError {
     var title: String {
         switch self {
         case .email: return "Invalid email"

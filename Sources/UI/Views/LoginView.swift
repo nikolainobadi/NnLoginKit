@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NnSwiftUIDesignHelpers
 
 struct LoginView<ResetView: View>: View {
     @StateObject var dataModel: LoginDataModel
@@ -29,7 +28,7 @@ struct LoginView<ResetView: View>: View {
     var body: some View {
         VStack {
             Text(dataModel.title)
-                .setLoginFont(.largeTitle, textColor: colors.title, autoSize: true)
+//                .setLoginFont(.largeTitle, textColor: colors.title, autoSize: true)
             
             Spacer()
             
@@ -38,7 +37,7 @@ struct LoginView<ResetView: View>: View {
                 
             Button(action: login) {
                 Text(dataModel.title)
-                    .setLoginFont(.headline, textColor: colors.buttonText)
+//                    .setLoginFont(.headline, textColor: colors.buttonText)
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
@@ -49,7 +48,7 @@ struct LoginView<ResetView: View>: View {
                 Button(action: toggleLoginType) {
                     Text(dataModel.accountButtonText)
                         .underline()
-                        .setLoginFont(.body, textColor: colors.underlinedButtons)
+//                        .setLoginFont(.body, textColor: colors.underlinedButtons)
                 }
             }
             
@@ -59,7 +58,7 @@ struct LoginView<ResetView: View>: View {
                 Button(action: guestLogin) {
                     Text("Login as Guest")
                         .underline()
-                        .setLoginFont(.caption, textColor: colors.underlinedButtons)
+//                        .setLoginFont(.caption, textColor: colors.underlinedButtons)
                 }
             }
         }
@@ -88,7 +87,7 @@ fileprivate struct LoginFields: View {
             Text(fieldError?.message ?? "")
                 .lineLimit(1)
                 .foregroundColor(.red)
-                .setLoginFont(.body, isSmooth: true, autoSize: true)
+//                .setLoginFont(.body, isSmooth: true, autoSize: true)
                 .opacity(fieldError == nil ? 0 : 1)
                 .padding(.horizontal)
 
@@ -96,20 +95,20 @@ fileprivate struct LoginFields: View {
                 .focused($selectedField, equals: .email)
                 .submitLabel(.next)
                 .onSubmit { selectedField = .password }
-                .withConditionalRedOverlay(dataModel.loginFieldError == .email)
+                .withBorderOverlay(fieldError == .email)
 
             LoginTextField(text: $dataModel.password, imageName: "lock", prompt: "password", canBeSecure: true ,imageTint: dataModel.colors.textFieldTint)
                 .focused($selectedField, equals: .password)
                 .submitLabel(.next)
                 .onSubmit { isLogin ? selectedField = .confirm : login() }
-                .withConditionalRedOverlay(fieldError == .password)
+                .withBorderOverlay(fieldError == .password)
 
             if isLogin {
                 if canShowReset {
                     Button(action: { showingResetPassword = true }) {
                         Text("Forgot Password?")
                             .underline()
-                            .setLoginFont(.body, textColor: dataModel.colors.underlinedButtons)
+//                            .setLoginFont(.body, textColor: dataModel.colors.underlinedButtons)
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.horizontal)
@@ -120,15 +119,11 @@ fileprivate struct LoginFields: View {
                     .focused($selectedField, equals: .confirm)
                     .submitLabel(.done)
                     .onSubmit { login() }
-                    .withConditionalRedOverlay(fieldError == .confirm)
+                    .withBorderOverlay(fieldError == .confirm)
             }
         }
     }
 }
-
-
-// MARK: - TextField
-fileprivate
 
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {

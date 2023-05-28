@@ -16,7 +16,6 @@ import Foundation
 //
 
 import SwiftUI
-import NnSwiftUIDesignHelpers
 
 struct NnLoginFontViewModifier: ViewModifier {
     let font: Font
@@ -32,11 +31,11 @@ struct NnLoginFontViewModifier: ViewModifier {
 }
 
 extension View {
-    func setLoginFont(_ style: Font.TextStyle, isSmooth: Bool = false, textColor: Color = .primary, autoSize: Bool = false) -> some View {
-        modifier(NnLoginFontViewModifier(font: makeFont(style, isSmooth: isSmooth), textColor: textColor, autoSize: autoSize))
-    }
+//    func setLoginFont(_ style: Font.TextStyle, isSmooth: Bool = false, textColor: Color = .primary, autoSize: Bool = false) -> some View {
+//        modifier(NnLoginFontViewModifier(font: makeFont(style, isSmooth: isSmooth), textColor: textColor, autoSize: autoSize))
+//    }
 }
 
-private extension View {
-    func makeFont(_ style: Font.TextStyle, isSmooth: Bool) -> Font { Font.custom(isSmooth ? "Thonburi" : "MarkerFelt-Thin", size: makeFontSize(style)) }
-}
+//private extension View {
+//    func makeFont(_ style: Font.TextStyle, isSmooth: Bool) -> Font { Font.custom(isSmooth ? "Thonburi" : "MarkerFelt-Thin", size: makeFontSize(style)) }
+//}
