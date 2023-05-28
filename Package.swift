@@ -9,11 +9,15 @@ let package = Package(
     products: [
         .library(name: "NnLoginKit", targets: ["NnLoginKit"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/google/GoogleSignIn-iOS.git", from: "7.0.0")
+    ],
     targets: [
         .target(
             name: "NnLoginKit",
-            dependencies: [],
+            dependencies: [
+                .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS")
+            ],
             path: "Sources"
         ),
         .testTarget(
