@@ -13,28 +13,36 @@ final class EmailLoginDataModel: ObservableObject {
     @Published var confirm = ""
     @Published private(set) var loginFieldError: NnLoginFieldError?
     
-    let showResetPassword: (() -> Void)?
-    private let emailLogin: (String, String) async throws -> Void
+    let canShowResetPassword: Bool
+    private let emailLogin: (String, String) -> Void
     
-    init(showResetPassword: (() -> Void)?, emailLogin: @escaping (String, String) async throws -> Void) {
-        self.showResetPassword = showResetPassword
+    /// Initializes an EmailLoginDataModel.
+    ///
+    /// - Parameters:
+    ///   - canShowResetPassword: A boolean value indicating whether to show the "Forgot Password?" button (if `true`)
+    ///                           or the "Confirm Password" text field (if `false`).
+    ///   - emailLogin: A closure that will be called for email login with the entered email and password.
+    init(canShowResetPassword: Bool, emailLogin: @escaping (String, String) -> Void) {
+        self.canShowResetPassword = canShowResetPassword
         self.emailLogin = emailLogin
     }
 }
+
 
 
 // MARK: - ViewModel
 extension EmailLoginDataModel {
     var loginErrorMessage: String? { loginFieldError?.message }
     
-    func tryLogin() async throws {
+    func tryLogin() {
         do {
-            try LoginInfoValidator.validateInfo(email: email, password: password, confirm: showResetPassword == nil ? confirm : nil)
-            try await emailLogin(email, password)
+            try LoginInfoValidator.validateInfo(email: email, password: password, confirm: canShowResetPassword ? nil : confirm)
+            
+            emailLogin(email, password)
         } catch let loginFieldError as NnLoginFieldError {
             self.loginFieldError = loginFieldError
         } catch {
-            throw error
+            print("unexpected error: \(error.localizedDescription)")
         }
     }
 }
