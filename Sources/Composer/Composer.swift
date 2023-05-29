@@ -20,3 +20,9 @@ public func makeAppleSignInButton(appleSignIn: @escaping (AppleTokenInfo) throws
 public func makeGoogleSignInButton(googleSignIn: @escaping (GoogleTokenInfo?) async throws -> Void) -> some View {
     return CustomGoogleButton(googleSignIn: googleSignIn)
 }
+
+public func makeLoginView(titleImage: Image? = nil, canShowResetPassword: Bool = false, loginColors: LoginViewColors = LoginViewColors(), auth: NnLoginAuth) -> some View {
+    let dataModel = NnLoginDataModel(auth: auth)
+    
+    return NnLoginView(dataModel: dataModel, titleImage: titleImage, canShowResetPassword: canShowResetPassword, loginColors: loginColors)
+}

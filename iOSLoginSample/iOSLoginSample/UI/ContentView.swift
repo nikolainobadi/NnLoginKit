@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var userId = ""
+    @StateObject var store = UserIdStorage()
     
     var body: some View {
-        if userId.isEmpty {
-            LoginComposer.makeLoginView()
-        } else {
-            InAppView(userId: $userId)
+        VStack {
+            if store.userId.isEmpty {
+                LoginComposer.makeLoginView(store: store)
+                    
+            } else {
+                InAppView(userId: $store.userId)
+            }
         }
+        .background(MyColor.subtle.gradient)
     }
 }
 
@@ -23,5 +27,15 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+
+// MARK: - Dependencies
+final class UserIdStorage: ObservableObject, UserIdStore {
+    @Published var userId = ""
+    
+    func setUserId(_ uid: String) {
+        self.userId = uid
     }
 }

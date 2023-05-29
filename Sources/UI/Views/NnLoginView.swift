@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NnLoginView: View {
     @StateObject var dataModel: NnLoginDataModel
-    @State private var showingLoginOptions = false
+    @State private var showingLoginOptions = true
     @State private var isEditingTextFields = false
     
     let titleImage: Image?
@@ -30,7 +30,8 @@ struct NnLoginView: View {
                     )
                     
                     EmailLoginView(isEditingTextFields: $isEditingTextFields,
-                                   dataModel: emailDataModel)
+                                   dataModel: emailDataModel,
+                                   colorOptions: loginColors.emailLoginColors)
                     
                     OtherLoginOptionsView(appleSignIn: dataModel.appleSignIn(tokenInfo:), googleSignIn: dataModel.googleSignIn)
                         .onlyShow(when: !isEditingTextFields)
@@ -107,12 +108,22 @@ struct NnLoginView_Previews: PreviewProvider {
 
 // MARK: - Dependencies
 public struct LoginViewColors {
-    var appTitleColor: Color = .primary
-    var tagLineColor: Color = .primary
-    var subTagLineColor: Color = .secondary
+    var appTitleColor: Color
+    var tagLineColor: Color
+    var subTagLineColor: Color
     var getStartedTextColor: Color = Color(uiColor: .systemBackground)
-    var getStartedButtonColor: Color = .primary
-    var accountButtonColor: Color = .primary
+    var getStartedButtonColor: Color
+    var accountButtonColor: Color
     
-    var emailLoginColors: EmailLoginColors = EmailLoginColors()
+    var emailLoginColors: EmailLoginColors
+    
+    public init(appTitleColor: Color = .primary, tagLineColor: Color = .primary, subTagLineColor: Color = .secondary, getStartedTextColor: Color = Color(uiColor: .systemBackground), getStartedButtonColor: Color = .primary, accountButtonColor: Color = .primary, emailLoginColors: EmailLoginColors = EmailLoginColors()) {
+        self.appTitleColor = appTitleColor
+        self.tagLineColor = tagLineColor
+        self.subTagLineColor = subTagLineColor
+        self.getStartedTextColor = getStartedTextColor
+        self.getStartedButtonColor = getStartedButtonColor
+        self.accountButtonColor = accountButtonColor
+        self.emailLoginColors = emailLoginColors
+    }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NnLoginKit
 
 final class LoginNetworker {
     private let store: UserIdStore
@@ -16,22 +17,28 @@ final class LoginNetworker {
 }
 
 
-// MARK: - Login Auth Actions
-extension LoginNetworker {
+// MARK: - Auth
+extension LoginNetworker: NnLoginAuth {
     @MainActor private func setUserId(_ uid: String) { store.setUserId(uid) }
     
     func guestLogin() async throws {
         await setUserId("Guest UID")
     }
     
-    // importing NnLoginKit is NOT necessary with this type of parameter
-    func emailLogin(_ info: ((email: String, password: String))) async throws {
-        print("Logging in with email: \(info.email), password: \(info.password)")
-        await setUserId("Login UID")
+    func guestSignIn() async throws {
+        
     }
-
-    func resetPassword(_ email: String) async throws {
-        print("Password reset")
+    
+    func emailLogin(email: String, password: String) async throws {
+        
+    }
+    
+    func appleSignIn(tokenInfo: NnLoginKit.AppleTokenInfo) async throws {
+        
+    }
+    
+    func googleSignIn(tokenInfo: NnLoginKit.GoogleTokenInfo) async throws {
+        
     }
 }
 

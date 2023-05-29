@@ -66,7 +66,6 @@
 			children = (
 				D417D37B2966784000E4D176 /* Main */,
 				D417D3752966778E00E4D176 /* UI */,
-				D417D38529667AE200E4D176 /* DataModel */,
 				D417D37E2966786C00E4D176 /* Remote */,
 				D417D3782966782100E4D176 /* Storage */,
 				D40981912964A5B00023296A /* Assets.xcassets */,
@@ -122,13 +121,6 @@
 				D417D37F2966787500E4D176 /* LoginNetworker.swift */,
 			);
 			path = Remote;
-			sourceTree = "<group>";
-		};
-		D417D38529667AE200E4D176 /* DataModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

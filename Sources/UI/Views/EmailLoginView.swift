@@ -100,8 +100,15 @@ struct SwiftUIView_Previews: PreviewProvider {
 }
 
 public struct EmailLoginColors {
-    var eyeImageColor: Color = .primary
-    var forgotPasswordButtonColor: Color = .primary
-    var loginButtonTextColor: Color = Color(uiColor: .systemBackground)
-    var loginButtonBackgroundColor: Color = .primary
+    var eyeImageColor: Color
+    var forgotPasswordButtonColor: Color
+    var loginButtonTextColor: Color
+    var loginButtonBackgroundColor: Color
+    
+    public init(eyeImageColor: Color = .primary, forgotPasswordButtonColor: Color = .primary, loginButtonTextColor: Color = Color(uiColor: .systemBackground), loginButtonBackgroundColor: Color = .primary) {
+        self.eyeImageColor = eyeImageColor
+        self.forgotPasswordButtonColor = forgotPasswordButtonColor
+        self.loginButtonTextColor = loginButtonTextColor
+        self.loginButtonBackgroundColor = loginButtonBackgroundColor
+    }
 }

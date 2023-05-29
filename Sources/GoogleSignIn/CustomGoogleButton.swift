@@ -28,9 +28,9 @@ struct CustomGoogleButton: View {
                     .setCustomFont(.caption, isSmooth: true, textColor: colorScheme == .dark ? .white : .black)
                 Spacer()
             }
-//            .frame(maxWidth: .infinity)
         }
         .padding(2)
-        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.tertiary))
+        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color(red: 244/255, green: 245/255, blue: 246/255)
+))
     }
 }
