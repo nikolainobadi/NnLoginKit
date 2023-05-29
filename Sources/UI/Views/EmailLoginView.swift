@@ -13,6 +13,8 @@ struct EmailLoginView: View {
     @State private var showingResetPassword = false
     @FocusState var selectedField: LoginSelectedField?
     
+    let colorOptions: EmailLoginColors
+    
     private func tryLogin() async throws {
         selectedField = nil
         try await dataModel.tryLogin()
@@ -32,7 +34,7 @@ struct EmailLoginView: View {
                 .onSubmit { selectedField = .password }
                 .withBorderOverlay(dataModel.loginFieldError == .email)
             
-            LoginTextField(text: $dataModel.password, imageName: "lock.fill", prompt: "password", canBeSecure: true)
+            LoginTextField(text: $dataModel.password, imageName: "lock.fill", prompt: "password", canBeSecure: true, imageTint: colorOptions.eyeImageColor)
                 .focused($selectedField, equals: .password)
                 .submitLabel(.next)
                 .onSubmit { selectedField = dataModel.canShowResetPassword ? nil : .confirm }
@@ -42,12 +44,12 @@ struct EmailLoginView: View {
                 Button(action: { showingResetPassword = true }) {
                     Text("Forgot Password?")
                         .underline()
-                        .foregroundColor(.primary)
+                        .setCustomFont(.caption, textColor: colorOptions.forgotPasswordButtonColor)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal)
             } else {
-                LoginTextField(text: $dataModel.confirm, imageName: "lock", prompt: "confirm password", canBeSecure: true)
+                LoginTextField(text: $dataModel.confirm, imageName: "lock", prompt: "confirm password", canBeSecure: true, imageTint: colorOptions.eyeImageColor)
                     .focused($selectedField, equals: .confirm)
                     .submitLabel(.done)
                     .onSubmit { selectedField = nil }
@@ -57,9 +59,11 @@ struct EmailLoginView: View {
             AsyncTryButton(action: tryLogin) {
                 Text("Login")
                     .frame(maxWidth: .infinity)
+                    .setCustomFont(.subheadline, textColor: colorOptions.loginButtonTextColor)
             }
             .padding(.vertical)
             .buttonStyle(.borderedProminent)
+            .tint(colorOptions.loginButtonBackgroundColor)
         }
         .onChange(of: selectedField) { newValue in
             isEditingTextFields = newValue != nil
@@ -76,9 +80,10 @@ extension EmailLoginView {
     ///   - isEditingTextFields: A binding that indicates whether the text fields are being edited.
     ///                          Defaults to `false` if not provided.
     ///   - dataModel: The data model for the login view.
-    init(isEditingTextFields: Binding<Bool>? = nil, dataModel: EmailLoginDataModel) {
+    init(isEditingTextFields: Binding<Bool>? = nil, dataModel: EmailLoginDataModel, colorOptions: EmailLoginColors = EmailLoginColors()) {
         _isEditingTextFields = isEditingTextFields ?? .constant(false)
         self.dataModel = dataModel
+        self.colorOptions = colorOptions
     }
 }
 
@@ -92,4 +97,11 @@ struct SwiftUIView_Previews: PreviewProvider {
     static var dataModel: EmailLoginDataModel {
         EmailLoginDataModel(canShowResetPassword: true, emailLogin: { _, _ in })
     }
+}
+
+public struct EmailLoginColors {
+    var eyeImageColor: Color = .primary
+    var forgotPasswordButtonColor: Color = .primary
+    var loginButtonTextColor: Color = Color(uiColor: .systemBackground)
+    var loginButtonBackgroundColor: Color = .primary
 }

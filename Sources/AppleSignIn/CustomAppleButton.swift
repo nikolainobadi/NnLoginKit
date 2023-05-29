@@ -34,7 +34,8 @@ struct CustomAppleButton: View {
                 .frame(width: getWidthPercent(size), height: getWidthPercent(size))
                 .colorMultiply(Color(uiColor: .systemBackground))
                 
-            Text("Sign in with Apple   ") // extra space to line up with Google button
+            Text("Sign in with Apple ") // extra space to line up with Google button
+                .setCustomFont(.caption, isSmooth: true, textColor: Color(uiColor: .systemBackground))
             Spacer()
         }
         .foregroundColor(Color(uiColor: .systemBackground))

@@ -25,7 +25,7 @@ struct CustomGoogleButton: View {
                     .frame(width: getWidthPercent(size), height: getWidthPercent(size))
                     
                 Text("Sign in with Google")
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                    .setCustomFont(.caption, isSmooth: true, textColor: colorScheme == .dark ? .white : .black)
                 Spacer()
             }
 //            .frame(maxWidth: .infinity)
