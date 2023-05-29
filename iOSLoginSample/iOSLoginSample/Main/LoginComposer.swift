@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NnLoginKit
 
 enum LoginComposer {
     static func makeLoginView() -> some View {

@@ -15,7 +15,13 @@ struct CustomAppleButton: View {
     @EnvironmentObject var loadingHandler: LoadingHandler
     @EnvironmentObject var errorHandler: LoginErrorHandler
     
-    let appleSignIn: (AppleTokenInfo) throws -> Void
+    let appleSignIn: (AppleTokenInfo) async throws -> Void
+    
+    private func signInAction(_ info: AppleTokenInfo) throws {
+        Task {
+            try await appleSignIn(info)
+        }
+    }
     
     var body: some View {
         HStack {
@@ -45,7 +51,7 @@ struct CustomAppleButton: View {
                     case .success(let authorization):
                         if let info = AppleSignInCredentialInfoFactory.convertCredential(auth: authorization, currentNonce: currentNonce) {
                             do {
-                                try appleSignIn(info)
+                                try signInAction(info)
                             } catch {
                                 handleError(error)
                             }
