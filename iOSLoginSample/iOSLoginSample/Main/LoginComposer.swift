@@ -13,4 +13,3 @@ enum LoginComposer {
         EmptyView()
     }
 }
-
