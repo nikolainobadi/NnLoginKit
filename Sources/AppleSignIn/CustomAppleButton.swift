@@ -53,14 +53,12 @@ struct CustomAppleButton: View {
                     case .failure(let error):
                         handleError(error)
                     }
-                    
                     loadingHandler.stopLoading()
                 }
                 .blendMode(.overlay)
             }
             .clipped()
         }
-        
     }
 }
 
