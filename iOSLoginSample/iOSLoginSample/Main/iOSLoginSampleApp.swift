@@ -11,7 +11,7 @@ import SwiftUI
 struct iOSLoginSampleApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentComposer.makeContentView()
+            ContentView(dataModel: ContentDataModel(userIdPublisher: SharedUserIdStorage.shared.$userId))
         }
     }
 }

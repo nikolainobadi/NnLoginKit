@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import NnLoginKit // can remove by replacing parameters in emailSignUp with same as emailLogin
 
 final class LoginNetworker {
     private let store: UserIdStore
@@ -30,12 +29,7 @@ extension LoginNetworker {
         print("Logging in with email: \(info.email), password: \(info.password)")
         await setUserId("Login UID")
     }
-    
-    func emailSignUp(_ info: (EmailLoginInfo)) async throws {
-        print("Signing Up with email: \(info.email), password: \(info.password)")
-        await setUserId("SignUp UID")
-    }
-    
+
     func resetPassword(_ email: String) async throws {
         print("Password reset")
     }
