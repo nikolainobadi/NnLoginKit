@@ -6,16 +6,15 @@
 //
 
 import SwiftUI
-import NnLoginKit
 
 struct ContentView: View {
-    @StateObject var dataModel: ContentDataModel
+    @State var userId = ""
     
     var body: some View {
-        if dataModel.isLoggedIn {
-            InAppView(userId: $dataModel.userId)
-        } else {
+        if userId.isEmpty {
             LoginComposer.makeLoginView()
+        } else {
+            InAppView(userId: $userId)
         }
     }
 }
@@ -23,6 +22,6 @@ struct ContentView: View {
 // MARK: - Preview
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(dataModel: ContentDataModel(userIdPublisher: SharedUserIdStorage.shared.$userId))
+        ContentView()
     }
 }
