@@ -14,7 +14,7 @@ final class EmailLoginDataModel: ObservableObject {
     @Published private(set) var loginFieldError: NnLoginFieldError?
     
     let canShowResetPassword: Bool
-    private let emailLogin: (String, String) -> Void
+    private let emailLogin: (String, String) async throws -> Void
     
     /// Initializes an EmailLoginDataModel.
     ///
@@ -22,7 +22,7 @@ final class EmailLoginDataModel: ObservableObject {
     ///   - canShowResetPassword: A boolean value indicating whether to show the "Forgot Password?" button (if `true`)
     ///                           or the "Confirm Password" text field (if `false`).
     ///   - emailLogin: A closure that will be called for email login with the entered email and password.
-    init(canShowResetPassword: Bool, emailLogin: @escaping (String, String) -> Void) {
+    init(canShowResetPassword: Bool, emailLogin: @escaping (String, String) async throws -> Void) {
         self.canShowResetPassword = canShowResetPassword
         self.emailLogin = emailLogin
     }
@@ -34,15 +34,15 @@ final class EmailLoginDataModel: ObservableObject {
 extension EmailLoginDataModel {
     var loginErrorMessage: String? { loginFieldError?.message }
     
-    func tryLogin() {
+    func tryLogin() async throws {
         do {
             try LoginInfoValidator.validateInfo(email: email, password: password, confirm: canShowResetPassword ? nil : confirm)
             
-            emailLogin(email, password)
+            try await emailLogin(email, password)
         } catch let loginFieldError as NnLoginFieldError {
             self.loginFieldError = loginFieldError
         } catch {
-            print("unexpected error: \(error.localizedDescription)")
+            throw error
         }
     }
 }

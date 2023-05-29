@@ -13,6 +13,11 @@ struct EmailLoginView: View {
     @State private var showingResetPassword = false
     @FocusState var selectedField: LoginSelectedField?
     
+    private func tryLogin() async throws {
+        selectedField = nil
+        try await dataModel.tryLogin()
+    }
+    
     var body: some View {
         VStack {
             if let errorMessage = dataModel.loginErrorMessage {
@@ -49,10 +54,7 @@ struct EmailLoginView: View {
                     .withBorderOverlay(dataModel.loginFieldError == .confirm)
             }
             
-            Button {
-                selectedField = nil
-                dataModel.tryLogin()
-            } label: {
+            AsyncTryButton(action: tryLogin) {
                 Text("Login")
                     .frame(maxWidth: .infinity)
             }
