@@ -13,14 +13,24 @@ struct CustomGoogleButton: View {
     
     let googleSignIn: (GoogleTokenInfo?) async throws -> Void
     
+    private var size: CGFloat { 10 }
+    
     var body: some View {
         AsyncTryButton(action: { try await googleSignIn(GoogleSignInHandler.createGoogleIdToken()) }) {
-            HStack {
-                Image("Google")
+            HStack(spacing: 10) {
+                Spacer()
+                Image("Google", bundle: .module)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: getWidthPercent(size), height: getWidthPercent(size))
+                    
                 Text("Sign in with Google")
                     .foregroundColor(colorScheme == .dark ? .white : .black)
+                Spacer()
             }
-            .frame(maxWidth: .infinity)
+//            .frame(maxWidth: .infinity)
         }
+        .padding(2)
+        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.tertiary))
     }
 }

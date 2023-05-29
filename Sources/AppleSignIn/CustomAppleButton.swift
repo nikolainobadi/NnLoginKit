@@ -17,6 +17,7 @@ struct CustomAppleButton: View {
     
     let appleSignIn: (AppleTokenInfo) async throws -> Void
     
+    private var size: CGFloat { 10 }
     private func signInAction(_ info: AppleTokenInfo) throws {
         Task {
             try await appleSignIn(info)
@@ -24,47 +25,46 @@ struct CustomAppleButton: View {
     }
     
     var body: some View {
-        HStack {
-            HStack {
-                Image(systemName: "apple.logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 26, height: 26)
-                    .frame(height: 45)
+        HStack(spacing: 10) {
+            Spacer()
+            Image("appleIcon", bundle: .module)
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: getWidthPercent(size), height: getWidthPercent(size))
+                .colorMultiply(Color(uiColor: .systemBackground))
                 
-                Text("Sign in with Apple")
-                    .padding(.horizontal, getWidthPercent(2))
-            }
-            .frame(maxWidth: .infinity)
-            .foregroundColor(Color(uiColor: .systemBackground))
-            .padding(.horizontal)
-            .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.primary))
-            .overlay {
-                SignInWithAppleButton { request in
-                    loadingHandler.startLoading()
-                    request.requestedScopes = [.email]
-                    let nonce = NonceFactory.randomNonceString()
-                    currentNonce = nonce
-                    request.nonce = NonceFactory.sha256(nonce)
-                } onCompletion: { result in
-                    switch result {
-                    case .success(let authorization):
-                        if let info = AppleSignInCredentialInfoFactory.convertCredential(auth: authorization, currentNonce: currentNonce) {
-                            do {
-                                try signInAction(info)
-                            } catch {
-                                handleError(error)
-                            }
-                        }
-                    case .failure(let error):
-                        handleError(error)
-                    }
-                    loadingHandler.stopLoading()
-                }
-                .blendMode(.overlay)
-            }
-            .clipped()
+            Text("Sign in with Apple   ") // extra space to line up with Google button
+            Spacer()
         }
+        .foregroundColor(Color(uiColor: .systemBackground))
+        .padding(2)
+        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.primary))
+        .overlay {
+            SignInWithAppleButton { request in
+                loadingHandler.startLoading()
+                request.requestedScopes = [.email]
+                let nonce = NonceFactory.randomNonceString()
+                currentNonce = nonce
+                request.nonce = NonceFactory.sha256(nonce)
+            } onCompletion: { result in
+                switch result {
+                case .success(let authorization):
+                    if let info = AppleSignInCredentialInfoFactory.convertCredential(auth: authorization, currentNonce: currentNonce) {
+                        do {
+                            try signInAction(info)
+                        } catch {
+                            handleError(error)
+                        }
+                    }
+                case .failure(let error):
+                    handleError(error)
+                }
+                loadingHandler.stopLoading()
+            }
+            .blendMode(.overlay)
+        }
+        .clipped()
     }
 }
 

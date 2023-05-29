@@ -23,7 +23,6 @@ struct OtherLoginOptionsView: View {
             
             if let googleSignIn = googleSignIn {
                 CustomGoogleButton(googleSignIn: googleSignIn)
-                    .buttonStyle(.bordered)
                     .padding(.vertical, getHeightPercent(1))
             }
         }
