@@ -18,7 +18,10 @@ let package = Package(
             dependencies: [
                 .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS")
             ],
-            path: "Sources"
+            path: "Sources",
+            resources: [
+                .process("Resources/Assets.xcassets")
+            ]
         ),
         .testTarget(
             name: "DataModelTests",
@@ -26,3 +29,4 @@ let package = Package(
         ),
     ]
 )
+
