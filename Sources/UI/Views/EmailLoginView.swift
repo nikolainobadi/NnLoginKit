@@ -61,6 +61,9 @@ struct EmailLoginView: View {
             .padding(.vertical)
             .buttonStyle(.borderedProminent)
         }
+        .onChange(of: selectedField) { newValue in
+            isEditingTextFields = newValue != nil
+        }
     }
 }
 

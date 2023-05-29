@@ -18,6 +18,12 @@ final class NnLoginDataModel: ObservableObject {
 
 // MARK: - ViewModel
 extension NnLoginDataModel {
+    var appTitle: String { "App Title" }
+    
+    func guestSignIn() async throws {
+        try await auth.guestSignIn()
+    }
+    
     func emailLogin(email: String, password: String) async throws {
         try await auth.emailLogin(email: email, password: password)
     }
@@ -36,6 +42,7 @@ extension NnLoginDataModel {
 
 // MARK: - Dependencies
 public protocol NnLoginAuth {
+    func guestSignIn() async throws
     func emailLogin(email: String, password: String) async throws
     func appleSignIn(tokenInfo: AppleTokenInfo) async throws
     func googleSignIn(tokenInfo: GoogleTokenInfo) async throws
