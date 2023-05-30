@@ -13,7 +13,7 @@ struct EmailLoginView: View {
     @State private var showingResetPassword = false
     @FocusState var selectedField: LoginSelectedField?
     
-    let colorOptions: EmailLoginColors
+    let colorsConfig: LoginColorsConfig
     
     private func tryLogin() async throws {
         selectedField = nil
@@ -35,7 +35,7 @@ struct EmailLoginView: View {
                 .onSubmit { selectedField = .password }
                 .withBorderOverlay(dataModel.loginFieldError == .email)
             
-            LoginTextField(text: $dataModel.password, imageName: "lock.fill", prompt: "password", canBeSecure: true, imageTint: colorOptions.eyeImageColor)
+            LoginTextField(text: $dataModel.password, imageName: "lock.fill", prompt: "password", canBeSecure: true, imageTint: colorsConfig.textFieldTint)
                 .focused($selectedField, equals: .password)
                 .submitLabel(.next)
                 .onSubmit { selectedField = dataModel.canShowResetPassword ? nil : .confirm }
@@ -45,12 +45,12 @@ struct EmailLoginView: View {
                 Button(action: { showingResetPassword = true }) {
                     Text("Forgot Password?")
                         .underline()
-                        .setCustomFont(.caption, textColor: colorOptions.forgotPasswordButtonColor)
+                        .setCustomFont(.caption, textColor: colorsConfig.underlinedButtonColor)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal)
             } else {
-                LoginTextField(text: $dataModel.confirm, imageName: "lock", prompt: "confirm password", canBeSecure: true, imageTint: colorOptions.eyeImageColor)
+                LoginTextField(text: $dataModel.confirm, imageName: "lock", prompt: "confirm password", canBeSecure: true, imageTint: colorsConfig.textFieldTint)
                     .focused($selectedField, equals: .confirm)
                     .submitLabel(.done)
                     .onSubmit { selectedField = nil }
@@ -60,11 +60,11 @@ struct EmailLoginView: View {
             AsyncTryButton(action: tryLogin) {
                 Text("Login")
                     .frame(maxWidth: .infinity)
-                    .setCustomFont(.subheadline, textColor: colorOptions.loginButtonTextColor)
+                    .setCustomFont(.subheadline, textColor: colorsConfig.buttonTextColor)
             }
             .padding(.vertical)
             .buttonStyle(.borderedProminent)
-            .tint(colorOptions.loginButtonBackgroundColor)
+            .tint(colorsConfig.buttonBackgroundColor)
         }
         .withLoadingView()
         .withErrorHandling()
@@ -83,10 +83,10 @@ extension EmailLoginView {
     ///   - isEditingTextFields: A binding that indicates whether the text fields are being edited.
     ///                          Defaults to `false` if not provided.
     ///   - dataModel: The data model for the login view.
-    init(isEditingTextFields: Binding<Bool>? = nil, dataModel: EmailLoginDataModel, colorOptions: EmailLoginColors = EmailLoginColors()) {
+    init(isEditingTextFields: Binding<Bool>? = nil, dataModel: EmailLoginDataModel, colorsConfig: LoginColorsConfig = LoginColorsConfig()) {
         _isEditingTextFields = isEditingTextFields ?? .constant(false)
         self.dataModel = dataModel
-        self.colorOptions = colorOptions
+        self.colorsConfig = colorsConfig
     }
 }
 

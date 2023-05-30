@@ -21,8 +21,8 @@ public func makeGoogleSignInButton(googleSignIn: @escaping (GoogleTokenInfo?) as
     return CustomGoogleButton(googleSignIn: googleSignIn)
 }
 
-public func makeLoginView(titleImage: Image? = nil, canShowResetPassword: Bool = false, loginColors: LoginViewColors = LoginViewColors(), auth: NnLoginAuth) -> some View {
+public func makeLoginView(titleImage: Image? = nil, colorsConfig: LoginColorsConfig = LoginColorsConfig(), auth: NnLoginAuth) -> some View {
     let dataModel = NnLoginDataModel(auth: auth)
     
-    return NnLoginView(dataModel: dataModel, titleImage: titleImage, canShowResetPassword: canShowResetPassword, loginColors: loginColors)
+    return NnLoginView(dataModel: dataModel, titleImage: titleImage, colorsConfig: colorsConfig)
 }

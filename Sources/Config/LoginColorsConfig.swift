@@ -8,23 +8,26 @@
 import SwiftUI
 
 public struct LoginColorsConfig {
-    var titleColor: NnLoginColor
-    var buttonTextColor: NnLoginColor
-    var buttonBackgroundColor: NnLoginColor
-    var underlinedButtonColor: NnLoginColor
+    var titleColor: Color
+    var detailsColor: Color
+    var buttonTextColor: Color
+    var buttonBackgroundColor: Color
+    var underlinedButtonColor: Color
     var viewBackgroundColor: NnLoginColor
-    var textFieldTint: NnLoginColor
-    var errorTextColor: NnLoginColor
+    var textFieldTint: Color
+    var errorTextColor: Color
     
-    public init(titleColor: NnLoginColor = .color(.primary),
-                buttonTextColor: NnLoginColor = .color(Color(uiColor: .systemBackground)),
-                buttonBackgroundColor: NnLoginColor = .color(.primary),
-                underlinedButtonColor: NnLoginColor = .color(.primary),
+    public init(titleColor: Color = .primary,
+                detailsColor: Color = .secondary,
+                buttonTextColor: Color = Color(uiColor: .systemBackground),
+                buttonBackgroundColor: Color = .primary,
+                underlinedButtonColor: Color = .primary,
                 viewBackgroundColor: NnLoginColor = .color(Color(uiColor: .systemBackground)),
-                textFieldTint: NnLoginColor = .color(.primary),
-                errorTextColor: NnLoginColor = .color(.red)) {
+                textFieldTint: Color = .primary,
+                errorTextColor: Color = .red) {
         
         self.titleColor = titleColor
+        self.detailsColor = detailsColor
         self.buttonTextColor = buttonTextColor
         self.buttonBackgroundColor = buttonBackgroundColor
         self.underlinedButtonColor = underlinedButtonColor

@@ -13,25 +13,24 @@ struct NnLoginView: View {
     @State private var isEditingTextFields = false
     
     let titleImage: Image?
-    let canShowResetPassword: Bool
-    let loginColors: LoginViewColors
+    let colorsConfig: LoginColorsConfig
     
     var body: some View {
         VStack {
             Text(dataModel.appTitle)
-                .setCustomFont(.largeTitle, textColor: loginColors.appTitleColor, autoSize: true)
+                .setCustomFont(.largeTitle, textColor: colorsConfig.titleColor, autoSize: true)
                 .padding(.top)
             
             if showingLoginOptions {
                 VStack {
                     let emailDataModel = EmailLoginDataModel(
-                        canShowResetPassword: canShowResetPassword,
+                        canShowResetPassword: true,
                         emailLogin: dataModel.emailLogin(email:password:)
                     )
                     
                     EmailLoginView(isEditingTextFields: $isEditingTextFields,
                                    dataModel: emailDataModel,
-                                   colorOptions: loginColors.emailLoginColors)
+                                   colorsConfig: colorsConfig)
                     
                     OtherLoginOptionsView(appleSignIn: dataModel.appleSignIn(tokenInfo:), googleSignIn: dataModel.googleSignIn)
                         .onlyShow(when: !isEditingTextFields)
@@ -52,24 +51,24 @@ struct NnLoginView: View {
                     VStack(spacing: getHeightPercent(1))  {
                         Text("Aisle say, shopping just got fun!")
                             .lineLimit(1)
-                            .setCustomFont(.headline, textColor: loginColors.tagLineColor, autoSize: true)
+                            .setCustomFont(.headline, textColor: colorsConfig.titleColor, autoSize: true)
                             .padding(.horizontal, 10)
                         
                         Text("Grocery bliss in a click. Taking the guesswork out of grocery shopping and recipe planning.")
                             .multilineTextAlignment(.center)
-                            .setCustomFont(.caption, isSmooth: true, textColor: loginColors.subTagLineColor)
+                            .setCustomFont(.caption, isSmooth: true, textColor: colorsConfig.detailsColor)
                             .padding(.horizontal)
                     }
                     .padding(.vertical, getHeightPercent(3))
                     
                     AsyncTryButton(action: dataModel.guestSignIn) {
                         Text("Get Started")
-                            .setCustomFont(.headline, textColor: loginColors.getStartedTextColor)
+                            .setCustomFont(.headline, textColor: colorsConfig.buttonTextColor)
                             .frame(maxWidth: getWidthPercent(80))
                     }
                     .buttonStyle(.borderedProminent)
                     .padding(.top)
-                    .tint(loginColors.getStartedButtonColor)
+                    .tint(colorsConfig.buttonBackgroundColor)
                     
                     Spacer()
                 }
@@ -78,7 +77,7 @@ struct NnLoginView: View {
             Button(action: { showingLoginOptions.toggle() }) {
                 Text("\(showingLoginOptions ? "Don't" : "Already") have an account?")
                     .underline()
-                    .setCustomFont(.caption, textColor: loginColors.accountButtonColor)
+                    .setCustomFont(.caption, textColor: colorsConfig.underlinedButtonColor)
             }
             .onlyShow(when: !isEditingTextFields)
         }
@@ -90,7 +89,7 @@ struct NnLoginView: View {
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NnLoginView(dataModel: dataModel, titleImage: Image(systemName: "house"), canShowResetPassword: true, loginColors: LoginViewColors())
+        NnLoginView(dataModel: dataModel, titleImage: Image(systemName: "house"), colorsConfig: LoginColorsConfig())
     }
     
     static var dataModel: NnLoginDataModel {
@@ -102,28 +101,5 @@ struct NnLoginView_Previews: PreviewProvider {
         func emailLogin(email: String, password: String) async throws { }
         func appleSignIn(tokenInfo: AppleTokenInfo) async throws { }
         func googleSignIn(tokenInfo: GoogleTokenInfo) async throws { }
-    }
-}
-
-
-// MARK: - Dependencies
-public struct LoginViewColors {
-    var appTitleColor: Color
-    var tagLineColor: Color
-    var subTagLineColor: Color
-    var getStartedTextColor: Color = Color(uiColor: .systemBackground)
-    var getStartedButtonColor: Color
-    var accountButtonColor: Color
-    
-    var emailLoginColors: EmailLoginColors
-    
-    public init(appTitleColor: Color = .primary, tagLineColor: Color = .primary, subTagLineColor: Color = .secondary, getStartedTextColor: Color = Color(uiColor: .systemBackground), getStartedButtonColor: Color = .primary, accountButtonColor: Color = .primary, emailLoginColors: EmailLoginColors = EmailLoginColors()) {
-        self.appTitleColor = appTitleColor
-        self.tagLineColor = tagLineColor
-        self.subTagLineColor = subTagLineColor
-        self.getStartedTextColor = getStartedTextColor
-        self.getStartedButtonColor = getStartedButtonColor
-        self.accountButtonColor = accountButtonColor
-        self.emailLoginColors = emailLoginColors
     }
 }
