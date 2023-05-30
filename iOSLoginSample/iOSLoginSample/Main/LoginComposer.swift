@@ -30,7 +30,6 @@ import SwiftUI
 
 enum MyColor {
     case lightStart
-    case subtle
     case deepEnd
     case darkBlue
     
@@ -38,8 +37,6 @@ enum MyColor {
         switch self {
         case .lightStart:
             return Color(red: 0.882, green: 0.961, blue: 0.996)
-        case .subtle:
-            return Color(red: 0.702, green: 0.898, blue: 0.988)
         case .deepEnd:
             return Color(red: 0.161, green: 0.710, blue: 0.965)
         case .darkBlue:
@@ -50,11 +47,11 @@ enum MyColor {
     var gradient: LinearGradient {
         switch self {
         case .lightStart:
-            return LinearGradient(gradient: Gradient(colors: [Color(red: 0.207, green: 0.525, blue: 0.647), Color(red: 0.882, green: 0.961, blue: 0.996), Color(red: 0.207, green: 0.525, blue: 0.647)]), startPoint: .top, endPoint: .bottom)
-        case .subtle:
-            return LinearGradient(gradient: Gradient(colors: [Color(red: 0.615, green: 0.866, blue: 0.922), Color(red: 0.702, green: 0.898, blue: 0.988), Color(red: 0.615, green: 0.866, blue: 0.922)]), startPoint: .top, endPoint: .bottom)
-        case .deepEnd, .darkBlue:
-            return LinearGradient(gradient: Gradient(colors: [Color(red: 0.053, green: 0.427, blue: 0.482), Color(red: 0.161, green: 0.710, blue: 0.965), Color(red: 0.053, green: 0.427, blue: 0.482)]), startPoint: .top, endPoint: .bottom)
+            return LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.3), Color.blue.opacity(0.6), Color.blue.opacity(0.3)]), startPoint: .top, endPoint: .bottom)
+        case .deepEnd:
+            return LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.6), Color.blue.opacity(0.8), Color.blue.opacity(1.0)]), startPoint: .top, endPoint: .bottom)
+        case .darkBlue:
+            return LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.7), Color.blue.opacity(0.8), Color.blue.opacity(0.9)]), startPoint: .top, endPoint: .bottom)
         }
     }
 }
