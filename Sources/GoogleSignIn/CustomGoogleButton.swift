@@ -25,12 +25,26 @@ struct CustomGoogleButton: View {
                     .frame(width: getWidthPercent(size), height: getWidthPercent(size))
                     
                 Text("Sign in with Google")
-                    .setCustomFont(.caption, isSmooth: true, textColor: colorScheme == .dark ? .white : .black)
+                    .setCustomFont(.caption, isSmooth: true, textColor: .black)
                 Spacer()
             }
         }
         .padding(2)
-        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color(red: 244/255, green: 245/255, blue: 246/255)
-))
+        .background(
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(Color(red: 244/255, green: 245/255, blue: 246/255))
+                .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
+            )
+    }
+}
+
+struct CustomGoogleButton_Previews: PreviewProvider {
+    static var previews: some View {
+        CustomGoogleButton(googleSignIn: { _ in })
+            .padding()
     }
 }

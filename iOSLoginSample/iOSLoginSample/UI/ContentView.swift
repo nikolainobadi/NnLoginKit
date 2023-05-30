@@ -19,7 +19,7 @@ struct ContentView: View {
                 InAppView(userId: $store.userId)
             }
         }
-        .background(MyColor.lightStart.gradient)
+        .background(MyColor.lightStart.color)
     }
 }
 
