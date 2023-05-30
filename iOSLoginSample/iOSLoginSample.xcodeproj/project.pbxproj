@@ -16,8 +16,6 @@
 		D417D37D2966784500E4D176 /* LoginComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417D37C2966784500E4D176 /* LoginComposer.swift */; };
 		D417D3802966787500E4D176 /* LoginNetworker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417D37F2966787500E4D176 /* LoginNetworker.swift */; };
 		D417D382296679EB00E4D176 /* SharedUserIdStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417D381296679EB00E4D176 /* SharedUserIdStorage.swift */; };
-		D417D38429667A9900E4D176 /* ContentComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417D38329667A9900E4D176 /* ContentComposer.swift */; };
-		D417D38729667AE900E4D176 /* ContentDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417D38629667AE900E4D176 /* ContentDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +29,6 @@
 		D417D37C2966784500E4D176 /* LoginComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginComposer.swift; sourceTree = "<group>"; };
 		D417D37F2966787500E4D176 /* LoginNetworker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworker.swift; sourceTree = "<group>"; };
 		D417D381296679EB00E4D176 /* SharedUserIdStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedUserIdStorage.swift; sourceTree = "<group>"; };
-		D417D38329667A9900E4D176 /* ContentComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentComposer.swift; sourceTree = "<group>"; };
-		D417D38629667AE900E4D176 /* ContentDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +66,6 @@
 			children = (
 				D417D37B2966784000E4D176 /* Main */,
 				D417D3752966778E00E4D176 /* UI */,
-				D417D38529667AE200E4D176 /* DataModel */,
 				D417D37E2966786C00E4D176 /* Remote */,
 				D417D3782966782100E4D176 /* Storage */,
 				D40981912964A5B00023296A /* Assets.xcassets */,
@@ -116,7 +111,6 @@
 			children = (
 				D409818D2964A5AF0023296A /* iOSLoginSampleApp.swift */,
 				D417D37C2966784500E4D176 /* LoginComposer.swift */,
-				D417D38329667A9900E4D176 /* ContentComposer.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -127,14 +121,6 @@
 				D417D37F2966787500E4D176 /* LoginNetworker.swift */,
 			);
 			path = Remote;
-			sourceTree = "<group>";
-		};
-		D417D38529667AE200E4D176 /* DataModel */ = {
-			isa = PBXGroup;
-			children = (
-				D417D38629667AE900E4D176 /* ContentDataModel.swift */,
-			);
-			path = DataModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,8 +202,6 @@
 				D417D3802966787500E4D176 /* LoginNetworker.swift in Sources */,
 				D417D382296679EB00E4D176 /* SharedUserIdStorage.swift in Sources */,
 				D417D37D2966784500E4D176 /* LoginComposer.swift in Sources */,
-				D417D38429667A9900E4D176 /* ContentComposer.swift in Sources */,
-				D417D38729667AE900E4D176 /* ContentDataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

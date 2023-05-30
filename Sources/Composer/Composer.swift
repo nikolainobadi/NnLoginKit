@@ -7,18 +7,22 @@
 
 import SwiftUI
 
-public typealias EmailLoginInfo = (email: String, password: String)
+public func makeEmailLoginView(isEditingTextFields: Binding<Bool>? = nil, canShowResetPassword: Bool, emailLogin: @escaping (String, String) async throws -> Void) -> some View {
+    let dataModel = EmailLoginDataModel(canShowResetPassword: canShowResetPassword, emailLogin: emailLogin)
 
-public func makeLoginView(colorOptions: LoginColorOptions = LoginColorOptions(), guestLogin: (() async throws -> Void)? = nil, emailLogin: ((EmailLoginInfo) async throws -> Void)? = nil, emailSignUp: (@escaping (EmailLoginInfo) async throws -> Void), resetPassword: ((String) async throws -> Void)? = nil) -> some View {
-    
-    let dataModel = LoginDataModel(colorOptions: colorOptions, guestLogin: guestLogin, emailLogin: emailLogin, emailSignUp: emailSignUp)
-    let resetView = makeResetPasswordView(colorOptions: colorOptions, resetPassword: resetPassword ?? emptyMethod)
-    
-    return LoginView(dataModel: dataModel, resetView: resetView, canShowResetView: resetPassword != nil)
+    return EmailLoginView(isEditingTextFields: isEditingTextFields, dataModel: dataModel)
 }
 
-/// used as a filler method when resetPassword is nil
-private func emptyMethod(_ email: String) async throws { }
-private func makeResetPasswordView(colorOptions: LoginColorOptions, resetPassword: (@escaping (String) async throws -> Void)) -> some View {
-    return ResetPasswordView(dataModel: ResetPasswordDataModel(colorOptions: colorOptions, sendResetPassswordEmail: resetPassword))
+public func makeAppleSignInButton(appleSignIn: @escaping (AppleTokenInfo) throws -> Void) -> some View {
+    return CustomAppleButton(appleSignIn: appleSignIn)
+}
+
+public func makeGoogleSignInButton(googleSignIn: @escaping (GoogleTokenInfo?) async throws -> Void) -> some View {
+    return CustomGoogleButton(googleSignIn: googleSignIn)
+}
+
+public func makeLoginView(titleImage: Image? = nil, canShowResetPassword: Bool = false, loginColors: LoginViewColors = LoginViewColors(), auth: NnLoginAuth) -> some View {
+    let dataModel = NnLoginDataModel(auth: auth)
+    
+    return NnLoginView(dataModel: dataModel, titleImage: titleImage, canShowResetPassword: canShowResetPassword, loginColors: loginColors)
 }

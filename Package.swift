@@ -10,13 +10,18 @@ let package = Package(
         .library(name: "NnLoginKit", targets: ["NnLoginKit"])
     ],
     dependencies: [
-        .package(url: "https://github.com/nikolainobadi/NnSwiftUIDesignHelpers.git", branch: "main")
-        ],
+        .package(url: "https://github.com/google/GoogleSignIn-iOS.git", from: "7.0.0")
+    ],
     targets: [
         .target(
             name: "NnLoginKit",
-            dependencies: ["NnSwiftUIDesignHelpers"],
-            path: "Sources"
+            dependencies: [
+                .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS")
+            ],
+            path: "Sources",
+            resources: [
+                .process("Resources/Assets.xcassets")
+            ]
         ),
         .testTarget(
             name: "DataModelTests",
@@ -24,3 +29,4 @@ let package = Package(
         ),
     ]
 )
+

@@ -6,23 +6,36 @@
 //
 
 import SwiftUI
-import NnLoginKit
 
 struct ContentView: View {
-    @StateObject var dataModel: ContentDataModel
+    @StateObject var store = UserIdStorage()
     
     var body: some View {
-        if dataModel.isLoggedIn {
-            InAppView(userId: $dataModel.userId)
-        } else {
-            LoginComposer.makeLoginView()
+        VStack {
+            if store.userId.isEmpty {
+                LoginComposer.makeLoginView(store: store)
+                    
+            } else {
+                InAppView(userId: $store.userId)
+            }
         }
+        .background(MyColor.subtle.gradient)
     }
 }
 
 // MARK: - Preview
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(dataModel: ContentDataModel(userIdPublisher: SharedUserIdStorage.shared.$userId))
+        ContentView()
+    }
+}
+
+
+// MARK: - Dependencies
+final class UserIdStorage: ObservableObject, UserIdStore {
+    @Published var userId = ""
+    
+    func setUserId(_ uid: String) {
+        self.userId = uid
     }
 }

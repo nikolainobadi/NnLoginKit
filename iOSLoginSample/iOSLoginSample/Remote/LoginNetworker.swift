@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import NnLoginKit // can remove by replacing parameters in emailSignUp with same as emailLogin
+import NnLoginKit
 
 final class LoginNetworker {
     private let store: UserIdStore
@@ -17,27 +17,28 @@ final class LoginNetworker {
 }
 
 
-// MARK: - Login Auth Actions
-extension LoginNetworker {
+// MARK: - Auth
+extension LoginNetworker: NnLoginAuth {
     @MainActor private func setUserId(_ uid: String) { store.setUserId(uid) }
     
     func guestLogin() async throws {
         await setUserId("Guest UID")
     }
     
-    // importing NnLoginKit is NOT necessary with this type of parameter
-    func emailLogin(_ info: ((email: String, password: String))) async throws {
-        print("Logging in with email: \(info.email), password: \(info.password)")
-        await setUserId("Login UID")
+    func guestSignIn() async throws {
+        
     }
     
-    func emailSignUp(_ info: (EmailLoginInfo)) async throws {
-        print("Signing Up with email: \(info.email), password: \(info.password)")
-        await setUserId("SignUp UID")
+    func emailLogin(email: String, password: String) async throws {
+        
     }
     
-    func resetPassword(_ email: String) async throws {
-        print("Password reset")
+    func appleSignIn(tokenInfo: NnLoginKit.AppleTokenInfo) async throws {
+        
+    }
+    
+    func googleSignIn(tokenInfo: NnLoginKit.GoogleTokenInfo) async throws {
+        
     }
 }
 
