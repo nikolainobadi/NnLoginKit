@@ -26,6 +26,8 @@ struct OtherLoginOptionsView: View {
                     .padding(.vertical, getHeightPercent(1))
             }
         }
+        .withLoadingView()
+        .withErrorHandling()
     }
 }
 

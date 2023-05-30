@@ -26,6 +26,7 @@ struct EmailLoginView: View {
                 Text(errorMessage)
                     .bold()
                     .foregroundColor(.red)
+                    .multilineTextAlignment(.center)
             }
             
             LoginTextField(text: $dataModel.email, imageName: "envelope", prompt: "email...", keyboard: .emailAddress)
@@ -65,6 +66,8 @@ struct EmailLoginView: View {
             .buttonStyle(.borderedProminent)
             .tint(colorOptions.loginButtonBackgroundColor)
         }
+        .withLoadingView()
+        .withErrorHandling()
         .onChange(of: selectedField) { newValue in
             isEditingTextFields = newValue != nil
         }

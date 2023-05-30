@@ -42,6 +42,7 @@ extension EmailLoginDataModel {
         } catch let loginFieldError as NnLoginFieldError {
             self.loginFieldError = loginFieldError
         } catch {
+            print("unexpected error: \(error.localizedDescription)")
             throw error
         }
     }
