@@ -14,6 +14,7 @@ struct NnLoginView: View {
     
     let titleImage: Image?
     let colorsConfig: LoginColorsConfig
+    let sendResetEmail: ((String) async throws -> Void)?
     
     var body: some View {
         VStack {
@@ -24,7 +25,7 @@ struct NnLoginView: View {
             if showingLoginOptions {
                 VStack {
                     let emailDataModel = EmailLoginDataModel(
-                        canShowResetPassword: true,
+                        sendResetEmail: sendResetEmail,
                         emailLogin: dataModel.emailLogin(email:password:)
                     )
                     
@@ -89,7 +90,7 @@ struct NnLoginView: View {
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NnLoginView(dataModel: dataModel, titleImage: Image(systemName: "house"), colorsConfig: LoginColorsConfig())
+        NnLoginView(dataModel: dataModel, titleImage: Image(systemName: "house"), colorsConfig: LoginColorsConfig(), sendResetEmail: { _ in })
     }
     
     static var dataModel: NnLoginDataModel {

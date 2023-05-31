@@ -71,8 +71,15 @@ struct EmailLoginView: View {
         .onChange(of: selectedField) { newValue in
             isEditingTextFields = newValue != nil
         }
+        .sheet(isPresented: $showingResetPassword) {
+            if let sendResetEmail = dataModel.sendResetEmail {
+                ResetPasswordView(colorsConfig: colorsConfig, sendResetEmail: sendResetEmail)
+            }
+        }
     }
 }
+
+
 
 
 // MARK: - Init
@@ -95,10 +102,12 @@ extension EmailLoginView {
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
         EmailLoginView(dataModel: dataModel)
+            .withLoadingView()
+            .withErrorHandling()
     }
     
     static var dataModel: EmailLoginDataModel {
-        EmailLoginDataModel(canShowResetPassword: true, emailLogin: { _, _ in })
+        EmailLoginDataModel(sendResetEmail: { _ in }, emailLogin: { _, _ in })
     }
 }
 
