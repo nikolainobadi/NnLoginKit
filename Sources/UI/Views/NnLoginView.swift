@@ -12,13 +12,13 @@ struct NnLoginView: View {
     @State private var showingLoginOptions = false
     @State private var isEditingTextFields = false
     
-    let appTitle: String
     let titleImage: Image?
+    let textConfig: LoginTextConfig
     let colorsConfig: LoginColorsConfig
     
     var body: some View {
         VStack {
-            Text(appTitle)
+            Text(textConfig.appTitle)
                 .lineLimit(1)
                 .setCustomFont(.largeTitle, textColor: colorsConfig.titleColor, autoSize: true)
                 .padding()
@@ -51,12 +51,12 @@ struct NnLoginView: View {
                     }
                     
                     VStack(spacing: getHeightPercent(1))  {
-                        Text("Aisle say, shopping just got fun!")
+                        Text(textConfig.tagline)
                             .lineLimit(1)
                             .setCustomFont(.headline, textColor: colorsConfig.titleColor, autoSize: true)
                             .padding(.horizontal, 10)
                         
-                        Text("Grocery bliss in a click. Taking the guesswork out of grocery shopping and recipe planning.")
+                        Text(textConfig.subTagline)
                             .multilineTextAlignment(.center)
                             .setCustomFont(.caption, isSmooth: true, textColor: colorsConfig.detailsColor)
                             .padding(.horizontal)
@@ -94,7 +94,7 @@ struct NnLoginView: View {
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NnLoginView(dataModel: dataModel, appTitle: "App Title", titleImage: Image(systemName: "house"), colorsConfig: LoginColorsConfig())
+        NnLoginView(dataModel: dataModel, titleImage: Image(systemName: "house"), textConfig: LoginTextConfig(appTitle: "App Title", tagline: "This is a tagline", subTagline: "Here is a little more detail, just in case the tagline wasn't enough"), colorsConfig: LoginColorsConfig())
     }
     
     static var dataModel: NnLoginDataModel {
