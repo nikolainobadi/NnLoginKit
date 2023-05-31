@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NnLoginView: View {
     @StateObject var dataModel: NnLoginDataModel
-    @State private var showingLoginOptions = true
+    @State private var showingLoginOptions = false
     @State private var isEditingTextFields = false
     
     let appTitle: String
