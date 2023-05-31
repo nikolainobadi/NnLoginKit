@@ -36,6 +36,8 @@ extension EmailLoginDataModel {
     var loginErrorMessage: String? { loginFieldError?.message }
     
     func tryLogin() async throws {
+        loginFieldError = nil
+        
         do {
             try LoginInfoValidator.validateInfo(email: email, password: password, confirm: canShowResetPassword ? nil : confirm)
             

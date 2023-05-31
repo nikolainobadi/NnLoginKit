@@ -81,7 +81,7 @@ struct ResetPasswordView: View {
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(colorsConfig.viewBackgroundColor.view())
+        .background(colorsConfig.viewBackgroundColor.view().ignoresSafeArea())
     }
 }
 
