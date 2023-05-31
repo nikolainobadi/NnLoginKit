@@ -40,6 +40,10 @@ extension LoginNetworker: NnLoginAuth {
     func googleSignIn(tokenInfo: NnLoginKit.GoogleTokenInfo) async throws {
         
     }
+    
+    func sendResetEmail(email: String) async throws {
+        
+    }
 }
 
 

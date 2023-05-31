@@ -11,15 +11,12 @@ struct ContentView: View {
     @StateObject var store = UserIdStorage()
     
     var body: some View {
-        VStack {
-            if store.userId.isEmpty {
-                LoginComposer.makeLoginView(store: store)
-                    
-            } else {
-                InAppView(userId: $store.userId)
-            }
+        if store.userId.isEmpty {
+            LoginComposer.makeLoginView(store: store)
+                
+        } else {
+            InAppView(userId: $store.userId)
         }
-        .background(MyColor.lightStart.color)
     }
 }
 

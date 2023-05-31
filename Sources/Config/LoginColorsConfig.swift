@@ -40,4 +40,13 @@ public struct LoginColorsConfig {
 public enum NnLoginColor {
     case color(Color)
     case gradient(LinearGradient)
+    
+    func view() -> some View {
+        switch self {
+        case .color(let color):
+            return AnyView(color)
+        case .gradient(let gradient):
+            return AnyView(gradient)
+        }
+    }
 }
