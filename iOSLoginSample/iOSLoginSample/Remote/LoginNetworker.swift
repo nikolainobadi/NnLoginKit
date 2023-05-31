@@ -26,19 +26,23 @@ extension LoginNetworker: NnLoginAuth {
     }
     
     func guestSignIn() async throws {
-        
+        await setUserId("Guest userId")
     }
     
     func emailLogin(email: String, password: String) async throws {
-        
+        await setUserId("emailUserId")
     }
     
     func appleSignIn(tokenInfo: NnLoginKit.AppleTokenInfo) async throws {
-        
+        await setUserId("appleUserId")
     }
     
     func googleSignIn(tokenInfo: NnLoginKit.GoogleTokenInfo) async throws {
-        
+        await setUserId("googleUserId")
+    }
+    
+    func sendResetEmail(email: String) async throws {
+        print("email sent to \(email)")
     }
 }
 

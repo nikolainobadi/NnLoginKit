@@ -12,46 +12,74 @@ enum LoginComposer {
     static func makeLoginView(store: UserIdStore) -> some View {
         let auth = LoginNetworker(store: store)
         
-        return NnLoginKit.makeLoginView(titleImage: nil, canShowResetPassword: true, loginColors: makeLoginColors(), auth: auth)
+        return NnLoginKit.makeLoginView(appTitle: "NnLoginKit Demo", titleImage: Image(systemName: "house"), colorsConfig: makeColorsConfig(), auth: auth)
     }
 }
 
 private extension LoginComposer {
-    static func makeLoginColors() -> LoginViewColors {
-        LoginViewColors(appTitleColor: MyColor.darkBlue.color, tagLineColor: MyColor.darkBlue.color, getStartedButtonColor: MyColor.darkBlue.color, accountButtonColor: MyColor.darkBlue.color, emailLoginColors: makeEmailLoginColors())
-    }
-    
-    static func makeEmailLoginColors() -> EmailLoginColors {
-        EmailLoginColors(eyeImageColor: MyColor.darkBlue.color, forgotPasswordButtonColor: MyColor.darkBlue.color, loginButtonBackgroundColor: MyColor.darkBlue.color)
+    static func makeColorsConfig() -> LoginColorsConfig {
+        return LoginColorsConfig(titleColor: .blue,
+                                 buttonTextColor: .white,
+                                 buttonBackgroundColor: .blue,
+                                 underlinedButtonColor: .blue,
+                                 viewBackgroundColor: .gradient(MyGradient.smoothBlue.gradient()),
+                                 textFieldTint: .blue,
+                                 errorTextColor: .red)
     }
 }
 
-import SwiftUI
-
-enum MyColor {
-    case lightStart
-    case deepEnd
-    case darkBlue
+enum MyGradient {
+    case lightBlue
+    case coolBlue
+    case vibrantBlue
+    case smoothBlue
     
-    var color: Color {
+    func gradient() -> LinearGradient {
         switch self {
-        case .lightStart:
-            return Color(red: 0.882, green: 0.961, blue: 0.996)
-        case .deepEnd:
-            return Color(red: 0.161, green: 0.710, blue: 0.965)
-        case .darkBlue:
-            return Color(red: 0.082, green: 0.396, blue: 0.753)
-        }
-    }
-
-    var gradient: LinearGradient {
-        switch self {
-        case .lightStart:
-            return LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.3), Color.blue.opacity(0.6), Color.blue.opacity(0.3)]), startPoint: .top, endPoint: .bottom)
-        case .deepEnd:
-            return LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.6), Color.blue.opacity(0.8), Color.blue.opacity(1.0)]), startPoint: .top, endPoint: .bottom)
-        case .darkBlue:
-            return LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.7), Color.blue.opacity(0.8), Color.blue.opacity(0.9)]), startPoint: .top, endPoint: .bottom)
+        case .lightBlue:
+            return LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.7, green: 0.85, blue: 1.0),
+                    Color(red: 0.75, green: 0.9, blue: 1.0),
+                    Color(red: 0.8, green: 0.95, blue: 1.0),
+                    Color(red: 0.85, green: 1.0, blue: 1.0)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        case .coolBlue:
+            return LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.2, green: 0.6, blue: 0.8),
+                    Color(red: 0.3, green: 0.7, blue: 0.9),
+                    Color(red: 0.4, green: 0.8, blue: 1.0),
+                    Color(red: 0.5, green: 0.9, blue: 1.0)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        case .vibrantBlue:
+            return LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.0, green: 0.3, blue: 0.6),
+                    Color(red: 0.1, green: 0.4, blue: 0.7),
+                    Color(red: 0.2, green: 0.5, blue: 0.8),
+                    Color(red: 0.3, green: 0.6, blue: 0.9)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        case .smoothBlue:
+            return LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.6, green: 0.75, blue: 0.9),
+                    Color(red: 0.65, green: 0.8, blue: 0.95),
+                    Color(red: 0.7, green: 0.85, blue: 1.0),
+                    Color(red: 0.75, green: 0.9, blue: 1.0)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
         }
     }
 }

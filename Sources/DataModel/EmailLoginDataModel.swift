@@ -13,7 +13,7 @@ final class EmailLoginDataModel: ObservableObject {
     @Published var confirm = ""
     @Published private(set) var loginFieldError: NnLoginFieldError?
     
-    let canShowResetPassword: Bool
+    let sendResetEmail: ((String) async throws -> Void)?
     private let emailLogin: (String, String) async throws -> Void
     
     /// Initializes an EmailLoginDataModel.
@@ -22,8 +22,8 @@ final class EmailLoginDataModel: ObservableObject {
     ///   - canShowResetPassword: A boolean value indicating whether to show the "Forgot Password?" button (if `true`)
     ///                           or the "Confirm Password" text field (if `false`).
     ///   - emailLogin: A closure that will be called for email login with the entered email and password.
-    init(canShowResetPassword: Bool, emailLogin: @escaping (String, String) async throws -> Void) {
-        self.canShowResetPassword = canShowResetPassword
+    init(sendResetEmail: ((String) async throws -> Void)? = nil, emailLogin: @escaping (String, String) async throws -> Void) {
+        self.sendResetEmail = sendResetEmail
         self.emailLogin = emailLogin
     }
 }
@@ -32,6 +32,7 @@ final class EmailLoginDataModel: ObservableObject {
 
 // MARK: - ViewModel
 extension EmailLoginDataModel {
+    var canShowResetPassword: Bool { sendResetEmail != nil }
     var loginErrorMessage: String? { loginFieldError?.message }
     
     func tryLogin() async throws {
