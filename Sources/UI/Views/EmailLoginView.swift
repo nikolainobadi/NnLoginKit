@@ -108,17 +108,3 @@ struct SwiftUIView_Previews: PreviewProvider {
         EmailLoginDataModel(sendResetEmail: { _ in }, emailLogin: { _, _ in })
     }
 }
-
-public struct EmailLoginColors {
-    var eyeImageColor: Color
-    var forgotPasswordButtonColor: Color
-    var loginButtonTextColor: Color
-    var loginButtonBackgroundColor: Color
-    
-    public init(eyeImageColor: Color = .primary, forgotPasswordButtonColor: Color = .primary, loginButtonTextColor: Color = Color(uiColor: .systemBackground), loginButtonBackgroundColor: Color = .primary) {
-        self.eyeImageColor = eyeImageColor
-        self.forgotPasswordButtonColor = forgotPasswordButtonColor
-        self.loginButtonTextColor = loginButtonTextColor
-        self.loginButtonBackgroundColor = loginButtonBackgroundColor
-    }
-}

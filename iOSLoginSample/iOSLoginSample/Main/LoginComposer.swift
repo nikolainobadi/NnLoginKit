@@ -12,7 +12,7 @@ enum LoginComposer {
     static func makeLoginView(store: UserIdStore) -> some View {
         let auth = LoginNetworker(store: store)
         
-        return NnLoginKit.makeLoginView(titleImage: Image(systemName: "house"), colorsConfig: makeColorsConfig(), auth: auth, sendResetEmail: auth.sendResetEmail(email:))
+        return NnLoginKit.makeLoginView(appTitle: "NnLoginKit Demo", titleImage: Image(systemName: "house"), colorsConfig: makeColorsConfig(), auth: auth)
     }
 }
 

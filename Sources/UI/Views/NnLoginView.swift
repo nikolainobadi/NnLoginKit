@@ -15,7 +15,6 @@ struct NnLoginView: View {
     let appTitle: String
     let titleImage: Image?
     let colorsConfig: LoginColorsConfig
-    let sendResetEmail: ((String) async throws -> Void)?
     
     var body: some View {
         VStack {
@@ -27,7 +26,7 @@ struct NnLoginView: View {
             if showingLoginOptions {
                 VStack {
                     let emailDataModel = EmailLoginDataModel(
-                        sendResetEmail: sendResetEmail,
+                        sendResetEmail: dataModel.sendResetPassword(email:),
                         emailLogin: dataModel.emailLogin(email:password:)
                     )
                     
@@ -95,7 +94,7 @@ struct NnLoginView: View {
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NnLoginView(dataModel: dataModel, appTitle: "App Title", titleImage: Image(systemName: "house"), colorsConfig: LoginColorsConfig(), sendResetEmail: { _ in })
+        NnLoginView(dataModel: dataModel, appTitle: "App Title", titleImage: Image(systemName: "house"), colorsConfig: LoginColorsConfig())
     }
     
     static var dataModel: NnLoginDataModel {
@@ -105,6 +104,7 @@ struct NnLoginView_Previews: PreviewProvider {
     class MockAuth: NnLoginAuth {
         func guestSignIn() async throws { }
         func emailLogin(email: String, password: String) async throws { }
+        func sendResetEmail(email: String) async throws { }
         func appleSignIn(tokenInfo: AppleTokenInfo) async throws { }
         func googleSignIn(tokenInfo: GoogleTokenInfo) async throws { }
     }
