@@ -18,20 +18,28 @@ dependencies: [
 NnLoginKit uses a global function to create a SwiftUI view. The only required parameter is `emailSignUp`. The remaining parameters are optional, and providing them will enable the associated features.
 
 ```
-func makeLoginView(appTitle: String, titleImage: Image? = nil, colorsConfig: LoginColorsConfig = LoginColorsConfig(), auth: NnLoginAuth) -> some View
-```
-
-#### appTitle
-The title of your app, it will be displayed at the top. 
+func makeLoginView(titleImage: Image? = nil, textConfig: LoginTextConfig, colorsConfig: LoginColorsConfig = LoginColorsConfig(), auth: NnLoginAuth) -> some View
+``` 
 
 #### titleImage
 Pass an image to have it displayed under the app's title. The image should be large enough to be displayed in 30% of the view.
+
+#### textConfig
+Use the `LoginTextConfig` struct to customize the display text of the login view.
+
+```
+struct LoginTextConfig {
+    let appTitle: String               // changes the app title, located at the top of NnLoginView
+    let tagline: String                // changes the tagline, located under the image in NnLoginView
+    let subTagline: String             // changes the subTagline, located under the tagline in NnLoginView
+}
+```
 
 #### colorsConfig
 Use the `LoginColorsConfig` struct to customize the display colors of the views.
 
 ```
-struct LoginColorOptions {
+struct LoginColorsConfig {
     let titleColor: Color                  // changes the title color in LoginView and ResetPasswordView
     let detailsColor: Color                // changes text color for message presented in ResetPasswordView
     let buttonTextColor: Color             // changes text color for Login/SignUp button and ResetPasswordButton

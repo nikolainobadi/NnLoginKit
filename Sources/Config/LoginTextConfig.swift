@@ -6,9 +6,9 @@
 //
 
 public struct LoginTextConfig {
-    var appTitle: String
-    var tagline: String
-    var subTagline: String
+    let appTitle: String
+    let tagline: String
+    let subTagline: String
     
     public init(appTitle: String, tagline: String, subTagline: String) {
         self.appTitle = appTitle
