@@ -11,12 +11,17 @@ import NnLoginKit
 enum LoginComposer {
     static func makeLoginView(store: UserIdStore) -> some View {
         let auth = LoginNetworker(store: store)
+        let textConfig = makeTextConfig()
+        let colorsConfig = makeColorsConfig()
         
-        return NnLoginKit.makeLoginView(appTitle: "NnLoginKit Demo", titleImage: Image(systemName: "house"), colorsConfig: makeColorsConfig(), auth: auth)
+        return NnLoginKit.makeLoginView(titleImage: Image(systemName: "house"), textConfig: textConfig, colorsConfig: colorsConfig, auth: auth)
     }
 }
 
 private extension LoginComposer {
+    static func makeTextConfig() -> LoginTextConfig {
+        LoginTextConfig(appTitle: "NnLoginKit Demo", tagline: "This is a tagline", subTagline: "This is where more words can go in case the tagline is not enough")
+    }
     static func makeColorsConfig() -> LoginColorsConfig {
         return LoginColorsConfig(titleColor: .blue,
                                  buttonTextColor: .white,
