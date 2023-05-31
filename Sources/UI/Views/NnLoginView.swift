@@ -84,6 +84,8 @@ struct NnLoginView: View {
             }
             .onlyShow(when: !isEditingTextFields)
         }
+        .withLoadingView()
+        .withErrorHandling()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(colorsConfig.viewBackgroundColor.view().ignoresSafeArea())
     }

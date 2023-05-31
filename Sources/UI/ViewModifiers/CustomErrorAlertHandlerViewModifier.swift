@@ -60,6 +60,8 @@ private extension LoginErrorHandler {
         if let customError = error as? DisplayableLoginError {
             errorAlert.title = customError.title
             errorAlert.message = customError.message
+        } else {
+            errorAlert.message = error.localizedDescription
         }
         
         return errorAlert

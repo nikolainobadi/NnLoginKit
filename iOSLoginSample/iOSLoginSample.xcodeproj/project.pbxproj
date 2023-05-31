@@ -29,6 +29,7 @@
 		D417D37C2966784500E4D176 /* LoginComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginComposer.swift; sourceTree = "<group>"; };
 		D417D37F2966787500E4D176 /* LoginNetworker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworker.swift; sourceTree = "<group>"; };
 		D417D381296679EB00E4D176 /* SharedUserIdStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedUserIdStorage.swift; sourceTree = "<group>"; };
+		D4D049CC2A26D31F0000DF23 /* iOSLoginSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSLoginSample.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +65,7 @@
 		D409818C2964A5AF0023296A /* iOSLoginSample */ = {
 			isa = PBXGroup;
 			children = (
+				D4D049CC2A26D31F0000DF23 /* iOSLoginSample.entitlements */,
 				D417D37B2966784000E4D176 /* Main */,
 				D417D3752966778E00E4D176 /* UI */,
 				D417D37E2966786C00E4D176 /* Remote */,
@@ -327,6 +329,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iOSLoginSample/iOSLoginSample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iOSLoginSample/Preview Content\"";
@@ -356,6 +359,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iOSLoginSample/iOSLoginSample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iOSLoginSample/Preview Content\"";

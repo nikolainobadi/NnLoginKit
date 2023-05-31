@@ -66,8 +66,6 @@ struct EmailLoginView: View {
             .buttonStyle(.borderedProminent)
             .tint(colorsConfig.buttonBackgroundColor)
         }
-        .withLoadingView()
-        .withErrorHandling()
         .onChange(of: selectedField) { newValue in
             isEditingTextFields = newValue != nil
         }
