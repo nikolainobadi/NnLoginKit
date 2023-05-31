@@ -65,8 +65,8 @@ The below images have enabled `guestLogin`, `emailLogin`, and `resetPassword` an
 LoginColorOptions(title: .blue, buttonBackground: .blue, underlinedButtons: .blue, textFieldTint: .blue)
 ```
 <div style="display: flex; justify-content: space-between;">
+   <img src="Demo-images/loginView.png" height="400">
    <img src="Demo-images/signup_errorMessage.png" height="400">
-   <img src="Demo-images/loginView_loginMode.png" height="400">
    <img src="Demo-images/resetPasswordView.png" height="400">
 </div>
 
