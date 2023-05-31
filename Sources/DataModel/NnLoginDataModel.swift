@@ -18,8 +18,6 @@ final class NnLoginDataModel: ObservableObject {
 
 // MARK: - ViewModel
 extension NnLoginDataModel {
-    var appTitle: String { "App Title" }
-    
     func guestSignIn() async throws {
         try await auth.guestSignIn()
     }

@@ -12,15 +12,17 @@ struct NnLoginView: View {
     @State private var showingLoginOptions = true
     @State private var isEditingTextFields = false
     
+    let appTitle: String
     let titleImage: Image?
     let colorsConfig: LoginColorsConfig
     let sendResetEmail: ((String) async throws -> Void)?
     
     var body: some View {
         VStack {
-            Text(dataModel.appTitle)
+            Text(appTitle)
+                .lineLimit(1)
                 .setCustomFont(.largeTitle, textColor: colorsConfig.titleColor, autoSize: true)
-                .padding(.top)
+                .padding()
             
             if showingLoginOptions {
                 VStack {
@@ -91,7 +93,7 @@ struct NnLoginView: View {
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NnLoginView(dataModel: dataModel, titleImage: Image(systemName: "house"), colorsConfig: LoginColorsConfig(), sendResetEmail: { _ in })
+        NnLoginView(dataModel: dataModel, appTitle: "App Title", titleImage: Image(systemName: "house"), colorsConfig: LoginColorsConfig(), sendResetEmail: { _ in })
     }
     
     static var dataModel: NnLoginDataModel {

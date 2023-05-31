@@ -13,7 +13,6 @@ struct ContentView: View {
     var body: some View {
         if store.userId.isEmpty {
             LoginComposer.makeLoginView(store: store)
-                
         } else {
             InAppView(userId: $store.userId)
         }
