@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  AuthenticationHandler.swift
 //  
 //
 //  Created by Nikolai Nobadi on 6/3/23.
@@ -13,13 +13,11 @@ public enum AuthenticationHandler {
     }
     
     static func createAppleTokenInfo() async throws -> AppleTokenInfo {
-//        let tokentInfo = try await AppleSignInCoordinator().createAppleTokenInfo()
-        
-        ("", "")
+        return try await AppleSignInCoordinator().createAppleTokenInfo()
     }
     
     static func createGoogleTokenInfo() async throws -> GoogleTokenInfo? {
-        try await GoogleSignInHandler.createGoogleIdToken()
+        return try await GoogleSignInHandler.createGoogleIdToken()
     }
 }
 
