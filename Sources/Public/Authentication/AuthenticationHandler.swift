@@ -13,7 +13,7 @@ public extension AuthenticationHandler {
         return await showPasswordAlert()
     }
     
-    static func createAppleTokenInfo() async throws -> AppleTokenInfo {
+    static func createAppleTokenInfo() async throws -> AppleTokenInfo? {
         return try await AppleSignInCoordinator().createAppleTokenInfo()
     }
     

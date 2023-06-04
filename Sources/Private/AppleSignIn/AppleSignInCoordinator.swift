@@ -33,14 +33,18 @@ final class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate,
 
 // MARK: - Handler
 extension AppleSignInCoordinator {
-    func createAppleTokenInfo() async throws -> AppleTokenInfo {
+    func createAppleTokenInfo() async throws -> AppleTokenInfo? {
         return try await withCheckedThrowingContinuation { continuation in
             completion = { result in
                 switch result {
                 case .success(let info):
                     continuation.resume(returning: info)
                 case .failure(let error):
-                    continuation.resume(throwing: error)
+                    if let appleSignInError = error as? ASAuthorizationError, appleSignInError.code == .canceled {
+                        return continuation.resume(returning: nil)
+                    } else {
+                        return continuation.resume(throwing: error)
+                    }
                 }
             }
             
