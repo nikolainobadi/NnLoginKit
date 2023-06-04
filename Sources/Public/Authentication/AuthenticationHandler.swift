@@ -27,7 +27,9 @@ public extension AuthenticationHandler {
     static func showReauthenticationAlert(title: String, message: String) async {
         return await withCheckedContinuation { continuation in
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "Okay", style: .default)
+            let action = UIAlertAction(title: "Okay", style: .default) { _ in
+                return continuation.resume()
+            }
             
             alertController.addAction(action)
             alertController.showAlert()
