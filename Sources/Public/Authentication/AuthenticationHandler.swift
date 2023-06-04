@@ -7,7 +7,8 @@
 
 import UIKit
 
-public enum AuthenticationHandler {
+public enum AuthenticationHandler { }
+public extension AuthenticationHandler {
     static func getPasswordForEmailAuthentication() async -> String {
         return await showPasswordAlert()
     }
