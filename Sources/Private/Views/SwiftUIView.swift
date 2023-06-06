@@ -17,7 +17,7 @@ struct AccountLinkView: View {
         Section(sectionTitle) {
             ForEach(dataModel.accountLinkTypes) { linkType in
                 AccountLinkRow(canUnlink: dataModel.canUnlink, linkType: linkType) {
-                    AsyncTryButton(action: { try await dataModel.performLinkAction(for: linkType) }) {
+                    NoLoadingAsyncTryButton(action: { try await dataModel.performLinkAction(for: linkType) }) {
                         Text(linkType.email == nil ? "Link" : "Unlink")
                             .underline()
                             .foregroundColor(linkButtonTint)
@@ -25,18 +25,15 @@ struct AccountLinkView: View {
                 }
             }
         }
-        .onAppear {
-            dataModel.loadData()
-        }
-        // MARK: - TODO
-        // loading view will NOT work properly in other apps since it will only overlay this section instead of entire page
-//        .withLoadingView()
-//        .withErrorHandling()
         .withSignUpTextFieldsAlert(isShowing: $dataModel.showingEmailSignUp,
                                    email: $dataModel.email,
                                    password: $dataModel.password,
                                    confirm: $dataModel.confirm,
                                    action: dataModel.performEmailSignUpAction)
+        .withErrorHandling()
+        .onAppear {
+            dataModel.loadData()
+        }
     }
 }
 

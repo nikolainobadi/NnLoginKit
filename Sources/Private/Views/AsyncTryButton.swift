@@ -14,6 +14,19 @@ internal struct AsyncTryButton<Label>: View where Label: View {
     @EnvironmentObject var loadingHandler: LoadingHandler
     @EnvironmentObject var errorHandler: LoginErrorHandler
     
+    func performAction() {
+        loadingHandler.startLoading()
+        Task {
+            do {
+                try await action()
+            } catch {
+                errorHandler.handle(error: error)
+            }
+            
+            loadingHandler.stopLoading()
+        }
+    }
+    
     var body: some View {
         Button(role: role, action: performAction, label: label)
     }
@@ -31,60 +44,35 @@ extension AsyncTryButton where Label == Text {
     }
 }
 
-
-// MARK: - Private Methods
-private extension AsyncTryButton {
+internal struct NoLoadingAsyncTryButton<Label>: View where Label: View {
+    var action: () async throws -> Void
+    var role: ButtonRole?
+    @ViewBuilder var label: () -> Label
+    @EnvironmentObject var errorHandler: LoginErrorHandler
+    
     func performAction() {
-        loadingHandler.startLoading()
         Task {
             do {
                 try await action()
             } catch {
                 errorHandler.handle(error: error)
             }
-            
-            loadingHandler.stopLoading()
         }
+    }
+    
+    var body: some View {
+        Button(role: role, action: performAction, label: label)
     }
 }
 
 
-//internal struct AsyncTryButton<Label>: View where Label: View {
-//    var action: () async throws -> Void
-//    @ViewBuilder var label: () -> Label
-//    @EnvironmentObject var loadingHandler: LoadingHandler
-//    @EnvironmentObject var errorHandler: LoginErrorHandler
-//
-//    var body: some View {
-//        Button(action: performAction, label: label)
-//    }
-//}
-//
-//
-//// MARK: - Init
-//extension AsyncTryButton where Label == Text {
-//    init(_ titleKey: LocalizedStringKey, action: @escaping () async throws -> Void) {
-//        self.init(action: action, label: { Text(titleKey) })
-//    }
-//
-//    init<S>(_ title: S, action: @escaping () async throws -> Void) where S: StringProtocol {
-//        self.init(action: action, label: { Text(title) })
-//    }
-//}
-//
-//
-//// MARK: - Private Methods
-//private extension AsyncTryButton {
-//    func performAction() {
-//        loadingHandler.startLoading()
-//        Task {
-//            do {
-//                try await action()
-//            } catch {
-//                errorHandler.handle(error: error)
-//            }
-//
-//            loadingHandler.stopLoading()
-//        }
-//    }
-//}
+// MARK: - Init
+extension NoLoadingAsyncTryButton where Label == Text {
+    init(_ titleKey: LocalizedStringKey, role: ButtonRole? = nil, action: @escaping () async throws -> Void) {
+        self.init(action: action, role: role, label: { Text(titleKey) })
+    }
+
+    init<S>(_ title: S, role: ButtonRole? = nil, action: @escaping () async throws -> Void) where S: StringProtocol {
+        self.init(action: action, role: role, label: { Text(title) })
+    }
+}

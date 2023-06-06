@@ -21,7 +21,7 @@ internal struct SignUpTextFieldsViewModifier: ViewModifier {
                 TextField("email", text: $email)
                 SecureField("password", text: $password)
                 SecureField("confirm password", text: $confirm)
-                AsyncTryButton(action: action, role: .destructive) {
+                NoLoadingAsyncTryButton(action: action, role: .destructive) {
                     Text("Sign up")
                 }
             }, message: {
