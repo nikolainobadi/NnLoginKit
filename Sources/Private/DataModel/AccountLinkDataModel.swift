@@ -20,6 +20,10 @@ final class AccountLinkDataModel: ObservableObject {
 
 // MARK: - ViewModel
 extension AccountLinkDataModel {
+    var canUnlink: Bool {
+        accountLinkTypes.compactMap({ $0.email }).count > 1
+    }
+    
     func loadData() {
         accountLinkTypes = Array(auth.loadAvailableAccountLinkTypes()).sorted(by: { $0.id < $1.id })
     }
