@@ -31,8 +31,7 @@ struct AccountLinkView: View {
 
 
 // MARK: - AccountLinkRow
-fileprivate struct
-AccountLinkRow<LinkButton: View>: View {
+fileprivate struct AccountLinkRow<LinkButton: View>: View {
     let canUnlink: Bool
     let linkButton: LinkButton
     let linkType: AccountLinkType
@@ -78,59 +77,16 @@ struct AccountLinkView_Previews: PreviewProvider {
     }
     
     static var dataModel: AccountLinkDataModel {
-        AccountLinkDataModel(actions: MockActions())
+        AccountLinkDataModel(auth: MockAuth())
     }
     
-    class MockActions: AccountLinkActions {
+    class MockAuth: NnAccountLinkAuth {
         func emailAccountLink(email: String, password: String) async throws { }
         func appleAccountLink(tokenInfo: AppleTokenInfo) async throws { }
         func googleAccountLink(tokenInfo: GoogleTokenInfo) async throws { }
-    }
-}
-
-enum AccountLinkType: Hashable {
-    case email(String?)
-    case apple(String?)
-    case google(String?)
-    
-    var title: String {
-        switch self {
-        case .email:
-            return "Email Address"
-        case .apple:
-            return "Apple ID"
-        case .google:
-            return "Google Account"
-        }
-    }
-    
-    var image: some View {
-        Group {
-            switch self {
-            case .email:
-                Image(systemName: "envelope")
-            case .apple:
-                Image("appleIcon", bundle: .module)
-                    .renderingMode(.template)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            case .google:
-                Image("Google", bundle: .module)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }
-        }
-    }
-    
-    var email: String? {
-        switch self {
-        case .email(let email):
-            return email
-        case .apple(let email):
-            return email
-        case .google(let email):
-            return email
-        }
+        func unlinkPasswordEmail() async throws { }
+        func unlinkAppleId() async throws { }
+        func unlinkGoogleAccount() async throws { }
     }
 }
 

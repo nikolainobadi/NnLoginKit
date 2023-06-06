@@ -10,10 +10,10 @@ import Foundation
 final class AccountLinkDataModel: ObservableObject {
     @Published var showingEmailView = false
     
-    private let actions: AccountLinkActions
+    private let auth: NnAccountLinkAuth
     
-    init(actions: AccountLinkActions) {
-        self.actions = actions
+    init(auth: NnAccountLinkAuth) {
+        self.auth = auth
     }
 }
 
@@ -29,7 +29,7 @@ extension AccountLinkDataModel {
     }
     
     func performLinkAction(for linkType: AccountLinkType) async throws {
-        guard linkType.email == nil else { return try await unlinkAccount() }
+        guard linkType.email == nil else { return try await unlinkAccount(linkType) }
         
         switch linkType {
         case .email:
@@ -51,17 +51,24 @@ private extension AccountLinkDataModel {
     
     func appleAccountLink() async throws {
         if let tokenInfo = try await AppleSignInCoordinator().createAppleTokenInfo() {
-            try await actions.appleAccountLink(tokenInfo: tokenInfo)
+            try await auth.appleAccountLink(tokenInfo: tokenInfo)
         }
     }
     
     func googleAccountLink() async throws {
         if let tokenInfo = try await GoogleSignInHandler.createGoogleIdToken() {
-            try await actions.googleAccountLink(tokenInfo: tokenInfo)
+            try await auth.googleAccountLink(tokenInfo: tokenInfo)
         }
     }
     
-    func unlinkAccount() async throws {
-        
+    func unlinkAccount(_ linkType: AccountLinkType) async throws {
+        switch linkType {
+        case .email:
+            try await auth.unlinkPasswordEmail()
+        case .apple:
+            try await auth.unlinkAppleId()
+        case .google:
+            try await auth.unlinkAppleId()
+        }
     }
 }
