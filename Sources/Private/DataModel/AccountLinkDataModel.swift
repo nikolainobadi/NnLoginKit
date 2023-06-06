@@ -8,7 +8,12 @@
 import Foundation
 
 final class AccountLinkDataModel: ObservableObject {
+    @Published var email = ""
+    @Published var password = ""
+    @Published var confirm = ""
+    @Published var showingEmailSignUp = false
     @Published var accountLinkTypes = [AccountLinkType]()
+    @Published var selectedAccountLink: AccountLinkType?
     
     private let auth: NnAccountLinkAuth
     
@@ -23,17 +28,29 @@ extension AccountLinkDataModel {
     var canUnlink: Bool {
         accountLinkTypes.compactMap({ $0.email }).count > 1
     }
-    
+
     func loadData() {
-        accountLinkTypes = Array(auth.loadAvailableAccountLinkTypes()).sorted(by: { $0.id < $1.id })
+        accountLinkTypes = auth.loadAvailableAccountLinkTypes().sorted(by: { $0.id < $1.id })
+    }
+    
+    func performEmailSignUpAction() async throws {
+        guard let selectedAccountLink = selectedAccountLink else { return }
+        
+        switch selectedAccountLink {
+        case .email(_, let passwordAccountLink):
+            try LoginInfoValidator.validateInfo(email: email, password: password, confirm: confirm)
+            try await passwordAccountLink(((email, password)))
+        default:
+            break
+        }
     }
     
     func performLinkAction(for linkType: AccountLinkType) async throws {
         guard linkType.email == nil else { return try await unlinkAccount(linkType) }
         
         switch linkType {
-        case .email(_ , let showEmailAction):
-            await showEmailSignUp(showEmailAction)
+        case .email:
+            await showEmailSignUp(linkType)
         case .apple(_, let appleLinkAction):
             try await appleAccountLink(appleLinkAction)
         case .google(_, let googleLinkAction):
@@ -48,8 +65,9 @@ extension AccountLinkDataModel {
 // MARK: - MainActor
 @MainActor
 private extension AccountLinkDataModel {
-    func showEmailSignUp(_ showEmailAction: AccountLinkType.ShowEmailAction) {
-        showEmailAction()
+    func showEmailSignUp(_ linkType: AccountLinkType) {
+        self.showingEmailSignUp = true
+        self.selectedAccountLink = linkType
     }
     
     func finished() {

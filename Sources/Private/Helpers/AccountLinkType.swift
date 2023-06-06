@@ -9,11 +9,12 @@ import SwiftUI
 
 public enum AccountLinkType {
     public typealias Email = String
-    public typealias ShowEmailAction = () -> Void
+    public typealias EmailAndPassword = (String, String)
+    public typealias EmailPasswordLinkAction = (EmailAndPassword) async throws -> Void
     public typealias AppleLinkAction = (AppleTokenInfo) async throws -> Void
     public typealias GoogleLinkAction = (GoogleTokenInfo) async throws -> Void
     
-    case email(Email?, ShowEmailAction)
+    case email(Email?, EmailPasswordLinkAction)
     case apple(Email?, AppleLinkAction)
     case google(Email?, GoogleLinkAction)
 }

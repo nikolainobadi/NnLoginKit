@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountLinkView: View {
-    @State var dataModel: AccountLinkDataModel
+    @StateObject var dataModel: AccountLinkDataModel
     
     let sectionTitle: String
     
@@ -23,6 +23,19 @@ struct AccountLinkView: View {
                 }
             }
         }
+        .onAppear {
+            dataModel.loadData()
+        }
+        .alert("", isPresented: $dataModel.showingEmailSignUp, actions: {
+            TextField("email", text: $dataModel.email)
+            SecureField("password", text: $dataModel.password)
+            SecureField("confirm password", text: $dataModel.confirm)
+            AsyncTryButton(action: dataModel.performEmailSignUpAction, role: .destructive) {
+                Text("Sign up")
+            }
+        }, message: {
+            Text("Here is a message")
+        })
     }
 }
 
@@ -71,6 +84,8 @@ struct AccountLinkView_Previews: PreviewProvider {
         Form {
             AccountLinkView(dataModel: dataModel, sectionTitle: "Sign-in Methods")
         }
+        .withLoadingView()
+        .withErrorHandling()
     }
     
     static var dataModel: AccountLinkDataModel {
@@ -79,6 +94,59 @@ struct AccountLinkView_Previews: PreviewProvider {
     
     class MockAuth: NnAccountLinkAuth {
         func unlink(fromProvider: String) async throws { }
-        func loadAvailableAccountLinkTypes() -> Set<AccountLinkType> { [] }
+        func loadAvailableAccountLinkTypes() -> Set<AccountLinkType> {
+            [.email(nil, { _ in }),
+             .apple(nil, { _ in }),
+             .google(nil, { _ in })]
+        }
+    }
+}
+
+struct TextFieldAlert<Presenting>: View where Presenting: View {
+    @Binding var isShowing: Bool
+    @Binding var text: String
+    let presenting: Presenting
+    let title: String
+
+    var body: some View {
+        GeometryReader { (deviceSize: GeometryProxy) in
+            ZStack {
+                self.presenting
+                    .disabled(isShowing)
+                VStack {
+                    Text(self.title)
+                    TextField(self.title, text: self.$text)
+                    Divider()
+                    HStack {
+                        Button(action: {
+                            withAnimation {
+                                self.isShowing.toggle()
+                            }
+                        }) {
+                            Text("Dismiss")
+                        }
+                    }
+                }
+                .padding()
+                .background(Color.white)
+                .frame(
+                    width: deviceSize.size.width*0.7,
+                    height: deviceSize.size.height*0.7
+                )
+                .shadow(radius: 1)
+                .opacity(self.isShowing ? 1 : 0)
+            }
+        }
+    }
+}
+
+extension View {
+    func textFieldAlert(isShowing: Binding<Bool>,
+                        text: Binding<String>,
+                        title: String) -> some View {
+        TextFieldAlert(isShowing: isShowing,
+                       text: text,
+                       presenting: self,
+                       title: title)
     }
 }
