@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol NnAccountLinkAuth {
-    func emailAccountLink(email: String, password: String) async throws
+    func showEmailLogin() 
     func appleAccountLink(tokenInfo: AppleTokenInfo) async throws
     func googleAccountLink(tokenInfo: GoogleTokenInfo) async throws
     func unlinkPasswordEmail() async throws

@@ -8,7 +8,9 @@
 import Foundation
 
 final class AccountLinkDataModel: ObservableObject {
-    @Published var showingEmailView = false
+    @Published private var appleEmail: String?
+    @Published private var googleEmail: String?
+    @Published private var passwordEmail: String?
     
     private let auth: NnAccountLinkAuth
     
@@ -20,12 +22,12 @@ final class AccountLinkDataModel: ObservableObject {
 
 // MARK: - ViewModel
 extension AccountLinkDataModel {
-    var passwordEmail: String? { "tester@gmail.com" }
-    var appleEmail: String? { nil }
-    var googleEmail: String? { nil }
-    
     var accountLinkTypes: [AccountLinkType] {
-        return [.email(passwordEmail), .apple(appleEmail), .google(googleEmail)]
+        return [.email(nil), .apple(nil), .google(nil)]
+    }
+    
+    func loadEmails() {
+        
     }
     
     func performLinkAction(for linkType: AccountLinkType) async throws {
@@ -33,7 +35,7 @@ extension AccountLinkDataModel {
         
         switch linkType {
         case .email:
-            try await showEmailLogin()
+            await showEmailLogin()
         case .apple:
             try await appleAccountLink()
         case .google:
@@ -45,8 +47,8 @@ extension AccountLinkDataModel {
 
 // MARK: - Private Methods
 private extension AccountLinkDataModel {
-    @MainActor func showEmailLogin() async throws {
-        showingEmailView = true
+    @MainActor func showEmailLogin() {
+        
     }
     
     func appleAccountLink() async throws {

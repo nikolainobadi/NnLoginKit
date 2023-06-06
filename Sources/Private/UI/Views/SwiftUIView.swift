@@ -23,9 +23,6 @@ struct AccountLinkView: View {
                 }
             }
         }
-        .sheet(isPresented: $dataModel.showingEmailView) {
-            Text("This should be email sign-up view")
-        }
     }
 }
 
@@ -81,7 +78,7 @@ struct AccountLinkView_Previews: PreviewProvider {
     }
     
     class MockAuth: NnAccountLinkAuth {
-        func emailAccountLink(email: String, password: String) async throws { }
+        func showEmailLogin() { }
         func appleAccountLink(tokenInfo: AppleTokenInfo) async throws { }
         func googleAccountLink(tokenInfo: GoogleTokenInfo) async throws { }
         func unlinkPasswordEmail() async throws { }
