@@ -26,6 +26,8 @@ struct AccountLinkView: View {
         .onAppear {
             dataModel.loadData()
         }
+        .withLoadingView()
+        .withErrorHandling()
         .withSignUpTextFieldsAlert(isShowing: $dataModel.showingEmailSignUp,
                                    email: $dataModel.email,
                                    password: $dataModel.password,
@@ -79,8 +81,6 @@ struct AccountLinkView_Previews: PreviewProvider {
         Form {
             AccountLinkView(dataModel: dataModel, sectionTitle: "Sign-in Methods")
         }
-        .withLoadingView()
-        .withErrorHandling()
     }
     
     static var dataModel: AccountLinkDataModel {
