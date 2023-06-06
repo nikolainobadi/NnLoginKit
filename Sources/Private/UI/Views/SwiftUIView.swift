@@ -89,4 +89,3 @@ struct AccountLinkView_Previews: PreviewProvider {
         func unlinkGoogleAccount() async throws { }
     }
 }
-
