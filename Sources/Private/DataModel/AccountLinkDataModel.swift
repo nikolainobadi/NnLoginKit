@@ -72,6 +72,7 @@ private extension AccountLinkDataModel {
     
     func finished() {
         loadData()
+        resetTextFieldValues()
     }
 }
 
@@ -92,5 +93,11 @@ private extension AccountLinkDataModel {
     
     func unlinkAccount(_ linkType: AccountLinkType) async throws {
         try await auth.unlink(fromProvider: linkType.providerId)
+    }
+    
+    func resetTextFieldValues() {
+        email = ""
+        password = ""
+        confirm = ""
     }
 }
