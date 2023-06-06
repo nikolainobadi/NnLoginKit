@@ -97,7 +97,7 @@ extension EmailLoginView {
 
 
 // MARK: - Preview
-struct SwiftUIView_Previews: PreviewProvider {
+struct EmailLoginView_Previews: PreviewProvider {
     static var previews: some View {
         EmailLoginView(dataModel: dataModel)
             .withLoadingView()
