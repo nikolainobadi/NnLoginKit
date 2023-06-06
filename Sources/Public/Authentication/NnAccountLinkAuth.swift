@@ -8,6 +8,6 @@
 import Foundation
 
 public protocol NnAccountLinkAuth {
-    func loadAccountEmails() -> Set<AccountLinkType>
     func unlink(fromProvider: String) async throws
+    func loadAvailableAccountLinkTypes() -> Set<AccountLinkType>
 }

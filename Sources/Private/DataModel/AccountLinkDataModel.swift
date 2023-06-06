@@ -21,7 +21,7 @@ final class AccountLinkDataModel: ObservableObject {
 // MARK: - ViewModel
 extension AccountLinkDataModel {
     func loadData() {
-        accountLinkTypes = Array(auth.loadAccountEmails()).sorted(by: { $0.id < $1.id })
+        accountLinkTypes = Array(auth.loadAvailableAccountLinkTypes()).sorted(by: { $0.id < $1.id })
     }
     
     func performLinkAction(for linkType: AccountLinkType) async throws {

@@ -78,7 +78,7 @@ struct AccountLinkView_Previews: PreviewProvider {
     }
     
     class MockAuth: NnAccountLinkAuth {
-        func loadAccountEmails() -> Set<AccountLinkType> { [] }
+        func loadAvailableAccountLinkTypes() -> Set<AccountLinkType> { [] }
         func unlink(fromProvider: String) async throws { }
     }
 }
