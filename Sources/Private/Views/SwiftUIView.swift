@@ -11,6 +11,7 @@ struct AccountLinkView: View {
     @StateObject var dataModel: AccountLinkDataModel
     
     let sectionTitle: String
+    let linkButtonTint: Color
     
     var body: some View {
         Section(sectionTitle) {
@@ -19,6 +20,7 @@ struct AccountLinkView: View {
                     AsyncTryButton(action: { try await dataModel.performLinkAction(for: linkType) }) {
                         Text(linkType.email == nil ? "Link" : "Unlink")
                             .underline()
+                            .foregroundColor(linkButtonTint)
                     }
                 }
             }
@@ -79,7 +81,7 @@ fileprivate struct AccountLinkRow<LinkButton: View>: View {
 struct AccountLinkView_Previews: PreviewProvider {
     static var previews: some View {
         Form {
-            AccountLinkView(dataModel: dataModel, sectionTitle: "Sign-in Methods")
+            AccountLinkView(dataModel: dataModel, sectionTitle: "Sign-in Methods", linkButtonTint: .blue)
         }
     }
     
