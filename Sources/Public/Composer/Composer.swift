@@ -12,3 +12,9 @@ public func makeLoginView(titleImage: Image? = nil, textConfig: LoginTextConfig,
     
     return NnLoginView(dataModel: dataModel, titleImage: titleImage, textConfig: textConfig, colorsConfig: colorsConfig)
 }
+
+public func makeAccountLinkView(sectionTitle: String, auth: NnAccountLinkAuth) -> some View {
+    let dataModel = AccountLinkDataModel(auth: auth)
+    
+    return AccountLinkView(dataModel: dataModel, sectionTitle: sectionTitle)
+}
