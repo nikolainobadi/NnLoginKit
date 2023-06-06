@@ -28,8 +28,10 @@ struct AccountLinkView: View {
         .onAppear {
             dataModel.loadData()
         }
-        .withLoadingView()
-        .withErrorHandling()
+        // MARK: - TODO
+        // loading view will NOT work properly in other apps since it will only overlay this section instead of entire page
+//        .withLoadingView()
+//        .withErrorHandling()
         .withSignUpTextFieldsAlert(isShowing: $dataModel.showingEmailSignUp,
                                    email: $dataModel.email,
                                    password: $dataModel.password,
@@ -81,7 +83,9 @@ fileprivate struct AccountLinkRow<LinkButton: View>: View {
 struct AccountLinkView_Previews: PreviewProvider {
     static var previews: some View {
         Form {
-            AccountLinkView(dataModel: dataModel, sectionTitle: "Sign-in Methods", linkButtonTint: .blue)
+            Group {
+                AccountLinkView(dataModel: dataModel, sectionTitle: "Sign-in Methods", linkButtonTint: .blue)
+            }
         }
     }
     
