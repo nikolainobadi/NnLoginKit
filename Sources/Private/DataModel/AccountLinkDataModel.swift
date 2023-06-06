@@ -64,6 +64,4 @@ private extension AccountLinkDataModel {
 
 
 // MARK: - Dependencies
-public protocol AccountLinkActions {
-    
-}
+
