@@ -45,12 +45,21 @@ extension AccountLinkDataModel {
 }
 
 
-// MARK: - Private Methods
+// MARK: - MainActor
+@MainActor
 private extension AccountLinkDataModel {
-    @MainActor func showEmailLogin() {
-        
+    func showEmailLogin() {
+        auth.showEmailLogin()
     }
     
+    func finished() {
+        loadEmails()
+    }
+}
+
+
+// MARK: - Private Methods
+private extension AccountLinkDataModel {
     func appleAccountLink() async throws {
         if let tokenInfo = try await AppleSignInCoordinator().createAppleTokenInfo() {
             try await auth.appleAccountLink(tokenInfo: tokenInfo)

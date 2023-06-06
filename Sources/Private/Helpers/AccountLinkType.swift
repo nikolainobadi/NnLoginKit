@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum AccountLinkType: Hashable {
+public enum AccountLinkType: Hashable {
     case email(String?)
     case apple(String?)
     case google(String?)

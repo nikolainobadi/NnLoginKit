@@ -78,6 +78,7 @@ struct AccountLinkView_Previews: PreviewProvider {
     }
     
     class MockAuth: NnAccountLinkAuth {
+        func loadAccountEmails() -> [AccountLinkType] { [] }
         func showEmailLogin() { }
         func appleAccountLink(tokenInfo: AppleTokenInfo) async throws { }
         func googleAccountLink(tokenInfo: GoogleTokenInfo) async throws { }
