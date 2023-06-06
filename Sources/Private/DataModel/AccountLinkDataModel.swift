@@ -50,18 +50,18 @@ private extension AccountLinkDataModel {
     }
     
     func appleAccountLink() async throws {
-        
+        if let tokenInfo = try await AppleSignInCoordinator().createAppleTokenInfo() {
+            try await actions.appleAccountLink(tokenInfo: tokenInfo)
+        }
     }
     
     func googleAccountLink() async throws {
-        
+        if let tokenInfo = try await GoogleSignInHandler.createGoogleIdToken() {
+            try await actions.googleAccountLink(tokenInfo: tokenInfo)
+        }
     }
     
     func unlinkAccount() async throws {
         
     }
 }
-
-
-// MARK: - Dependencies
-
