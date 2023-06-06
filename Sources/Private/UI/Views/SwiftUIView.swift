@@ -14,24 +14,12 @@ struct AccountLinkView: View {
     
     var body: some View {
         Section(sectionTitle) {
-            AccountLinkRow(canUnlink: true, linkType: dataModel.passwordLinkType) {
-                AsyncTryButton(action: dataModel.showEmailLogin) {
-                    Text(dataModel.passwordEmail == nil ? "Link" : "Unlink")
-                        .underline()
-                }
-            }
-            
-            AccountLinkRow(canUnlink: true, linkType: dataModel.appleLinkType) {
-                AsyncTryButton(action: dataModel.appleAccountLink) {
-                    Text(dataModel.appleEmail == nil ? "Link" : "Unlink")
-                        .underline()
-                }
-            }
-            
-            AccountLinkRow(canUnlink: true, linkType: dataModel.googleLinkType) {
-                AsyncTryButton(action: dataModel.googleAccountLink) {
-                    Text(dataModel.googleEmail == nil ? "Link" : "Unlink")
-                        .underline()
+            ForEach(dataModel.accountLinkTypes, id: \.self) { linkType in
+                AccountLinkRow(canUnlink: true, linkType: linkType) {
+                    AsyncTryButton(action: { try await dataModel.performLinkAction(for: linkType) }) {
+                        Text(linkType.email == nil ? "Link" : "Unlink")
+                            .underline()
+                    }
                 }
             }
         }
@@ -40,6 +28,7 @@ struct AccountLinkView: View {
         }
     }
 }
+
 
 // MARK: - AccountLinkRow
 fileprivate struct
@@ -93,7 +82,7 @@ struct AccountLinkView_Previews: PreviewProvider {
     }
 }
 
-enum AccountLinkType {
+enum AccountLinkType: Hashable {
     case email(String?)
     case apple(String?)
     case google(String?)
@@ -169,6 +158,17 @@ extension AccountLinkDataModel {
         await MainActor.run(body: {
             showingEmailView = true
         })
+    }
+    
+    func performLinkAction(for linkType: AccountLinkType) async throws {
+        switch linkType {
+        case .email:
+            try await showEmailLogin()
+        case .apple:
+            try await appleAccountLink()
+        case .google:
+            try await googleAccountLink()
+        }
     }
     
     func appleAccountLink() async throws {
