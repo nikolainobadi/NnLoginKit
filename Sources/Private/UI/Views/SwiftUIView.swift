@@ -14,7 +14,7 @@ struct AccountLinkView: View {
     
     var body: some View {
         Section(sectionTitle) {
-            ForEach(dataModel.accountLinkTypes, id: \.self) { linkType in
+            ForEach(dataModel.accountLinkTypes) { linkType in
                 AccountLinkRow(canUnlink: true, linkType: linkType) {
                     AsyncTryButton(action: { try await dataModel.performLinkAction(for: linkType) }) {
                         Text(linkType.email == nil ? "Link" : "Unlink")
@@ -78,12 +78,7 @@ struct AccountLinkView_Previews: PreviewProvider {
     }
     
     class MockAuth: NnAccountLinkAuth {
-        func loadAccountEmails() -> [AccountLinkType] { [] }
-        func showEmailLogin() { }
-        func appleAccountLink(tokenInfo: AppleTokenInfo) async throws { }
-        func googleAccountLink(tokenInfo: GoogleTokenInfo) async throws { }
-        func unlinkPasswordEmail() async throws { }
-        func unlinkAppleId() async throws { }
-        func unlinkGoogleAccount() async throws { }
+        func loadAccountEmails() -> Set<AccountLinkType> { [] }
+        func unlink(fromProvider: String) async throws { }
     }
 }
