@@ -78,7 +78,11 @@ struct AccountLinkView_Previews: PreviewProvider {
     }
     
     static var dataModel: AccountLinkDataModel {
-        AccountLinkDataModel()
+        AccountLinkDataModel(actions: MockActions())
+    }
+    
+    class MockActions: AccountLinkActions {
+        
     }
 }
 

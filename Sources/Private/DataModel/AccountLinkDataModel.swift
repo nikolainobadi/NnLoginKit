@@ -9,6 +9,12 @@ import Foundation
 
 final class AccountLinkDataModel: ObservableObject {
     @Published var showingEmailView = false
+    
+    private let actions: AccountLinkActions
+    
+    init(actions: AccountLinkActions) {
+        self.actions = actions
+    }
 }
 
 
@@ -54,4 +60,10 @@ private extension AccountLinkDataModel {
     func unlinkAccount() async throws {
         
     }
+}
+
+
+// MARK: - Dependencies
+public protocol AccountLinkActions {
+    
 }
