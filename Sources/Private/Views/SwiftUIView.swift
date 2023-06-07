@@ -8,16 +8,30 @@
 import SwiftUI
 
 struct AccountLinkView: View {
+    @Binding var isLoading: Bool
     @StateObject var dataModel: AccountLinkDataModel
     
     let sectionTitle: String
     let linkButtonTint: Color
     
+    private func linkAction(_ linkType: AccountLinkType) async throws {
+        isLoading = true
+        defer {
+            isLoading = false
+        }
+        
+        do {
+            try await dataModel.performLinkAction(for: linkType)
+        } catch {
+            throw error
+        }
+    }
+    
     var body: some View {
         Section(sectionTitle) {
             ForEach(dataModel.accountLinkTypes) { linkType in
                 AccountLinkRow(canUnlink: dataModel.canUnlink, linkType: linkType) {
-                    NoLoadingAsyncTryButton(action: { try await dataModel.performLinkAction(for: linkType) }) {
+                    NoLoadingAsyncTryButton(action: { try await linkAction(linkType) }) {
                         Text(linkType.email == nil ? "Link" : "Unlink")
                             .underline()
                             .foregroundColor(linkButtonTint)
@@ -81,7 +95,7 @@ struct AccountLinkView_Previews: PreviewProvider {
     static var previews: some View {
         Form {
             Group {
-                AccountLinkView(dataModel: dataModel, sectionTitle: "Sign-in Methods", linkButtonTint: .blue)
+                AccountLinkView(isLoading: .constant(false), dataModel: dataModel, sectionTitle: "Sign-in Methods", linkButtonTint: .blue)
             }
         }
     }

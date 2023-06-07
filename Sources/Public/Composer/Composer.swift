@@ -13,8 +13,8 @@ public func makeLoginView(titleImage: Image? = nil, textConfig: LoginTextConfig,
     return NnLoginView(dataModel: dataModel, titleImage: titleImage, textConfig: textConfig, colorsConfig: colorsConfig)
 }
 
-public func makeAccountLinkView(sectionTitle: String = "Sign-in Methods", linkButtonTint: Color = .blue, auth: NnAccountLinkAuth) -> some View {
+public func makeAccountLinkView(sectionTitle: String = "Sign-in Methods", linkButtonTint: Color = .blue, auth: NnAccountLinkAuth, isLoading: Binding<Bool>) -> some View {
     let dataModel = AccountLinkDataModel(auth: auth)
     
-    return AccountLinkView(dataModel: dataModel, sectionTitle: sectionTitle, linkButtonTint: linkButtonTint)
+    return AccountLinkView(isLoading: isLoading, dataModel: dataModel, sectionTitle: sectionTitle, linkButtonTint: linkButtonTint)
 }
