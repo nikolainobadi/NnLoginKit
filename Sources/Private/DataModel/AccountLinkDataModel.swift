@@ -36,7 +36,7 @@ extension AccountLinkDataModel {
     
     func performEmailSignUpAction() async throws {
         guard let selectedAccountLink = selectedAccountLink else { return }
-        await configureLoading(isLoading: isLoading)
+        await configureLoading(isLoading: true)
         
         do {
             switch selectedAccountLink {
