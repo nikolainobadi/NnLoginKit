@@ -14,24 +14,11 @@ struct AccountLinkView: View {
     let sectionTitle: String
     let linkButtonTint: Color
     
-    private func linkAction(_ linkType: AccountLinkType) async throws {
-        isLoading = true
-        defer {
-            isLoading = false
-        }
-        
-        do {
-            try await dataModel.performLinkAction(for: linkType)
-        } catch {
-            throw error
-        }
-    }
-    
     var body: some View {
         Section(sectionTitle) {
             ForEach(dataModel.accountLinkTypes) { linkType in
                 AccountLinkRow(canUnlink: dataModel.canUnlink, linkType: linkType) {
-                    NoLoadingAsyncTryButton(action: { try await linkAction(linkType) }) {
+                    NoLoadingAsyncTryButton(action: { try await dataModel.performLinkAction(for: linkType) }) {
                         Text(linkType.email == nil ? "Link" : "Unlink")
                             .underline()
                             .foregroundColor(linkButtonTint)
@@ -45,6 +32,7 @@ struct AccountLinkView: View {
                                    confirm: $dataModel.confirm,
                                    action: dataModel.performEmailSignUpAction)
         .withErrorHandling()
+        .bindBool(viewBool: $isLoading, publishedBool: $dataModel.isLoading)
         .onAppear {
             dataModel.loadData()
         }

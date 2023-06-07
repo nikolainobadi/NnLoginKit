@@ -11,6 +11,7 @@ final class AccountLinkDataModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var confirm = ""
+    @Published var isLoading = false
     @Published var showingEmailSignUp = false
     @Published var accountLinkTypes = [AccountLinkType]()
     @Published var selectedAccountLink: AccountLinkType?
@@ -35,29 +36,43 @@ extension AccountLinkDataModel {
     
     func performEmailSignUpAction() async throws {
         guard let selectedAccountLink = selectedAccountLink else { return }
+        await configureLoading(isLoading: isLoading)
         
-        switch selectedAccountLink {
-        case .email(_, let passwordAccountLink):
-            try LoginInfoValidator.validateInfo(email: email, password: password, confirm: confirm)
-            try await passwordAccountLink(((email, password)))
-        default:
-            break
+        do {
+            switch selectedAccountLink {
+            case .email(_, let passwordAccountLink):
+                try LoginInfoValidator.validateInfo(email: email, password: password, confirm: confirm)
+                try await passwordAccountLink(((email, password)))
+            default:
+                break
+            }
+            
+            await configureLoading(isLoading: false)
+        } catch {
+            await configureLoading(isLoading: false)
+            throw error
         }
     }
     
     func performLinkAction(for linkType: AccountLinkType) async throws {
-        guard linkType.email == nil else { return try await unlinkAccount(linkType) }
-        
-        switch linkType {
-        case .email:
-            await showEmailSignUp(linkType)
-        case .apple(_, let appleLinkAction):
-            try await appleAccountLink(appleLinkAction)
-        case .google(_, let googleLinkAction):
-            try await googleAccountLink(googleLinkAction)
+        do {
+            await configureLoading(isLoading: true)
+            guard linkType.email == nil else { return try await unlinkAccount(linkType) }
+            
+            switch linkType {
+            case .email:
+                await showEmailSignUp(linkType)
+            case .apple(_, let appleLinkAction):
+                try await appleAccountLink(appleLinkAction)
+            case .google(_, let googleLinkAction):
+                try await googleAccountLink(googleLinkAction)
+            }
+            
+            await finished() // handles loading
+        } catch {
+            await configureLoading(isLoading: false)
+            throw error
         }
-        
-        await finished()
     }
 }
 
@@ -65,6 +80,10 @@ extension AccountLinkDataModel {
 // MARK: - MainActor
 @MainActor
 private extension AccountLinkDataModel {
+    func configureLoading(isLoading: Bool) {
+        self.isLoading = isLoading
+    }
+    
     func showEmailSignUp(_ linkType: AccountLinkType) {
         self.showingEmailSignUp = true
         self.selectedAccountLink = linkType
@@ -73,6 +92,7 @@ private extension AccountLinkDataModel {
     func finished() {
         loadData()
         resetTextFieldValues()
+        isLoading = false
     }
 }
 
