@@ -89,7 +89,7 @@ struct AccountLinkView_Previews: PreviewProvider {
     }
     
     static var dataModel: AccountLinkDataModel {
-        AccountLinkDataModel(auth: MockAuth())
+        AccountLinkDataModel(auth: MockAuth(), setAuthenticationStatus: { _ in })
     }
     
     class MockAuth: NnAccountLinkAuth {

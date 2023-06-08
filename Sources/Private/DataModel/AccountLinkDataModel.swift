@@ -17,9 +17,11 @@ final class AccountLinkDataModel: ObservableObject {
     @Published var selectedAccountLink: AccountLinkType?
     
     private let auth: NnAccountLinkAuth
+    private let setAuthenticationStatus: ((Bool) -> Void)?
     
-    init(auth: NnAccountLinkAuth) {
+    init(auth: NnAccountLinkAuth, setAuthenticationStatus: ((Bool) -> Void)?) {
         self.auth = auth
+        self.setAuthenticationStatus = setAuthenticationStatus
     }
 }
 
@@ -100,14 +102,28 @@ private extension AccountLinkDataModel {
 // MARK: - Private Methods
 private extension AccountLinkDataModel {
     func appleAccountLink(_ appleLinkAction: AccountLinkType.AppleLinkAction) async throws {
-        if let tokenInfo = try await AppleSignInCoordinator().createAppleTokenInfo() {
-            try await appleLinkAction(tokenInfo)
+        setAuthenticationStatus?(true)
+        do {
+            if let tokenInfo = try await AppleSignInCoordinator().createAppleTokenInfo() {
+                try await appleLinkAction(tokenInfo)
+            }
+            setAuthenticationStatus?(false)
+        } catch {
+            setAuthenticationStatus?(false)
+            throw error
         }
     }
     
     func googleAccountLink(_ googleLinkAction: AccountLinkType.GoogleLinkAction) async throws {
-        if let tokenInfo = try await GoogleSignInHandler.createGoogleIdToken() {
-            try await googleLinkAction(tokenInfo)
+        setAuthenticationStatus?(true)
+        do {
+            if let tokenInfo = try await GoogleSignInHandler.createGoogleIdToken() {
+                try await googleLinkAction(tokenInfo)
+            }
+            setAuthenticationStatus?(false)
+        } catch {
+            setAuthenticationStatus?(false)
+            throw error
         }
     }
     
