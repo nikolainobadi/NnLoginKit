@@ -128,7 +128,13 @@ private extension AccountLinkDataModel {
     }
     
     func unlinkAccount(_ linkType: AccountLinkType) async throws {
-        try await auth.unlink(fromProvider: linkType.providerId)
+        do {
+            try await auth.unlink(fromProvider: linkType.providerId)
+            await configureLoading(isLoading: false)
+        } catch {
+            await configureLoading(isLoading: false)
+            throw error
+        }
     }
     
     func resetTextFieldValues() {
