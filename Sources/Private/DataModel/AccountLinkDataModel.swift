@@ -119,6 +119,7 @@ private extension AccountLinkDataModel {
         do {
             try await auth.unlink(fromProvider: linkType.providerId)
             await configureLoading(isLoading: false)
+            await finished()
         } catch {
             await configureLoading(isLoading: false)
             throw error
