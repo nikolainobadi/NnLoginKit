@@ -103,27 +103,15 @@ private extension AccountLinkDataModel {
 private extension AccountLinkDataModel {
     func appleAccountLink(_ appleLinkAction: AccountLinkType.AppleLinkAction) async throws {
         setAuthenticationStatus?(true)
-        do {
-            if let tokenInfo = try await AppleSignInCoordinator().createAppleTokenInfo() {
-                try await appleLinkAction(tokenInfo)
-            }
-            setAuthenticationStatus?(false)
-        } catch {
-            setAuthenticationStatus?(false)
-            throw error
+        if let tokenInfo = try await AppleSignInCoordinator().createAppleTokenInfo() {
+            try await appleLinkAction(tokenInfo)
         }
     }
     
     func googleAccountLink(_ googleLinkAction: AccountLinkType.GoogleLinkAction) async throws {
         setAuthenticationStatus?(true)
-        do {
-            if let tokenInfo = try await GoogleSignInHandler.createGoogleIdToken() {
-                try await googleLinkAction(tokenInfo)
-            }
-            setAuthenticationStatus?(false)
-        } catch {
-            setAuthenticationStatus?(false)
-            throw error
+        if let tokenInfo = try await GoogleSignInHandler.createGoogleIdToken() {
+            try await googleLinkAction(tokenInfo)
         }
     }
     
