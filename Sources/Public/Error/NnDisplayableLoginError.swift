@@ -1,5 +1,5 @@
 //
-//  DisplayableLoginError.swift
+//  NnDisplayableLoginError.swift
 //  
 //
 //  Created by Nikolai Nobadi on 5/28/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol DisplayableLoginError {
+public protocol NnDisplayableLoginError {
     var title: String { get }
     var message: String { get }
 }
