@@ -8,10 +8,13 @@
 import UIKit
 
 /// `AuthenticationHandler` is a public enum that handles creating necessary information for authentication processes.
+/// It is specifically designed to facilitate Firebase Authentication, providing mechanisms for retrieving and creating
+/// credentials for different login methods.
 public enum AuthenticationHandler { }
 
 public extension AuthenticationHandler {
     /// Asynchronously retrieves the password for email authentication by displaying an alert with a text field.
+    /// This information can then be used in Firebase Authentication.
     ///
     /// - Returns: A string containing the entered password.
     static func getPasswordForEmailAuthentication() async -> String {
@@ -19,6 +22,7 @@ public extension AuthenticationHandler {
     }
     
     /// Asynchronously creates an `AppleTokenInfo` instance using the `AppleSignInCoordinator` object.
+    /// The returned information is suitable for use with Firebase Authentication.
     ///
     /// - Throws: An error if the creation of the `AppleTokenInfo` fails.
     /// - Returns: An optional `AppleTokenInfo` instance containing Apple token information.
@@ -27,6 +31,7 @@ public extension AuthenticationHandler {
     }
     
     /// Asynchronously creates a `GoogleTokenInfo` instance using the `GoogleSignInHandler` object.
+    /// The returned information is suitable for use with Firebase Authentication.
     ///
     /// - Throws: An error if the creation of the `GoogleTokenInfo` fails.
     /// - Returns: An optional `GoogleTokenInfo` instance containing Google token information.
@@ -38,6 +43,7 @@ public extension AuthenticationHandler {
 @MainActor
 public extension AuthenticationHandler {
     /// Asynchronously shows a reauthentication alert with a specified title and message.
+    /// This is particularly useful in scenarios where Firebase Authentication requires a recent login.
     ///
     /// - Parameters:
     ///   - title: The title of the alert.
@@ -55,6 +61,7 @@ public extension AuthenticationHandler {
     }
     
     /// Asynchronously shows a password alert requesting the user to enter a password associated with their email.
+    /// The returned password can be used for Firebase Authentication.
     ///
     /// - Returns: A string containing the entered password.
     private static func showPasswordAlert() async -> String {
@@ -81,6 +88,7 @@ public extension AuthenticationHandler {
 // MARK: - Dependencies
 internal extension UIAlertController {
     /// Shows the alert in the topmost UIViewController.
+    /// This method is used to display alerts for various authentication tasks, such as password retrieval.
     func showAlert() {
         let keyWindow = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive}).map({$0 as? UIWindowScene}).compactMap({$0}).first?.windows.filter({$0.isKeyWindow}).first
         
