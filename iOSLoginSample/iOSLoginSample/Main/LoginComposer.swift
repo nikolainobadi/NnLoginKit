@@ -19,8 +19,8 @@ enum LoginComposer {
 }
 
 private extension LoginComposer {
-    static func makeTextConfig() -> LoginTextConfig {
-        LoginTextConfig(appTitle: "NnLoginKit Demo", tagline: "This is a tagline", subTagline: "This is where more words can go in case the tagline is not enough")
+    static func makeTextConfig() -> NnLoginTextConfig {
+        NnLoginTextConfig(appTitle: "NnLoginKit Demo", tagline: "This is a tagline", subTagline: "This is where more words can go in case the tagline is not enough")
     }
     static func makeColorsConfig() -> NnLoginColorsConfig {
         return NnLoginColorsConfig(titleColor: .blue,

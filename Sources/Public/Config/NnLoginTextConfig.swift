@@ -1,11 +1,11 @@
 //
-//  LoginTextConfig.swift
+//  NnLoginTextConfig.swift
 //  
 //
 //  Created by Nikolai Nobadi on 5/31/23.
 //
 
-public struct LoginTextConfig {
+public struct NnLoginTextConfig {
     let appTitle: String
     let tagline: String
     let subTagline: String

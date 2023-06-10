@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public func makeLoginView(titleImage: Image? = nil, textConfig: LoginTextConfig, colorsConfig: NnLoginColorsConfig = NnLoginColorsConfig(), auth: NnLoginAuth) -> some View {
+public func makeLoginView(titleImage: Image? = nil, textConfig: NnLoginTextConfig, colorsConfig: NnLoginColorsConfig = NnLoginColorsConfig(), auth: NnLoginAuth) -> some View {
     let dataModel = NnLoginDataModel(auth: auth)
     
     return NnLoginView(dataModel: dataModel, titleImage: titleImage, textConfig: textConfig, colorsConfig: colorsConfig)
