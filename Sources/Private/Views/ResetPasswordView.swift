@@ -12,7 +12,7 @@ struct ResetPasswordView: View {
     @State private var emailSentSuccess = false
     @Environment(\.dismiss) private var dismiss
     
-    let colorsConfig: LoginColorsConfig
+    let colorsConfig: NnLoginColorsConfig
     let sendResetEmail: (String) async throws -> Void
     
     private var message: String {
@@ -89,6 +89,6 @@ struct ResetPasswordView: View {
 // MARK: - Preview
 struct ResetPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ResetPasswordView(colorsConfig: LoginColorsConfig(), sendResetEmail: { _ in })
+        ResetPasswordView(colorsConfig: NnLoginColorsConfig(), sendResetEmail: { _ in })
     }
 }

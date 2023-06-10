@@ -22,8 +22,8 @@ private extension LoginComposer {
     static func makeTextConfig() -> LoginTextConfig {
         LoginTextConfig(appTitle: "NnLoginKit Demo", tagline: "This is a tagline", subTagline: "This is where more words can go in case the tagline is not enough")
     }
-    static func makeColorsConfig() -> LoginColorsConfig {
-        return LoginColorsConfig(titleColor: .blue,
+    static func makeColorsConfig() -> NnLoginColorsConfig {
+        return NnLoginColorsConfig(titleColor: .blue,
                                  buttonTextColor: .white,
                                  buttonBackgroundColor: .blue,
                                  underlinedButtonColor: .blue,

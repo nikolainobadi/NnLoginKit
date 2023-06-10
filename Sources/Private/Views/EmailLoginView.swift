@@ -13,7 +13,7 @@ struct EmailLoginView: View {
     @State private var showingResetPassword = false
     @FocusState var selectedField: LoginSelectedField?
     
-    let colorsConfig: LoginColorsConfig
+    let colorsConfig: NnLoginColorsConfig
     
     private func tryLogin() async throws {
         selectedField = nil
@@ -88,7 +88,7 @@ extension EmailLoginView {
     ///   - isEditingTextFields: A binding that indicates whether the text fields are being edited.
     ///                          Defaults to `false` if not provided.
     ///   - dataModel: The data model for the login view.
-    init(isEditingTextFields: Binding<Bool>? = nil, dataModel: EmailLoginDataModel, colorsConfig: LoginColorsConfig = LoginColorsConfig()) {
+    init(isEditingTextFields: Binding<Bool>? = nil, dataModel: EmailLoginDataModel, colorsConfig: NnLoginColorsConfig = NnLoginColorsConfig()) {
         _isEditingTextFields = isEditingTextFields ?? .constant(false)
         self.dataModel = dataModel
         self.colorsConfig = colorsConfig
