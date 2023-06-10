@@ -1,5 +1,5 @@
 //
-//  AuthenticationHandler.swift
+//  NnAuthenticationHandler.swift
 //  
 //
 //  Created by Nikolai Nobadi on 6/3/23.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-/// `AuthenticationHandler` is a public enum that handles creating necessary information for authentication processes.
+/// `NnAuthenticationHandler` is a public enum that handles creating necessary information for authentication processes.
 /// It is specifically designed to facilitate Firebase Authentication, providing mechanisms for retrieving and creating
 /// credentials for different login methods.
-public enum AuthenticationHandler { }
+public enum NnAuthenticationHandler { }
 
-public extension AuthenticationHandler {
+public extension NnAuthenticationHandler {
     /// Asynchronously retrieves the password for email authentication by displaying an alert with a text field.
     /// This information can then be used in Firebase Authentication.
     ///
@@ -41,7 +41,7 @@ public extension AuthenticationHandler {
 }
 
 @MainActor
-public extension AuthenticationHandler {
+public extension NnAuthenticationHandler {
     /// Asynchronously shows a reauthentication alert with a specified title and message.
     /// This is particularly useful in scenarios where Firebase Authentication requires a recent login.
     ///
