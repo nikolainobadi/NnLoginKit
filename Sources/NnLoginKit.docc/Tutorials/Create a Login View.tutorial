@@ -13,26 +13,50 @@
         }
         
         @Steps {
+            @Step { 
+                Create a new file called `LoginComposer`. This file will be responsible for interactive with `NnLoginKit`, which should make it easy to replace in your app should you ever decide to use another login view. 
+                
+                @Code(name: "", file: 01-loginCreation-01-01.swift)
+            }
+            
+            @Step { 
+                Import `NnLoginKit` and add an enum called `LoginComposer`
+                
+                @Code(name: "", file: 01-loginCreation-01-02.swift)
+            }
+            
             @Step {
-                First, we'll create instances of `NnLoginTextConfig` and `NnLoginColorsConfig`, specifying our desired text and colors.
+                In a private extension, added a static method to create an instance of the `NnLoginTextConfig` struct.
 
-                @Code(name: "Configuring Text and Colors", file: "ConfigureLoginView.swift")
+                @Code(name: "", file: 01-loginCreation-01-03.swift)
+            }
+            
+            @Step {
+                Add another static method to create an instance of the `NnLoginColorsConfig` struct.
+
+                @Code(name: "", file: 01-loginCreation-01-04.swift)
             }
         }
     }
 
     @Section(title: "Implementing NnLoginAuth") {
         @ContentAndMedia {
-            Next, we'll need to implement the `NnLoginAuth` protocol. This protocol defines methods for different types of authentication.
+            It's time to implement the `NnLoginAuth` protocol. This protocol defines methods for different types of authentication.
 
 <!--            @Image(source: "<#authExample.png#>", alt: "Example of `NnLoginAuth` being implemented.")-->
         }
         
         @Steps {
             @Step {
-                Implement the `NnLoginAuth` protocol methods to handle guest sign in, email login, password reset, and third-party sign-ins.
+                Create a new file called `LoginAuthenticationHandler` and import `NnLoginKit`
 
 <!--                @Code(name: "Implementing NnLoginAuth", file: "<#NnLoginAuthImplementation.swift#>")-->
+            }
+            
+            @Step { 
+                Add the required methods to conform to `NnLoginAuth`
+                
+<!--                @Code(name: "", file: 01-loginCreation-01-04.swift)-->
             }
         }
     }
