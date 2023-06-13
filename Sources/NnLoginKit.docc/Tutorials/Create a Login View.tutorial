@@ -1,0 +1,56 @@
+@Tutorial(time: 20) {
+    @Intro(title: "Creating a Login View with NnLoginKit") {
+        In this tutorial, you'll learn how to create a custom login view using NnLoginKit. NnLoginKit is a Swift package designed to streamline the process of implementing login and account linking features in iOS applications.
+
+<!--        @Image(source: "<#loginViewExample.png#>", alt: "Example of a login view created using NnLoginKit.")-->
+    }
+    
+    @Section(title: "Configuring Text and Colors") {
+        @ContentAndMedia {
+            We'll start by configuring the text and colors for our login view. NnLoginKit provides the `NnLoginTextConfig` and `NnLoginColorsConfig` structs for this purpose.
+
+<!--            @Image(source: "<#configExample.png#>", alt: "Example of `NnLoginTextConfig` and `NnLoginColorsConfig` being used to configure a login view.")-->
+        }
+        
+        @Steps {
+            @Step {
+                First, we'll create instances of `NnLoginTextConfig` and `NnLoginColorsConfig`, specifying our desired text and colors.
+
+                @Code(name: "Configuring Text and Colors", file: "ConfigureLoginView.swift")
+            }
+        }
+    }
+
+    @Section(title: "Implementing NnLoginAuth") {
+        @ContentAndMedia {
+            Next, we'll need to implement the `NnLoginAuth` protocol. This protocol defines methods for different types of authentication.
+
+<!--            @Image(source: "<#authExample.png#>", alt: "Example of `NnLoginAuth` being implemented.")-->
+        }
+        
+        @Steps {
+            @Step {
+                Implement the `NnLoginAuth` protocol methods to handle guest sign in, email login, password reset, and third-party sign-ins.
+
+<!--                @Code(name: "Implementing NnLoginAuth", file: "<#NnLoginAuthImplementation.swift#>")-->
+            }
+        }
+    }
+
+    @Section(title: "Creating the Login View") {
+        @ContentAndMedia {
+            Finally, we'll create the login view. We'll use the `makeLoginView` function provided by NnLoginKit, passing in our `NnLoginAuth` implementation and our text and color configurations.
+
+<!--            @Image(source: "<#makeLoginViewExample.png#>", alt: "Example of `makeLoginView` being used to create a login view.")-->
+        }
+        
+        @Steps {
+            @Step {
+                Call the `makeLoginView` function to create your login view.
+
+<!--                @Code(name: "Creating the Login View", file: "<#CreateLoginView.swift#>")-->
+            }
+        }
+    }
+}
+

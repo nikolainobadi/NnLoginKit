@@ -1,0 +1,10 @@
+@Tutorials(name: "NnLoginKit") {
+    @Intro(title: "Meet NnLoginKit") {
+    
+    }
+    
+    @Chapter(name: "Create a Login view") {
+        
+        @TutorialReference(tutorial: "doc:Create-a-Login-View")
+    }
+}
