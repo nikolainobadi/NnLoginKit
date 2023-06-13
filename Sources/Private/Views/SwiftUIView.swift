@@ -44,11 +44,11 @@ struct AccountLinkView: View {
 fileprivate struct AccountLinkRow<LinkButton: View>: View {
     let canUnlink: Bool
     let linkButton: LinkButton
-    let linkType: AccountLinkType
+    let linkType: NnAccountLinkType
     
     private var showButton: Bool { linkType.email == nil || canUnlink }
     
-    init(canUnlink: Bool, linkType: AccountLinkType, @ViewBuilder linkButton: () -> LinkButton) {
+    init(canUnlink: Bool, linkType: NnAccountLinkType, @ViewBuilder linkButton: () -> LinkButton) {
         self.canUnlink = canUnlink
         self.linkType = linkType
         self.linkButton = linkButton()
@@ -94,7 +94,7 @@ struct AccountLinkView_Previews: PreviewProvider {
     
     class MockAuth: NnAccountLinkAuth {
         func unlink(fromProvider: String) async throws { }
-        func loadAvailableAccountLinkTypes() -> Set<AccountLinkType> {
+        func loadAvailableAccountLinkTypes() -> Set<NnAccountLinkType> {
             [.email(nil, { _ in }),
              .apple(nil, { _ in }),
              .google(nil, { _ in })]

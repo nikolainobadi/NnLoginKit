@@ -1,5 +1,5 @@
 //
-//  AccountLinkType.swift
+//  NnAccountLinkType.swift
 //  
 //
 //  Created by Nikolai Nobadi on 6/5/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// `AccountLinkType` is a public enum that describes the type of account link a user can create.
+/// `NnAccountLinkType` is a public enum that describes the type of account link a user can create.
 /// Each case corresponds to a different type of account link: email, Apple, and Google.
 ///
 /// Each case has associated values:
@@ -15,7 +15,7 @@ import SwiftUI
 ///   For example, if the user has linked their account with Google, then the Google email
 ///   should be passed in as the email associated value.
 /// - A closure that performs the link action and returns asynchronously.
-public enum AccountLinkType {
+public enum NnAccountLinkType {
     public typealias Email = String
     public typealias EmailAndPassword = (String, String)
     public typealias EmailPasswordLinkAction = (EmailAndPassword) async throws -> Void
@@ -28,7 +28,7 @@ public enum AccountLinkType {
 }
 
 // MARK: - Identifiable
-extension AccountLinkType: Identifiable {
+extension NnAccountLinkType: Identifiable {
     /// Unique identifier for each case in the `AccountLinkType` enum.
     public var id: Int {
         switch self {
@@ -43,19 +43,19 @@ extension AccountLinkType: Identifiable {
 }
 
 // MARK: - Hashable
-extension AccountLinkType: Hashable {
+extension NnAccountLinkType: Hashable {
     /// Provides the hash value for an `AccountLinkType` enum instance.
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
     /// Checks the equality between two `AccountLinkType` enum instances.
-    public static func == (lhs: AccountLinkType, rhs: AccountLinkType) -> Bool {
+    public static func == (lhs: NnAccountLinkType, rhs: NnAccountLinkType) -> Bool {
         lhs.id == rhs.id
     }
 }
 
-extension AccountLinkType {
+extension NnAccountLinkType {
     /// Provides the title for each case in the `AccountLinkType` enum.
     var title: String {
         switch self {

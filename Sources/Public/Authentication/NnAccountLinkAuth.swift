@@ -44,5 +44,5 @@ public protocol NnAccountLinkAuth {
     /// Loads the set of available account link types.
     ///
     /// - Returns: A `Set` of `AccountLinkType` objects representing the available types of accounts that can be linked.
-    func loadAvailableAccountLinkTypes() -> Set<AccountLinkType>
+    func loadAvailableAccountLinkTypes() -> Set<NnAccountLinkType>
 }

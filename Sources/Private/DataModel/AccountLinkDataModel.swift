@@ -13,8 +13,8 @@ final class AccountLinkDataModel: ObservableObject {
     @Published var confirm = ""
     @Published var isLoading = false
     @Published var showingEmailSignUp = false
-    @Published var accountLinkTypes = [AccountLinkType]()
-    @Published var selectedAccountLink: AccountLinkType?
+    @Published var accountLinkTypes = [NnAccountLinkType]()
+    @Published var selectedAccountLink: NnAccountLinkType?
     
     private let auth: NnAccountLinkAuth
     private let setAuthenticationStatus: ((Bool) -> Void)?
@@ -56,7 +56,7 @@ extension AccountLinkDataModel {
         }
     }
     
-    func performLinkAction(for linkType: AccountLinkType) async throws {
+    func performLinkAction(for linkType: NnAccountLinkType) async throws {
         do {
             await configureLoading(isLoading: true)
             guard linkType.email == nil else { return try await unlinkAccount(linkType) }
@@ -86,7 +86,7 @@ private extension AccountLinkDataModel {
         self.isLoading = isLoading
     }
     
-    func showEmailSignUp(_ linkType: AccountLinkType) {
+    func showEmailSignUp(_ linkType: NnAccountLinkType) {
         self.showingEmailSignUp = true
         self.selectedAccountLink = linkType
     }
@@ -101,21 +101,21 @@ private extension AccountLinkDataModel {
 
 // MARK: - Private Methods
 private extension AccountLinkDataModel {
-    func appleAccountLink(_ appleLinkAction: AccountLinkType.AppleLinkAction) async throws {
+    func appleAccountLink(_ appleLinkAction: NnAccountLinkType.AppleLinkAction) async throws {
         setAuthenticationStatus?(true)
         if let tokenInfo = try await AppleSignInCoordinator().createAppleTokenInfo() {
             try await appleLinkAction(tokenInfo)
         }
     }
     
-    func googleAccountLink(_ googleLinkAction: AccountLinkType.GoogleLinkAction) async throws {
+    func googleAccountLink(_ googleLinkAction: NnAccountLinkType.GoogleLinkAction) async throws {
         setAuthenticationStatus?(true)
         if let tokenInfo = try await GoogleSignInHandler.createGoogleIdToken() {
             try await googleLinkAction(tokenInfo)
         }
     }
     
-    func unlinkAccount(_ linkType: AccountLinkType) async throws {
+    func unlinkAccount(_ linkType: NnAccountLinkType) async throws {
         do {
             try await auth.unlink(fromProvider: linkType.providerId)
             await configureLoading(isLoading: false)
