@@ -10,8 +10,6 @@ enum LoginComposer {
         let textConfig = composeTextConfig()
         let colorsConfig = composeColorsConfig()
         let auth = LoginAuthenticationHandler()
-        
-        return NnLoginKit.makeLoginView(titleImage: nil, textConfig: textConfig, colorsConfig: colorsConfig, auth: auth)
     }
 }
 

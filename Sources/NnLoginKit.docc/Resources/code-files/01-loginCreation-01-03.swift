@@ -18,4 +18,15 @@ private extension LoginComposer {
         
         return NnLoginTextConfig(appTitle: appTitle, tagline: tagline, subTagline: subTagline)
     }
+    
+    static func composeColorsConfig() -> NnLoginColorsConfig {
+        return NnLoginColorsConfig(titleColor: .blue,
+                                   detailsColor: .secondary,
+                                   buttonTextColor: .white,
+                                   buttonBackgroundColor: .blue,
+                                   underlinedButtonColor: .blue,
+                                   viewBackgroundColor: .color(.blue),
+                                   textFieldTint: .blue,
+                                   errorTextColor: .red)
+    }
 }
