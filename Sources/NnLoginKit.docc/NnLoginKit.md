@@ -1,44 +1,40 @@
-# NnLoginKit
+# ``NnLoginKit``
 
-`NnLoginKit` is a comprehensive Swift package designed to streamline the implementation of login and account linking features for iOS applications. It provides support for different authentication providers such as email/password, Google, and Apple.
+Easily craft intuitive login pages and streamline user authentication in your iOS applications
 
-## Main Features
+## Overview
 
-- Email/password, Apple, and Google sign-in.
-- Account linking and unlinking support.
-- Customizable login interface with different color themes and text configurations.
-- Error handling with clear user-facing messages.
+`NnLoginKit` is a Swift package designed to simplify the process of implementing login and account linking features for iOS applications. Specifically designed to work with FirebaseAuth, it provides support for various authentication providers, including email/password, Google, and Apple sign-in, all wrapped in a clean, user-friendly interface. Beyond just facilitating user login, it also offers functionalities for manual authentication and managing account links. 
 
-## Getting Started
-
-To use `NnLoginKit`, you'll need to implement the `NnLoginAuth` and `NnAccountLinkAuth` protocols which encapsulate the methods required for the authentication and account linking/unlinking processes. These protocols provide a well-defined interface for the underlying Firebase Authentication system.
-
-### Example: Creating a Login View
-
-Here is an example of how you can create a login view:
-
-```swift
-let textConfig = NnLoginTextConfig(appTitle: "My App", tagline: "Welcome", subTagline: "Please sign in")
-let loginView = makeLoginView(titleImage: nil, textConfig: textConfig, auth: myAuthImplementation)
-```
-
-### Example: Creating an Account Link View
-
-Similarly, you can create an account link view as follows:
+Manual authentication methods facilitate the user reauthentication process when performing sensitive operations such as account deletion. Account linking capabilities allow users to connect various provider accounts together, enabling seamless sign-in with any linked account and improving user retention. By leveraging these features, developers can create more robust and user-friendly authentication systems in their apps.
 
 
-```swift
-let accountLinkView = makeAccountLinkView(auth: myAuthImplementation, isLoading: $isLoading)
-```
+## Topics
 
-## Configuration
+### Login
 
-`NnLoginKit` provides several configuration options that allow you to customize the look and feel of your login interface:
+- ``NnLoginAuth``
 
-- `NnLoginColorsConfig`: Determines the colors used in the `NnLoginView`.
-- `NnLoginTextConfig`: Determines the text that will be displayed on the `NnLoginView`.
-- `NnLoginColor`: An enum allowing you to apply either a single color or a gradient to the background of the view.
+- ``AppleTokenInfo``
+- ``GoogleTokenInfo``
+- ``makeLoginView(titleImage:textConfig:colorsConfig:auth:)``
 
-## Error Handling
+### Configurations
 
-`NnLoginKit` includes a `NnDisplayableLoginError` protocol which your custom error types can conform to. This allows your application to display specific error messages to the user.
+- ``NnLoginColorsConfig``
+- ``NnLoginTextConfig``
+- ``NnLoginColor``
+
+
+### Manual Authentication
+
+- ``NnAuthenticationHandler``
+
+### Account Linking
+
+- ``NnAccountLinkAuth``
+- ``AccountLinkType``
+- ``makeAccountLinkView(sectionTitle:linkButtonTint:auth:isLoading:setAuthenticationStatus:)``
+
+### Error Handling
+- ``NnDisplayableLoginError``
