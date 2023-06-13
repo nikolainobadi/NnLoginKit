@@ -13,6 +13,25 @@ import Foundation
 /// - For Email/Password: "password"
 /// - For Google: "google.com"
 /// - For Apple: "apple.com"
+///
+/// ## Example usage:
+/// Here is how you might implement a class that conforms to `NnAccountLinkAuth`:
+///
+/// ```swift
+/// class MyAuth: NnAccountLinkAuth {
+///     func unlink(fromProvider: String) async throws {
+///         // code to unlink from the specified provider
+///     }
+///
+///     func loadAvailableAccountLinkTypes() -> Set<AccountLinkType> {
+///         // code to load the available account link types
+///     }
+/// }
+///
+/// ```
+///
+/// Remember that the actual implementation of `unlink(fromProvider:)` and `loadAvailableAccountLinkTypes()`
+/// will depend on your specific authentication setup.
 public protocol NnAccountLinkAuth {
     /// Asynchronously unlinks an account from the specified provider.
     ///
