@@ -11,6 +11,10 @@ Manual authentication methods facilitate the user reauthentication process when 
 
 ## Topics
 
+### Essentials
+
+- <doc:NnLoginKit>
+
 ### Login
 
 - ``NnLoginAuth``
