@@ -29,7 +29,6 @@ Manual authentication methods facilitate the user reauthentication process when 
 - ``NnLoginTextConfig``
 - ``NnLoginColor``
 
-
 ### Manual Authentication
 
 - ``NnAuthenticationHandler``
@@ -37,7 +36,7 @@ Manual authentication methods facilitate the user reauthentication process when 
 ### Account Linking
 
 - ``NnAccountLinkAuth``
-- ``AccountLinkType``
+- ``NnAccountLinkType``
 - ``makeAccountLinkView(sectionTitle:linkButtonTint:auth:isLoading:setAuthenticationStatus:)``
 
 ### Error Handling

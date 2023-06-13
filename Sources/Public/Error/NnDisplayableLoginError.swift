@@ -13,6 +13,19 @@ import Foundation
 /// This protocol is particularly useful for providing user-friendly error information for non-validation
 /// errors (e.g., network errors, service errors, etc.). Email and password validation errors are handled
 /// internally by NnLoginKit and displayed directly in the login view.
+/// ## Example usage:
+///
+/// ```swift
+///     struct CustomLoginError: NnDisplayableLoginError {
+///         let title: String
+///         let message: String
+///     }
+///
+///
+///     // Creating an error
+///     let error = CustomLoginError(title: "Login Failed", message: "An error occurred while attempting to log in.")
+///
+/// ```
 public protocol NnDisplayableLoginError: Error {
     /// The title of the error. This is typically a short string that summarizes the error.
     var title: String { get }
@@ -20,4 +33,3 @@ public protocol NnDisplayableLoginError: Error {
     /// The message of the error. This is typically a longer string that describes the error in more detail.
     var message: String { get }
 }
-
