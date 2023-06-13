@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+/// `AccountLinkType` is a public enum that describes the type of account link a user can create.
+/// Each case corresponds to a different type of account link: email, Apple, and Google.
+///
+/// Each case has associated values:
+/// - An optional email address, derived from the email of the provider ID in Firebase.
+///   For example, if the user has linked their account with Google, then the Google email
+///   should be passed in as the email associated value.
+/// - A closure that performs the link action and returns asynchronously.
 public enum AccountLinkType {
     public typealias Email = String
     public typealias EmailAndPassword = (String, String)
@@ -19,9 +27,9 @@ public enum AccountLinkType {
     case google(Email?, GoogleLinkAction)
 }
 
-
 // MARK: - Identifiable
 extension AccountLinkType: Identifiable {
+    /// Unique identifier for each case in the `AccountLinkType` enum.
     public var id: Int {
         switch self {
         case .email:
@@ -34,19 +42,21 @@ extension AccountLinkType: Identifiable {
     }
 }
 
-
 // MARK: - Hashable
 extension AccountLinkType: Hashable {
+    /// Provides the hash value for an `AccountLinkType` enum instance.
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
+    /// Checks the equality between two `AccountLinkType` enum instances.
     public static func == (lhs: AccountLinkType, rhs: AccountLinkType) -> Bool {
         lhs.id == rhs.id
     }
 }
 
 extension AccountLinkType {
+    /// Provides the title for each case in the `AccountLinkType` enum.
     var title: String {
         switch self {
         case .email:
@@ -58,6 +68,7 @@ extension AccountLinkType {
         }
     }
     
+    /// Provides the image for each case in the `AccountLinkType` enum.
     var image: some View {
         Group {
             switch self {
@@ -76,6 +87,7 @@ extension AccountLinkType {
         }
     }
     
+    /// Retrieves the email address associated with the account, if one exists.
     var email: String? {
         switch self {
         case .email(let email, _):
@@ -87,6 +99,7 @@ extension AccountLinkType {
         }
     }
     
+    /// Provides the provider ID associated with each account type.
     var providerId: String {
         switch self {
         case .email:
