@@ -15,7 +15,7 @@ enum NnLoginFieldError: Error {
 
 
 // MARK: - DisplayableLoginError
-extension NnLoginFieldError: DisplayableLoginError {
+extension NnLoginFieldError: NnDisplayableLoginError {
     var title: String {
         switch self {
         case .email: return "Invalid email"

@@ -9,21 +9,22 @@ import SwiftUI
 import NnLoginKit
 
 enum LoginComposer {
-    static func makeLoginView(store: UserIdStore) -> some View {
-        let auth = LoginNetworker(store: store)
+    static func makeLoginView(login: @escaping (String) -> Void) -> some View {
         let textConfig = makeTextConfig()
         let colorsConfig = makeColorsConfig()
+        let auth = LoginAuthenticationHandler(login: login)
         
         return NnLoginKit.makeLoginView(titleImage: Image(systemName: "house"), textConfig: textConfig, colorsConfig: colorsConfig, auth: auth)
     }
 }
 
 private extension LoginComposer {
-    static func makeTextConfig() -> LoginTextConfig {
-        LoginTextConfig(appTitle: "NnLoginKit Demo", tagline: "This is a tagline", subTagline: "This is where more words can go in case the tagline is not enough")
+    static func makeTextConfig() -> NnLoginTextConfig {
+        NnLoginTextConfig(appTitle: "NnLoginKit Demo", tagline: "This is a tagline", subTagline: "This is where more words can go in case the tagline is not enough")
+        
     }
-    static func makeColorsConfig() -> LoginColorsConfig {
-        return LoginColorsConfig(titleColor: .blue,
+    static func makeColorsConfig() -> NnLoginColorsConfig {
+        return NnLoginColorsConfig(titleColor: .blue,
                                  buttonTextColor: .white,
                                  buttonBackgroundColor: .blue,
                                  underlinedButtonColor: .blue,

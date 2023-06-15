@@ -13,8 +13,8 @@ struct NnLoginView: View {
     @State private var isEditingTextFields = false
     
     let titleImage: Image?
-    let textConfig: LoginTextConfig
-    let colorsConfig: LoginColorsConfig
+    let textConfig: NnLoginTextConfig
+    let colorsConfig: NnLoginColorsConfig
     
     var body: some View {
         VStack {
@@ -94,7 +94,7 @@ struct NnLoginView: View {
 // MARK: - Preview
 struct NnLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NnLoginView(dataModel: dataModel, titleImage: Image(systemName: "house"), textConfig: LoginTextConfig(appTitle: "App Title", tagline: "This is a tagline", subTagline: "Here is a little more detail, just in case the tagline wasn't enough"), colorsConfig: LoginColorsConfig())
+        NnLoginView(dataModel: dataModel, titleImage: Image(systemName: "house"), textConfig: NnLoginTextConfig(appTitle: "App Title", tagline: "This is a tagline", subTagline: "Here is a little more detail, just in case the tagline wasn't enough"), colorsConfig: NnLoginColorsConfig())
     }
     
     static var dataModel: NnLoginDataModel {

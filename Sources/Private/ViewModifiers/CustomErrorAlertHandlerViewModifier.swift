@@ -57,7 +57,7 @@ private extension LoginErrorHandler {
     func makeErrorAlert(from error: Error) -> ErrorAlert {
         var errorAlert = ErrorAlert()
         
-        if let customError = error as? DisplayableLoginError {
+        if let customError = error as? NnDisplayableLoginError {
             errorAlert.title = customError.title
             errorAlert.message = customError.message
         } else {

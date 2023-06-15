@@ -1,0 +1,95 @@
+@Tutorial(time: 20) {
+    @Intro(title: "Creating a Login View with NnLoginKit") {
+        In this tutorial, you'll learn how to create a custom login view using NnLoginKit. NnLoginKit is a Swift package designed to streamline the process of implementing login and account linking features in iOS applications.
+    }
+    
+    @Section(title: "Configuring Text and Colors") {
+        @ContentAndMedia {
+            We'll start by configuring the text and colors for our login view. NnLoginKit provides the `NnLoginTextConfig` and `NnLoginColorsConfig` structs for this purpose.
+        }
+        
+        @Steps {
+            @Step { 
+                Create a new file called `LoginComposer`. Import `NnLoginKit` and add an enum called `LoginComposer`
+                
+                @Code(name: "LoginComposer.swift", file: 01-loginCreation-01-01.swift)
+            }
+            
+            @Step {
+                In a private extension, added a static method to create an instance of the `NnLoginTextConfig` struct.
+
+                @Code(name: "LoginComposer.swift", file: 01-loginCreation-01-02.swift) {
+                    @Image(source: "textConfigExample.jpeg", alt: "Example of how each parameter in `NnLoginTextConfig` will affect the view.")
+                }
+            }
+            
+            @Step {
+                Add another static method to create an instance of the `NnLoginColorsConfig` struct.
+
+                @Code(name: "LoginComposer.swift", file: 01-loginCreation-01-03.swift) {
+                    @Image(source: "colorsConfigExample.jpeg", alt: "Example of how each parameter in `NnLoginColorsConfig` will affect the view.")
+                }
+            }
+        }
+    }
+
+    @Section(title: "Implementing NnLoginAuth") {
+        @ContentAndMedia {
+            It's time to implement the `NnLoginAuth` protocol. This protocol defines methods for different types of authentication.
+        }
+        
+        @Steps {
+            @Step {
+                Create a new file called `LoginAuthenticationHandler` and import `NnLoginKit`
+
+                @Code(name: "LoginAuthenticationHandler.swift", file: 01-loginCreation-02-01.swift)
+            }
+            
+            @Step { 
+                Add a class (same name as file), and make it conform to `NnLoginAuth` in an extension.
+                
+                @Code(name: "LoginAuthenticationHandler.swift", file: 01-loginCreation-02-02.swift)
+            }
+            
+            @Step { 
+                Add the required methods to conform to `NnLoginAuth`
+                
+                @Code(name: "LoginAuthenticationHandler.swift", file: 01-loginCreation-02-03.swift)
+            }
+        }
+    }
+
+    @Section(title: "Creating the Login View") {
+        @ContentAndMedia {
+            Finally, we'll create the login view. We'll use the `makeLoginView` function provided by NnLoginKit, passing in our `NnLoginAuth` implementation and our text and color configurations.
+        }
+        
+        @Steps {
+            @Step {
+                In `LoginComposer`, import `SwiftUI` and add a new method, which should return `some View`, in the main body of the enum.
+
+                @Code(name: "LoginComposer.swift", file: 01-loginCreation-03-01.swift)
+            }
+            
+            @Step {
+                Create instances of `NnLoginTextConfig`, `NnLoginColorsConfig`, and the `LoginAuthenticationHandler` in the body of the method
+
+                @Code(name: "LoginComposer.swift", file: 01-loginCreation-03-02.swift)
+            }
+            
+            @Step {
+                Use the method from `NnLoginKit` to create an instance of the login view, passing in the required parameters. NOTE: If you choose to add an image, there is no need to resize it. All resizing will be handled in the view that is created.
+
+                @Code(name: "LoginComposer.swift", file: 01-loginCreation-03-03.swift)
+            }
+            
+            @Step {
+                There's nothing left to do but call the `LoginComposer` method to create the view in the desired location (like `ContentView`). The best part is there's no need to import `NnLoginKit` in the view.
+
+                @Code(name: "ContentView.swift", file: 01-loginCreation-03-04.swift) {
+                    @Image(source: "contentViewExample.jpeg", alt: "Example of how each parameter in `NnLoginColorsConfig` will affect the view.")
+                }
+            }
+        }
+    }
+}

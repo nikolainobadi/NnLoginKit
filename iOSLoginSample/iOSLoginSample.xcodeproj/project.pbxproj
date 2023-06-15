@@ -14,8 +14,7 @@
 		D409819E2964A5EF0023296A /* NnLoginKit in Frameworks */ = {isa = PBXBuildFile; productRef = D409819D2964A5EF0023296A /* NnLoginKit */; };
 		D417D3772966779D00E4D176 /* InAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417D3762966779D00E4D176 /* InAppView.swift */; };
 		D417D37D2966784500E4D176 /* LoginComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417D37C2966784500E4D176 /* LoginComposer.swift */; };
-		D417D3802966787500E4D176 /* LoginNetworker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417D37F2966787500E4D176 /* LoginNetworker.swift */; };
-		D417D382296679EB00E4D176 /* SharedUserIdStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417D381296679EB00E4D176 /* SharedUserIdStorage.swift */; };
+		D4FD5AC12A38073800BECF77 /* LoginAuthenticationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FD5AC02A38073800BECF77 /* LoginAuthenticationHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +26,8 @@
 		D409819B2964A5CC0023296A /* NnLoginKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NnLoginKit; path = ..; sourceTree = "<group>"; };
 		D417D3762966779D00E4D176 /* InAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppView.swift; sourceTree = "<group>"; };
 		D417D37C2966784500E4D176 /* LoginComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginComposer.swift; sourceTree = "<group>"; };
-		D417D37F2966787500E4D176 /* LoginNetworker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworker.swift; sourceTree = "<group>"; };
-		D417D381296679EB00E4D176 /* SharedUserIdStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedUserIdStorage.swift; sourceTree = "<group>"; };
 		D4D049CC2A26D31F0000DF23 /* iOSLoginSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSLoginSample.entitlements; sourceTree = "<group>"; };
+		D4FD5AC02A38073800BECF77 /* LoginAuthenticationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthenticationHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,11 +63,10 @@
 		D409818C2964A5AF0023296A /* iOSLoginSample */ = {
 			isa = PBXGroup;
 			children = (
+				D4FD5ABF2A38072A00BECF77 /* Logic */,
 				D4D049CC2A26D31F0000DF23 /* iOSLoginSample.entitlements */,
 				D417D37B2966784000E4D176 /* Main */,
 				D417D3752966778E00E4D176 /* UI */,
-				D417D37E2966786C00E4D176 /* Remote */,
-				D417D3782966782100E4D176 /* Storage */,
 				D40981912964A5B00023296A /* Assets.xcassets */,
 				D40981932964A5B00023296A /* Preview Content */,
 			);
@@ -100,14 +97,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		D417D3782966782100E4D176 /* Storage */ = {
-			isa = PBXGroup;
-			children = (
-				D417D381296679EB00E4D176 /* SharedUserIdStorage.swift */,
-			);
-			path = Storage;
-			sourceTree = "<group>";
-		};
 		D417D37B2966784000E4D176 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,12 +106,12 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		D417D37E2966786C00E4D176 /* Remote */ = {
+		D4FD5ABF2A38072A00BECF77 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				D417D37F2966787500E4D176 /* LoginNetworker.swift */,
+				D4FD5AC02A38073800BECF77 /* LoginAuthenticationHandler.swift */,
 			);
-			path = Remote;
+			path = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,10 +188,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40981902964A5AF0023296A /* ContentView.swift in Sources */,
+				D4FD5AC12A38073800BECF77 /* LoginAuthenticationHandler.swift in Sources */,
 				D417D3772966779D00E4D176 /* InAppView.swift in Sources */,
 				D409818E2964A5AF0023296A /* iOSLoginSampleApp.swift in Sources */,
-				D417D3802966787500E4D176 /* LoginNetworker.swift in Sources */,
-				D417D382296679EB00E4D176 /* SharedUserIdStorage.swift in Sources */,
 				D417D37D2966784500E4D176 /* LoginComposer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

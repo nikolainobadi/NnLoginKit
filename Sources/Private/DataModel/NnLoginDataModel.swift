@@ -40,15 +40,3 @@ extension NnLoginDataModel {
         try await auth.sendResetEmail(email: email)
     }
 }
-
-
-// MARK: - Dependencies
-public protocol NnLoginAuth {
-    func guestSignIn() async throws
-    func emailLogin(email: String, password: String) async throws
-    func sendResetEmail(email: String) async throws 
-    func appleSignIn(tokenInfo: AppleTokenInfo) async throws
-    func googleSignIn(tokenInfo: GoogleTokenInfo) async throws
-}
-
-
