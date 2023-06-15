@@ -9,10 +9,10 @@ import SwiftUI
 import NnLoginKit
 
 enum LoginComposer {
-    static func makeLoginView() -> some View {
+    static func makeLoginView(login: @escaping (String) -> Void) -> some View {
         let textConfig = makeTextConfig()
         let colorsConfig = makeColorsConfig()
-        let auth = LoginAuthenticationHandler()
+        let auth = LoginAuthenticationHandler(login: login)
         
         return NnLoginKit.makeLoginView(titleImage: Image(systemName: "house"), textConfig: textConfig, colorsConfig: colorsConfig, auth: auth)
     }

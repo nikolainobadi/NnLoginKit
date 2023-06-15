@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var userId = ""
+    
     var body: some View {
-        LoginComposer.makeLoginView()
+        if userId.isEmpty {
+            LoginComposer.makeLoginView(login: { userId = $0 })
+        } else {
+            InAppView(userId: $userId)
+        }
     }
 }
 
