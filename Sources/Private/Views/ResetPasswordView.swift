@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NnSwiftUIErrorHandling
 
 struct ResetPasswordView: View {
     @State private var email = ""
@@ -68,7 +69,7 @@ struct ResetPasswordView: View {
                 VStack(spacing: getHeightPercent(3)) {
                     LoginTextField(text: $email, imageName: "envelope", prompt: "email")
                     
-                    AsyncTryButton(action: sendEmail) {
+                    NnAsyncTryButton(action: sendEmail) {
                         Text("Send Reset Email")
                             .setCustomFont(.subheadline, textColor: colorsConfig.buttonTextColor)
                             .frame(maxWidth: .infinity)

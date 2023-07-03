@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NnSwiftUIErrorHandling
 
 struct AccountLinkView: View {
     @Binding var isLoading: Bool
@@ -31,7 +32,7 @@ struct AccountLinkView: View {
                                    password: $dataModel.password,
                                    confirm: $dataModel.confirm,
                                    action: dataModel.performEmailSignUpAction)
-        .withErrorHandling()
+        .withNnErrorHandling()
         .bindBool(viewBool: $isLoading, publishedBool: $dataModel.isLoading)
         .onAppear {
             dataModel.loadData()

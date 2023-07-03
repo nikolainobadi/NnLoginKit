@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NnSwiftUIErrorHandling
 
 struct NnLoginView: View {
     @StateObject var dataModel: NnLoginDataModel
@@ -63,7 +64,7 @@ struct NnLoginView: View {
                     }
                     .padding(.vertical, getHeightPercent(3))
                     
-                    AsyncTryButton(action: dataModel.guestSignIn) {
+                    NnAsyncTryButton(action: dataModel.guestSignIn) {
                         Text("Get Started")
                             .setCustomFont(.headline, textColor: colorsConfig.buttonTextColor)
                             .frame(maxWidth: getWidthPercent(80))
@@ -83,8 +84,8 @@ struct NnLoginView: View {
             }
             .onlyShow(when: !isEditingTextFields)
         }
-        .withLoadingView()
-        .withErrorHandling()
+        .withNnLoadingView()
+        .withNnErrorHandling()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(colorsConfig.viewBackgroundColor.view().ignoresSafeArea())
     }

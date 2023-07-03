@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GoogleSignIn
+import NnSwiftUIErrorHandling
 
 struct CustomGoogleButton: View {
     @Environment(\.colorScheme) var colorScheme
@@ -16,7 +17,7 @@ struct CustomGoogleButton: View {
     private var size: CGFloat { 10 }
     
     var body: some View {
-        AsyncTryButton(action: { try await googleSignIn(GoogleSignInHandler.createGoogleIdToken()) }) {
+        NnAsyncTryButton(action: { try await googleSignIn(GoogleSignInHandler.createGoogleIdToken()) }) {
             HStack(spacing: 10) {
                 Spacer()
                 Image("Google", bundle: .module)

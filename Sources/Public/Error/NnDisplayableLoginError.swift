@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NnSwiftUIErrorHandling
 
 /// `NnDisplayableLoginError` is a public protocol that represents errors thrown during the login process.
 /// Errors conforming to this protocol can provide a title and a message that will be displayed to the user.
@@ -26,7 +27,7 @@ import Foundation
 ///     let error = CustomLoginError(title: "Login Failed", message: "An error occurred while attempting to log in.")
 ///
 /// ```
-public protocol NnDisplayableLoginError: Error {
+public protocol NnDisplayableLoginError: NnDisplayableError {
     /// The title of the error. This is typically a short string that summarizes the error.
     var title: String { get }
     

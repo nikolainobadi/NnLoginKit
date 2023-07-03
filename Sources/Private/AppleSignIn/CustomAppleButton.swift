@@ -8,12 +8,13 @@
 import SwiftUI
 import CryptoKit
 import AuthenticationServices
+import NnSwiftUIErrorHandling
 
 struct CustomAppleButton: View {
     @State private var currentNonce: String?
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var loadingHandler: LoadingHandler
-    @EnvironmentObject var errorHandler: LoginErrorHandler
+    @EnvironmentObject var loadingHandler: NnLoadingHandler
+    @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
     let appleSignIn: (AppleTokenInfo) async throws -> Void
     

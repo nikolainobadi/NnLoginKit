@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NnSwiftUIErrorHandling
 
 struct EmailLoginView: View {
     @Binding var isEditingTextFields: Bool
@@ -57,7 +58,7 @@ struct EmailLoginView: View {
                     .withBorderOverlay(dataModel.loginFieldError == .confirm)
             }
             
-            AsyncTryButton(action: tryLogin) {
+            NnAsyncTryButton(action: tryLogin) {
                 Text("Login")
                     .frame(maxWidth: .infinity)
                     .setCustomFont(.subheadline, textColor: colorsConfig.buttonTextColor)
@@ -100,8 +101,8 @@ extension EmailLoginView {
 struct EmailLoginView_Previews: PreviewProvider {
     static var previews: some View {
         EmailLoginView(dataModel: dataModel)
-            .withLoadingView()
-            .withErrorHandling()
+            .withNnLoadingView()
+            .withNnErrorHandling()
     }
     
     static var dataModel: EmailLoginDataModel {
