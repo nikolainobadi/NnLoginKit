@@ -16,10 +16,10 @@ struct OtherLoginOptionsView: View {
             LabelledDivider(text: "Or")
                 .padding(.vertical)
             
-            if let appleSignIn = appleSignIn {
+//            if let appleSignIn = appleSignIn {
 //                CustomAppleButton(appleSignIn: appleSignIn)
 //                    .frame(maxHeight: getHeightPercent(5))
-            }
+
             
             if let googleSignIn = googleSignIn {
                 CustomGoogleButton(googleSignIn: googleSignIn)

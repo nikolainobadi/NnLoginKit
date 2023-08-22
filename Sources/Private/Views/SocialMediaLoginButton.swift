@@ -16,7 +16,7 @@ struct SocialMediaLoginButton: View {
     var body: some View {
         NnAsyncTryButton(action: action) {
             HStack {
-                Image(imageName)
+                Image(imageName, bundle: .module)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 35, height: 35)
@@ -29,9 +29,3 @@ struct SocialMediaLoginButton: View {
         }
     }
 }
-
-//struct SocialMediaLoginButton_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SocialMediaLoginButton()
-//    }
-//}
