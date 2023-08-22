@@ -17,8 +17,8 @@ struct OtherLoginOptionsView: View {
                 .padding(.vertical)
             
             if let appleSignIn = appleSignIn {
-                CustomAppleButton(appleSignIn: appleSignIn)
-                    .frame(maxHeight: getHeightPercent(5))
+//                CustomAppleButton(appleSignIn: appleSignIn)
+//                    .frame(maxHeight: getHeightPercent(5))
             }
             
             if let googleSignIn = googleSignIn {
