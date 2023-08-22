@@ -8,6 +8,13 @@
 import SwiftUI
 import NnSwiftUIErrorHandling
 
+enum SocialMediaType {
+    case apple
+    case google
+}
+
+
+
 struct SocialMediaLoginButton: View {
     let imageName: String
     let buttonText: String
