@@ -8,6 +8,15 @@
 import Foundation
 
 enum LoginInfoValidator {
+    static func validateInfo(_ info: LoginInfo, isSignUp: Bool) throws {
+        guard emailIsValid(info.email) else { throw NnLoginFieldError.email }
+        guard passwordIsValid(info.password) else { throw NnLoginFieldError.password }
+        
+        if isSignUp {
+            guard passwordsMatch(password: info.password, confirm: info.confirm) else { throw NnLoginFieldError.confirm }
+        }
+    }
+    
     static func validateInfo(email: String, password: String, confirm: String? = nil) throws {
         guard emailIsValid(email) else { throw NnLoginFieldError.email }
         guard passwordIsValid(password) else { throw NnLoginFieldError.password }

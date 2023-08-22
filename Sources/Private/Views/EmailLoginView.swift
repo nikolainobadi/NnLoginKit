@@ -10,39 +10,53 @@ import NnSwiftUIErrorHandling
 
 struct EmailLoginView: View {
     @Binding var isEditingTextFields: Bool
-    @State var dataModel: EmailLoginDataModel
     @State private var showingResetPassword = false
     @FocusState var selectedField: LoginSelectedField?
+    @State private var loginInfo: LoginInfo = LoginInfo()
+    @State private var loginFieldError: NnLoginFieldError?
     
     let colorsConfig: NnLoginColorsConfig
+    let resetPassword: ((String) async throws -> Void)?
+    let loginAction: (String, String) async throws -> Void
+    
+    private var canShowResetPassword: Bool {
+        return resetPassword != nil
+    }
+    
+    private var loginButtonText: String {
+        return canShowResetPassword ? "Login" : "Sign Up"
+    }
     
     private func tryLogin() async throws {
         selectedField = nil
-        try await dataModel.tryLogin()
+        loginFieldError = nil
+        
+        do {
+            try LoginInfoValidator.validateInfo(loginInfo, isSignUp: !canShowResetPassword)
+            
+            try await loginAction(loginInfo.email, loginInfo.password)
+        } catch let loginFieldError as NnLoginFieldError {
+            self.loginFieldError = loginFieldError
+        } catch {
+            throw error
+        }
     }
     
     var body: some View {
         VStack {
-            if let errorMessage = dataModel.loginErrorMessage {
-                Text(errorMessage)
-                    .bold()
-                    .foregroundColor(.red)
-                    .multilineTextAlignment(.center)
-            }
-            
-            LoginTextField(text: $dataModel.email, imageName: "envelope", prompt: "email...", keyboard: .emailAddress)
+            LoginTextField(text: $loginInfo.email, imageName: "envelope", prompt: "email...", keyboard: .emailAddress)
                 .focused($selectedField, equals: .email)
                 .submitLabel(.next)
                 .onSubmit { selectedField = .password }
-                .withBorderOverlay(dataModel.loginFieldError == .email)
+                .withBorderOverlay(loginFieldError == .email)
             
-            LoginTextField(text: $dataModel.password, imageName: "lock.fill", prompt: "password", canBeSecure: true, imageTint: colorsConfig.textFieldTint)
+            LoginTextField(text: $loginInfo.password, imageName: "lock.fill", prompt: "password", canBeSecure: true, imageTint: colorsConfig.textFieldTint)
                 .focused($selectedField, equals: .password)
                 .submitLabel(.next)
-                .onSubmit { selectedField = dataModel.canShowResetPassword ? nil : .confirm }
-                .withBorderOverlay(dataModel.loginFieldError == .password)
+                .onSubmit { selectedField = canShowResetPassword ? nil : .confirm }
+                .withBorderOverlay(loginFieldError == .password)
             
-            if dataModel.canShowResetPassword {
+            if canShowResetPassword {
                 Button(action: { showingResetPassword = true }) {
                     Text("Forgot Password?")
                         .underline()
@@ -51,15 +65,15 @@ struct EmailLoginView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.horizontal)
             } else {
-                LoginTextField(text: $dataModel.confirm, imageName: "lock", prompt: "confirm password", canBeSecure: true, imageTint: colorsConfig.textFieldTint)
+                LoginTextField(text: $loginInfo.confirm, imageName: "lock", prompt: "confirm password", canBeSecure: true, imageTint: colorsConfig.textFieldTint)
                     .focused($selectedField, equals: .confirm)
                     .submitLabel(.done)
                     .onSubmit { selectedField = nil }
-                    .withBorderOverlay(dataModel.loginFieldError == .confirm)
+                    .withBorderOverlay(loginFieldError == .confirm)
             }
             
             NnAsyncTryButton(action: tryLogin) {
-                Text("Login")
+                Text(loginButtonText)
                     .frame(maxWidth: .infinity)
                     .setCustomFont(.subheadline, textColor: colorsConfig.buttonTextColor)
             }
@@ -71,28 +85,10 @@ struct EmailLoginView: View {
             isEditingTextFields = newValue != nil
         }
         .sheet(isPresented: $showingResetPassword) {
-            if let sendResetEmail = dataModel.sendResetEmail {
-                ResetPasswordView(colorsConfig: colorsConfig, sendResetEmail: sendResetEmail)
+            if let resetPassword = resetPassword {
+                ResetPasswordView(colorsConfig: colorsConfig, sendResetEmail: resetPassword)
             }
         }
-    }
-}
-
-
-
-
-// MARK: - Init
-extension EmailLoginView {
-    /// Initializes an EmailLoginView.
-    ///
-    /// - Parameters:
-    ///   - isEditingTextFields: A binding that indicates whether the text fields are being edited.
-    ///                          Defaults to `false` if not provided.
-    ///   - dataModel: The data model for the login view.
-    init(isEditingTextFields: Binding<Bool>? = nil, dataModel: EmailLoginDataModel, colorsConfig: NnLoginColorsConfig = NnLoginColorsConfig()) {
-        _isEditingTextFields = isEditingTextFields ?? .constant(false)
-        self.dataModel = dataModel
-        self.colorsConfig = colorsConfig
     }
 }
 
@@ -100,12 +96,9 @@ extension EmailLoginView {
 // MARK: - Preview
 struct EmailLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        EmailLoginView(dataModel: dataModel)
+//        EmailLoginView(colorsConfig: NnLoginColorsConfig(), resetPassword: nil)
+        EmailLoginView(isEditingTextFields: .constant(false), colorsConfig: NnLoginColorsConfig(), resetPassword: { _ in }, loginAction: { (_, _) in })
             .withNnLoadingView()
             .withNnErrorHandling()
-    }
-    
-    static var dataModel: EmailLoginDataModel {
-        EmailLoginDataModel(sendResetEmail: { _ in }, emailLogin: { _, _ in })
     }
 }

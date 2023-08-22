@@ -25,9 +25,5 @@ let package = Package(
                 .process("Resources/Assets.xcassets")
             ]
         ),
-        .testTarget(
-            name: "DataModelTests",
-            dependencies: ["NnLoginKit"]
-        ),
     ]
 )

@@ -26,14 +26,7 @@ struct NnLoginView: View {
             
             if showingLoginOptions {
                 VStack {
-                    let emailDataModel = EmailLoginDataModel(
-                        sendResetEmail: dataModel.sendResetPassword(email:),
-                        emailLogin: dataModel.emailLogin(email:password:)
-                    )
-                    
-                    EmailLoginView(isEditingTextFields: $isEditingTextFields,
-                                   dataModel: emailDataModel,
-                                   colorsConfig: colorsConfig)
+                    EmailLoginView(isEditingTextFields: $isEditingTextFields, colorsConfig: colorsConfig, resetPassword: dataModel.sendResetPassword(email:), loginAction: dataModel.emailLogin(email:password:))
                     
                     OtherLoginOptionsView(appleSignIn: dataModel.appleSignIn(tokenInfo:), googleSignIn: dataModel.googleSignIn)
                         .onlyShow(when: !isEditingTextFields)
